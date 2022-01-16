@@ -30,6 +30,10 @@ const postLoginUsername = async (req, res, next) => {
         req.flash('error_msg', 'User không tồn tại');
         req.flash('username', username);
         res.redirect('/accounts/login');
+    } else if (account.blocked) {
+        req.flash('error_msg', 'Tài khoản của bạn đã bị khóa');
+        req.flash('username', username);
+        res.redirect('/accounts/login');
     } else if (!account.password) {
         req.flash('username', username);
         res.redirect('/accounts/login/create');
