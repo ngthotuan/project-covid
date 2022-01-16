@@ -1,6 +1,7 @@
 const { accountService, accountHistoryService } = require('../services');
 const passport = require('passport');
 const { RoleConstants } = require('../constants');
+const roleConstant = require('../constants/role.constant');
 
 function list(req, res, next) {
     accountService
@@ -159,6 +160,7 @@ const postCreateAccount = async (req, res, next) => {
 
 const getList = async (req, res, next) => {
     const accounts = await accountService.findAll({
+        where: { role: roleConstant.MANAGER },
         attributes: { exclude: ['password'] },
     });
     res.render('accounts/list', { title: 'Danh sách tài khoản', accounts });
@@ -193,6 +195,17 @@ const getById = async (req, res, next) => {
     }
 };
 
+const getUnBlockAccount = async (req, res, next) => {
+    const id = req.params.id;
+    const account = await accountService.findById(id);
+    if (account && account.blocked) {
+        await accountService.update(id, { blocked: false });
+    }
+    res.redirect('/accounts');
+};
+
+const getUpdate = async (req, res, next) => {};
+
 module.exports = {
     list,
     getLoginUsername,
@@ -207,4 +220,6 @@ module.exports = {
     getList,
     getBlockAccount,
     getById,
+    getUnBlockAccount,
+    getUpdate,
 };
