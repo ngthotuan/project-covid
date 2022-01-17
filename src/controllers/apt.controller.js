@@ -2,7 +2,7 @@ const { patientService } = require('../services');
 const bcrypt = require('bcrypt');
 
 const callbackPayment = async (req, res, next) => {
-    const { dataCallback, amount, code } = req.query();
+    const { dataCallback, amount, code } = req.query;
     if (bcrypt.compareSync(process.env.CLIENT_SECRET, code)) {
         const patient = await patientService.findByIdWithInclude(
             dataCallback,
