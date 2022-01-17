@@ -1,0 +1,33 @@
+<div class="block">
+    <div class="block-title">
+        <h2><i class="fa fa-paypal"></i> <strong>Lịch sử mua hàng </strong>(<%= orders?.length %>)</h2>
+    </div>
+    <% if(orders?.length) { %>
+        <table id="detail-payment-history" class="table table-bordered table-striped table-vcenter">
+            <thead>
+            <tr>
+                <th class="text-center" style="width: 70px;">Mã</th>
+                <th class="hidden-xs text-center">Tổng tiền</th>
+                <th class="hidden-xs text-center">Tổng sản phẩm</th>
+                <th class="hidden-xs text-center">Gói nhu yếu phẩm</th>
+                <th class="hidden-xs text-center">Ngày tạo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% orders.forEach((order, index) => { %>
+                <tr>
+                    <td class="text-center"><%= index + 1 %></td>
+                    <td class="hidden-xs text-center"><%= order.total_amount %></td>
+                    <td class="hidden-xs text-center"><%= order.total_product %></td>
+                    <td class="hidden-xs text-center"><%= order.category.name %></td>
+                    <td class="hidden-xs text-center"><%= moment(order.created_time).tz('Asia/Ho_Chi_Minh').format('DD-MM-YYYY, hh:mm:ss') %></td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <div class="alert alert-info">
+            <h4><i class="fa fa-info-circle"></i>Không có lịch sử giao dịch.</h4>
+        </div>
+    <% } %>
+</div>

@@ -9,6 +9,8 @@ const {
     AccountHistoryModel,
     StatusHistoryModel,
     HospitalModel,
+    OrdersModel,
+    CategoryModel,
 } = require('../models')(sequelize);
 
 const { RoleConstants } = require('../constants');
@@ -26,7 +28,6 @@ const save = async (patient) => {
             patient[key] = null;
         }
     });
-    console.log(patient);
     const account = {
         username: patient.identity,
         role: RoleConstants.USER,
@@ -197,10 +198,28 @@ const updateStatus = async (patientSaved, transaction, newStatus) => {
         await updateStatus(patients[i], transaction, parseInt(newStatus) + 1);
     }
 };
+const getBuyHistory = async (patientId) => {
+    const include = {
+        include: [
+            {
+                model: OrdersModel,
+                as: 'orders',
+                include: [
+                    {
+                        model: CategoryModel,
+                        as: 'category',
+                    },
+                ],
+            },
+        ],
+    };
+    return await findByIdWithInclude(patientId, include);
+};
 module.exports = {
     findAll,
     save,
     findById,
     update,
     findByIdWithInclude,
+    getBuyHistory,
 };

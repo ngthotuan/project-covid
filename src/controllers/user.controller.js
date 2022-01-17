@@ -53,12 +53,10 @@ const getProfile = async (req, res, next) => {
     const include = {
         include: ['hospital'],
     };
-    console.log(req.user.id);
     const patient = await patientService.findByIdWithInclude(
         req.user.patient_id,
         include,
     );
-    console.log(patient);
     res.render('users/user-profile', { patient });
 };
 const getUserHistories = async (req, res, next) => {
@@ -73,7 +71,6 @@ const getUserHistories = async (req, res, next) => {
         include,
     );
     const accountHistory = await AccountHistoryService.findAll(condition);
-    // console.log(patient)
     res.render('users/user-history', {
         patient,
         account_histories: accountHistory,
@@ -83,24 +80,14 @@ const getTransactionHistory = async (req, res, next) => {
     const include = {
         include: ['transaction_histories'],
     };
-    console.log(req.user.id);
     const patient = await patientService.findByIdWithInclude(
         req.user.patient_id,
         include,
     );
-    console.log(patient);
     res.render('users/user-transaction-history', { patient });
 };
 const getBuyHistory = async (req, res, next) => {
-    const include = {
-        include: ['orders'],
-    };
-    console.log(req.user.id);
-    const patient = await patientService.findByIdWithInclude(
-        req.user.patient_id,
-        include,
-    );
-    console.log(patient);
+    const patient = await patientService.getBuyHistory(req.user.patient_id);
     res.render('users/user-buy-history', { patient });
 };
 module.exports = {

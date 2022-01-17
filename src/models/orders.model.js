@@ -13,6 +13,14 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.DATE,
                 allowNull: true,
             },
+            total_amount: {
+                type: DataTypes.BIGINT,
+                allowNull: true,
+            },
+            total_product: {
+                type: DataTypes.BIGINT,
+                allowNull: true,
+            },
             category_id: {
                 type: DataTypes.BIGINT,
                 allowNull: true,
