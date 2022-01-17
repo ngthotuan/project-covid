@@ -2,6 +2,8 @@ const { sequelize } = require('../db');
 const { AccountModel, AccountHistoryModel } = require('../models')(sequelize);
 const bcrypt = require('bcrypt');
 
+const { RoleConstants } = require('../constants');
+
 function findAll(condition) {
     return AccountModel.findAll(condition);
 }
@@ -55,6 +57,20 @@ const changePassword = async (id, password) => {
     });
 };
 
+const count = async () => {
+    return AccountModel.count();
+};
+
+const createAdminAccount = async (username, password) => {
+    const hashedPassword = bcrypt.hashSync(password, 8);
+    return await AccountModel.create({
+        username,
+        password: hashedPassword,
+        role: RoleConstants.ADMIN,
+        blocked: false,
+    });
+};
+
 module.exports = {
     findAll,
     findAccountByUsername,
@@ -63,4 +79,6 @@ module.exports = {
     createAccount,
     update,
     changePassword,
+    count,
+    createAdminAccount,
 };
