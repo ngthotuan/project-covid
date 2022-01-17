@@ -17,13 +17,13 @@ const checkAuthenAndAuthor = (req, res, next) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/accounts/login');
     }
-    // const role = req.user.role;
-    // const baseUrl = req.baseUrl;
-    // const checkRoleAdmin = baseUrl === '/admin' && role !== ADMIN
-    // const checkRoleManager = baseUrl === '/manage' && role !== MANAGER
-    // if (checkRoleAdmin || checkRoleManager) {
-    //     res.flash("err_msg", "Không được quyền")
-    //     return res.redirect('back');
+    const role = req.user.role;
+    const baseUrl = req.baseUrl;
+    // const checkRoleUser = (baseUrl === '/user' || baseUrl === '/') && role === USER
+    // console.log("base url...", req)
+    // if (!checkRoleUser) {
+    //     req.flash("err_msg", "Không được quyền")
+    //     return res.redirect('/');
     // }
     next();
 };
