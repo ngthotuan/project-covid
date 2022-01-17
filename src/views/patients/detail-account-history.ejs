@@ -15,7 +15,7 @@
             <% account_histories.forEach(function(account_history, index) { %>
                 <tr>
                     <td class="text-center"><strong><%= index + 1 %></strong></td>
-                    <td class="text-center">F<%= account_history.action %></td>
+                    <td class="text-center"><%= account_history.action %></td>
                     <td class="hidden-xs text-center"><%= moment(account_history.created_date).tz('Asia/Ho_Chi_Minh').format('DD-MM-YYYY, hh:mm:ss') %></td>
                 </tr>
             <% }); %>

@@ -16,5 +16,7 @@ router.get('/create', accountController.getCreateAccount);
 router.post('/create', accountController.postCreateAccount);
 router.get('/', accountController.getList);
 router.get('/block/:id', accountController.getBlockAccount);
+router.get('/un-block/:id', accountController.getUnBlockAccount);
 router.get('/:id', accountController.getById);
+router.get('update/:id', accountController.getUpdate);
 module.exports = router;

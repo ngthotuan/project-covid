@@ -34,3 +34,11 @@ function showConfirmBlock(button) {
     $('#userName').text(username);
     $('#confirmBlock').modal('show');
 }
+
+function showConfirmUnBlock(button) {
+    const accountId = $(button)[0].id;
+    const username = $(button).parents('tr').find('td:nth-child(2)').text();
+    $('#confirmUnBlockLink').attr('href', '/accounts/un-block/' + accountId);
+    $('#userNameUnBlock').text(username);
+    $('#confirmUnBlock').modal('show');
+}

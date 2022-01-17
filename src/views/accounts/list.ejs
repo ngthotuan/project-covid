@@ -39,7 +39,6 @@
                 <th class="hidden-xs text-center">Username</th>
                 <th class="hidden-xs text-center">Role</th>
                 <th class="hidden-xs text-center">Trạng thái</th>
-                <th class="hidden-xs text-center">Balance</th>
                 <th class="text-center">Hành động</th>
             </tr>
             </thead>
@@ -54,16 +53,22 @@
                     <%} else {%>
                         <td class="text-center hidden-xs">Hoạt động</td>
                         <%}%>
-                <td class="text-center hidden-xs"><strong ><%= account.balance %></strong></td>
                 <td class="text-center">
                     <div class="btn-group btn-group-xs">
                         <a href="/accounts/edit/<%= account.id %>" data-toggle="tooltip" title="Edit" class="btn btn-default"><i
                                 class="fa fa-pencil"></i></a>
-                        <!--                        <a href="javascript:void(0)" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>-->
-                        <button id="<%= account.id %>" data-toggle="tooltip" onclick="showConfirmBlock(this)" title="Khóa tài khoản" class="btn-delete btn btn-xs btn-danger"
-                            <% if(account.blocked) { %> disabled <% } %>><i
-                                class="fa fa-ban"></i></button>
-
+                        <%if(account.blocked){%>
+                            <button id="<%= account.id %>" data-toggle="tooltip" onclick="showConfirmUnBlock(this)" title="Mở khóa tài khoản"
+                                class="btn-delete btn btn-xs btn-danger">
+                                <i class="fa fa-unlock"></i>
+                            </button>
+                        
+                            <%} else {%>
+                                <button id="<%= account.id %>" data-toggle="tooltip" onclick="showConfirmBlock(this)" title="Khóa tài khoản"
+                                    class="btn-delete btn btn-xs btn-danger">
+                                    <i class="fa fa-ban"></i>
+                                </button>
+                                <%}%>
                     </div>
                 </td>
             </tr>
@@ -88,6 +93,23 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
                 <a id="accountBlockLink" type="button" class="btn btn-primary">Xác nhận</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmUnBlock" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Mở khóa tài khoản</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Bạn có chắc chắn muốn mở khóa tài khoản: <b id="userNameUnBlock"></b></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                <a id="confirmUnBlockLink" type="button" class="btn btn-primary">Xác nhận</a>
             </div>
         </div>
     </div>

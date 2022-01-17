@@ -1,5 +1,5 @@
 const { sequelize } = require('../db');
-const { AccountModel } = require('../models')(sequelize);
+const { AccountModel, AccountHistoryModel } = require('../models')(sequelize);
 const bcrypt = require('bcrypt');
 
 function findAll(condition) {
@@ -48,6 +48,11 @@ const changePassword = async (id, password) => {
     const passwordHashed = bcrypt.hashSync(password, 8);
     const account = await AccountModel.findByPk(id);
     account.update({ password: passwordHashed });
+    AccountHistoryModel.create({
+        account_id: id,
+        action: 'Đổi mật khẩu',
+        created_date: new Date(),
+    });
 };
 
 module.exports = {

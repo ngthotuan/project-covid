@@ -4,13 +4,13 @@ const { ADMIN, MANAGER, USER } = RoleConstants;
 const menu = [
     {
         name: 'Dashboard',
-        roles: [ADMIN, MANAGER],
+        roles: [MANAGER],
         icon: 'gi gi-stopwatch',
         url: '/',
     },
     {
         name: 'Bệnh Nhân',
-        roles: [ADMIN, MANAGER],
+        roles: [MANAGER],
         icon: 'gi gi-user',
         url: '/patients',
         sub: [
@@ -26,7 +26,7 @@ const menu = [
     },
     {
         name: 'Sản phẩm',
-        roles: [ADMIN, MANAGER],
+        roles: [MANAGER],
         icon: 'gi gi-cake',
         url: '/products',
         sub: [
@@ -42,7 +42,7 @@ const menu = [
     },
     {
         name: 'Gói nhu yếu phẩm',
-        roles: [ADMIN, MANAGER],
+        roles: [MANAGER],
         icon: 'gi gi-shopping_cart',
         url: '/categories',
         sub: [
@@ -90,7 +90,7 @@ const menu = [
     },
     {
         name: 'Quản lý thanh toán',
-        roles: [ADMIN],
+        roles: [MANAGER],
         icon: 'gi gi-sampler',
         url: '/payments',
         sub: [
