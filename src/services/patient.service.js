@@ -216,7 +216,7 @@ const getBuyHistory = async (patientId) => {
     return await findByIdWithInclude(patientId, include);
 };
 const payment = (patientId, amount, description) => {
-    const linkPayment = `${process.env.HOST_PAYMENT}/payment?dataCallback=${patientId}clientId=${process.env.CLIENT_ID}&amount=${amount}&description=${description}&redirect=${process.env.REDIRECT_LINK}`;
+    const linkPayment = `${process.env.HOST_PAYMENT}/payment?dataCallback=${patientId}&clientId=${process.env.CLIENT_ID}&amount=${amount}&description=${description}&redirect=${process.env.REDIRECT_LINK}`;
     return linkPayment;
 };
 module.exports = {
