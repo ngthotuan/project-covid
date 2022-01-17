@@ -6,6 +6,7 @@ const {
     productService,
 } = require('../services');
 const bcrypt = require('bcrypt');
+const constants = require('constants');
 
 const {} = require('../services');
 const index = async (req, res, next) => {};
@@ -97,8 +98,44 @@ const paymentDebt = async (req, res, next) => {
         req.user.patient_id,
         {},
     );
-    const linkPayment = `${process.env.HOST_PAYMENT}/payment?clientId=${process.env.CLIENT_ID}&amount=${patient.debt}&description=${description}&redirect=${process.env.REDIRECT_LINK}`;
+    const linkPayment = patientService.payment(
+        patient.id,
+        patient.debt,
+        description,
+    );
     res.redirect(linkPayment);
+};
+const payment = async (req, res, next) => {
+    const { amount } = req.body;
+    const description = 'Thanh toán số tiền';
+    const patient = await patientService.findByIdWithInclude(
+        req.user.patient_id,
+        {},
+    );
+    const linkPayment = patientService.payment(patient.id, amount, description);
+    res.redirect(linkPayment);
+};
+const getPayment = async (req, res, next) => {
+    const patient = await patientService.findByIdWithInclude(
+        req.user.patient_id,
+        {},
+    );
+    res.render('users/user-payment', { patient });
+};
+const callbackPayment = async (req, res, next) => {
+    const { dataCallback, amount, code } = req.query();
+    if (bcrypt.compareSync(process.env.CLIENT_SECRET, code)) {
+        const patient = await patientService.findByIdWithInclude(
+            dataCallback,
+            {},
+        );
+
+        await patient.update({
+            debt: Math.abs(patient.debt - amount),
+        });
+        patient.save();
+    }
+    res.redirect('/details');
 };
 module.exports = {
     getProfile,
@@ -110,4 +147,7 @@ module.exports = {
     getChangePassword,
     postChangePassword,
     paymentDebt,
+    payment,
+    getPayment,
+    callbackPayment,
 };
