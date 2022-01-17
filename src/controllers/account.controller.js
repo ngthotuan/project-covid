@@ -15,7 +15,11 @@ const getLogout = (req, res, next) => {
     res.redirect('/accounts/login');
 };
 
-const getLoginUsername = (req, res, next) => {
+const getLoginUsername = async (req, res, next) => {
+    const isInit = (await accountService.count()) === 0;
+    if (isInit) {
+        return res.redirect('/accounts/init');
+    }
     const username = req.flash('username')[0] || '';
     res.render('accounts/form-username', {
         layout: 'layouts/layout',
@@ -113,6 +117,23 @@ const postLoginCreate = async (req, res, next) => {
     }
 };
 
+const getInit = async (req, res, next) => {
+    const isInit = (await accountService.count()) === 0;
+    if (!isInit) {
+        return res.redirect('/');
+    }
+    res.render('accounts/init', {
+        layout: 'layouts/layout',
+    });
+};
+
+const postInit = async (req, res) => {
+    const { username, password } = req.body;
+    await accountService.createAdminAccount(username, password);
+    req.flash('success_msg', 'Tạo tài khoản thành công');
+    return res.redirect('/login');
+};
+
 module.exports = {
     list,
     getLoginUsername,
@@ -122,4 +143,6 @@ module.exports = {
     getLoginCreate,
     getLoginPassword,
     getLogout,
+    getInit,
+    postInit,
 };

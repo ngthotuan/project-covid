@@ -11,5 +11,7 @@ router.post('/login/password', accountController.postLoginPassword);
 router.get('/login', accountController.getLoginUsername);
 router.post('/login', accountController.postLoginUsername);
 router.get('/logout', accountController.getLogout);
+router.get('/init', accountController.getInit);
+router.post('/init', accountController.postInit);
 //router.get('/', accountController.list);
 module.exports = router;
