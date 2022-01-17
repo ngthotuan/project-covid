@@ -215,6 +215,7 @@ const getBuyHistory = async (patientId) => {
     };
     return await findByIdWithInclude(patientId, include);
 };
+
 module.exports = {
     findAll,
     save,

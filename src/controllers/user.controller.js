@@ -88,7 +88,17 @@ const getTransactionHistory = async (req, res, next) => {
 };
 const getBuyHistory = async (req, res, next) => {
     const patient = await patientService.getBuyHistory(req.user.patient_id);
+    console.log(patient);
     res.render('users/user-buy-history', { patient });
+};
+const paymentDebt = async (req, res, next) => {
+    const description = 'Thanh toán khoản nợ';
+    const patient = await patientService.findByIdWithInclude(
+        req.user.patient_id,
+        {},
+    );
+    const linkPayment = `${process.env.HOST_PAYMENT}/payment?clientId=${process.env.CLIENT_ID}&amount=${patient.debt}&description=${description}&redirect=${process.env.REDIRECT_LINK}`;
+    res.redirect(linkPayment);
 };
 module.exports = {
     getProfile,
@@ -99,4 +109,5 @@ module.exports = {
     detail,
     getChangePassword,
     postChangePassword,
+    paymentDebt,
 };

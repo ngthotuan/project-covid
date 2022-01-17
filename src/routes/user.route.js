@@ -12,5 +12,6 @@ router.get('/payment-history', userController.getTransactionHistory);
 router.get('/category-history', userController.getBuyHistory);
 router.get('/change-password', userController.getChangePassword);
 router.post('/change-password', userController.postChangePassword);
+router.get('/payment', userController.paymentDebt);
 
 module.exports = router;
