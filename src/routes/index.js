@@ -1,5 +1,6 @@
 const { checkAuthenAndAuthor } = require('../middleware/authentication');
 function route(app) {
+    app.use('/apt', require('./apt.route'));
     app.use('/accounts', require('./account.route'));
     app.use('/api', require('./api'));
     app.use(checkAuthenAndAuthor);
