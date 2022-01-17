@@ -3,7 +3,7 @@
     <!-- Quick Stats -->
     <div class="row text-center">
         <div class="col-sm-6">
-            <a href="/accounts/create" class="widget widget-hover-effect2">
+            <a href="/managers/create" class="widget widget-hover-effect2">
                 <div class="widget-extra themed-background-success">
                     <h4 class="widget-content-light"><strong>Thêm</strong> tài khoản</h4>
                 </div>
@@ -45,8 +45,8 @@
             <tbody>
             <% accounts.forEach(function(account,index) { %>
             <tr>
-                <td class="text-center"><a href="/accounts?id=<%= account.id %>"><strong><%= index +1 %></strong></a></td>
-                <td><a href="/accounts/<%= account.id %>"><%= account.username %></a></td>
+                <td class="text-center"><a href="/managers?id=<%= account.id %>"><strong><%= index +1 %></strong></a></td>
+                <td><a href="/managers/<%= account.id %>"><%= account.username %></a></td>
                 <td class="text-center hidden-xs"><%= account.role %></td>
                 <%if(account.blocked){%>
                     <td class="text-center hidden-xs">Đã khóa</td>
@@ -55,7 +55,7 @@
                         <%}%>
                 <td class="text-center">
                     <div class="btn-group btn-group-xs">
-                        <a href="/accounts/edit/<%= account.id %>" data-toggle="tooltip" title="Edit" class="btn btn-default"><i
+                        <a href="/managers/edit/<%= account.id %>" data-toggle="tooltip" title="Edit" class="btn btn-default"><i
                                 class="fa fa-pencil"></i></a>
                         <%if(account.blocked){%>
                             <button id="<%= account.id %>" data-toggle="tooltip" onclick="showConfirmUnBlock(this)" title="Mở khóa tài khoản"

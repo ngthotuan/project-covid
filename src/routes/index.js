@@ -10,6 +10,7 @@ function route(app) {
     app.use('/hospitals', require('./hospital.route'));
     app.use('/users', require('./user.route'));
     app.use('/', require('./site.route'));
+    app.use('/managers', require('./manager.route'));
 }
 
 module.exports = route;

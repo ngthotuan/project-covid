@@ -30,7 +30,7 @@ var EcomAccounts = (function () {
 function showConfirmBlock(button) {
     const accountId = $(button)[0].id;
     const username = $(button).parents('tr').find('td:nth-child(2)').text();
-    $('#accountBlockLink').attr('href', '/accounts/block/' + accountId);
+    $('#accountBlockLink').attr('href', '/managers/block/' + accountId);
     $('#userName').text(username);
     $('#confirmBlock').modal('show');
 }
@@ -38,7 +38,7 @@ function showConfirmBlock(button) {
 function showConfirmUnBlock(button) {
     const accountId = $(button)[0].id;
     const username = $(button).parents('tr').find('td:nth-child(2)').text();
-    $('#confirmUnBlockLink').attr('href', '/accounts/un-block/' + accountId);
+    $('#confirmUnBlockLink').attr('href', '/managers/un-block/' + accountId);
     $('#userNameUnBlock').text(username);
     $('#confirmUnBlock').modal('show');
 }

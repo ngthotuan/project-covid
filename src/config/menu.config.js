@@ -73,18 +73,18 @@ const menu = [
         ],
     },
     {
-        name: 'Quản lý người dùng',
+        name: 'Người quản lý',
         roles: [ADMIN],
         icon: 'gi gi-user_add',
-        url: '/accounts',
+        url: '/managers',
         sub: [
             {
                 name: 'Tạo mới',
-                url: '/accounts/create',
+                url: '/managers/create',
             },
             {
                 name: 'Xem danh sách',
-                url: '/accounts',
+                url: '/managers',
             },
         ],
     },

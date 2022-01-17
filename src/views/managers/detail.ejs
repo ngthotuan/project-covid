@@ -1,0 +1,40 @@
+<div id="page-content">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="block">
+                <div class="block-title">
+                    <h2><i class="fa fa-user"></i> Thông tin <strong>người quản lý</strong></h2>
+                </div>
+                <div class="block-section text-center">
+                    <h3>
+                        <a href="/managers/edit/<%=manager.id%>">
+                            <strong><%= manager.username %></strong><br><small></small>
+                        </a>
+                    </h3>
+                </div>
+                <table class="table table-borderless table-striped table-vcenter">
+                    <tbody>
+                    <tr>
+                        <td class="text-right"><strong>Trạng thái</strong></td>
+                        <% if(manager.blocked !== null){ %>
+                            <td><strong>Đã khóa</strong></td>
+                        <% } else { %>
+                            <td><strong>Hoạt động</strong></td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <td class="text-right"><strong>Phân quyền</strong></td>
+                        <td><%= manager.role %></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="col-lg-8">
+            <%- include('detail-history', { account_histories: account_histories }); %>
+        </div>
+    </div>
+</div>
+<!-- Load and execute javascript code used only in this page -->
+<script src="/js/patients/patient-detail.js"></script>
