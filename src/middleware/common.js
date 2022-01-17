@@ -5,11 +5,13 @@ const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const flash = require('connect-flash');
+const cors = require('cors');
 
 function common(app) {
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
     app.use(cookieParser());
+    app.use(cors());
     app.use(
         session({
             secret: 'keyboard cat',

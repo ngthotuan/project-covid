@@ -5,6 +5,9 @@ const {
 } = require('../services');
 const { PatientStatusConstant } = require('../constants/');
 const { Op } = require('sequelize');
+require('dotenv').config();
+const axios = require('axios');
+const { HOST_PAYMENT } = process.env;
 
 const getList = async (req, res, next) => {
     const page = req.query?.page ? req.query.page : 0;
@@ -54,8 +57,18 @@ const postCreate = async (req, res, next) => {
         await patientService.save(req.body);
     } catch (e) {
         req.flash('error_msg', 'Chứng minh nhân dân của người này đã tồn tại');
-        res.redirect('back');
+        return res.redirect('back');
     }
+    try {
+        await axios.post(`${HOST_PAYMENT}/api/users/create`, {
+            username: req.body.identity,
+        });
+    } catch (error) {
+        req.flash('error_msg', 'Không thể tạo tài khoản thanh toán');
+        return res.redirect('back');
+    }
+    req.flash('success_msg', 'Tạo bệnh nhân thành công');
+    res.redirect('back');
 };
 const getUpdate = async (req, res, next) => {
     const condition = {
