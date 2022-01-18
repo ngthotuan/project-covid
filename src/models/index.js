@@ -44,10 +44,6 @@ function initModels(sequelize) {
         as: 'account_histories',
         foreignKey: 'account_id',
     });
-    orders.belongsTo(category, { as: 'category', foreignKey: 'category_id' });
-    category.hasMany(orders, { as: 'orders', foreignKey: 'category_id' });
-    // product.belongsTo(category, { as: 'category', foreignKey: 'category_id' });
-    // category.hasMany(product, { as: 'products', foreignKey: 'category_id' });
     product_categories.belongsTo(product, {
         as: 'product',
         foreignKey: 'product_id',
@@ -121,6 +117,14 @@ function initModels(sequelize) {
     product.hasMany(order_product, {
         as: 'order_products',
         foreignKey: 'product_id',
+    });
+    order_product.belongsTo(category, {
+        as: 'category',
+        foreignKey: 'category_id',
+    });
+    category.hasMany(order_product, {
+        as: 'order_products',
+        foreignKey: 'category_id',
     });
     district.belongsTo(province, { as: 'province', foreignKey: 'province_id' });
     province.hasMany(district, { as: 'districts', foreignKey: 'province_id' });

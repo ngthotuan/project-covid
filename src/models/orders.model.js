@@ -17,17 +17,9 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.BIGINT,
                 allowNull: true,
             },
-            total_product: {
+            total_category: {
                 type: DataTypes.BIGINT,
                 allowNull: true,
-            },
-            category_id: {
-                type: DataTypes.BIGINT,
-                allowNull: true,
-                references: {
-                    model: 'category',
-                    key: 'id',
-                },
             },
             patient_id: {
                 type: DataTypes.BIGINT,
