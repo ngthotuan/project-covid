@@ -3,13 +3,11 @@ const {
     AccountHistoryService,
     accountService,
     categoryService,
-    productService,
+    cartService,
 } = require('../services');
 const bcrypt = require('bcrypt');
-const constants = require('constants');
 
 const {} = require('../services');
-const index = async (req, res, next) => {};
 const getList = async (req, res, next) => {
     const categories = await categoryService.findAll();
     res.render('categories/list', {
@@ -122,24 +120,55 @@ const getPayment = async (req, res, next) => {
     );
     res.render('users/user-payment', { patient });
 };
-// const callbackPayment = async (req, res, next) => {
-//     const { dataCallback, amount, code } = req.query();
-//     if (bcrypt.compareSync(process.env.CLIENT_SECRET, code)) {
-//         const patient = await patientService.findByIdWithInclude(
-//             dataCallback,
-//             {},
-//         );
-//
-//         await patient.update({
-//             debt: Math.abs(patient.debt - amount),
-//         });
-//         patient.save();
-//     }
-//     res.redirect('/details');
-// };
 
-const getProductIncart = (req, res, next) => {
-    res.render('cart/product-in-cart');
+const getProductInCart = async (req, res, next) => {
+    try {
+        const carts = await cartService.findAllByPatientId(req.user.patient_id);
+        res.render('cart/product-in-cart', { carts });
+    } catch (error) {
+        console.error('user.controller getProductInCart', error);
+        next(error);
+    }
+};
+
+const addToCart = async (req, res) => {
+    const { id: categoryId } = req.params;
+    const patientId = req.user.patient_id;
+    try {
+        const isExist =
+            (await cartService.countByCategoryAndPatient(
+                categoryId,
+                patientId,
+            )) > 0;
+        if (isExist) {
+            req.flash(
+                'error_msg',
+                'Gói nhu yếu phẩm đã tồn tại trong giỏ hàng!',
+            );
+        } else {
+            await cartService.save(categoryId, patientId);
+            req.flash('success_msg', 'Thêm vào giỏ hàng thành công!');
+        }
+    } catch (error) {
+        console.error('user.controller addToCart', error);
+        req.flash('error_msg', 'Thêm vào giỏ hàng thất bại!');
+    }
+    res.redirect('back');
+};
+
+const deleteCartItem = async (req, res) => {
+    const { id: categoryId } = req.params;
+    try {
+        await cartService.deleteById(categoryId);
+        req.flash(
+            'success_msg',
+            'Xóa gói nhu yếu phẩm khỏi giỏ hàng thành công!',
+        );
+    } catch (error) {
+        console.error('user.controller deleteCartItem', error);
+        req.flash('error_msg', 'Xóa gói nhu yếu phẩm khỏi giỏ hàng thất bại!');
+    }
+    res.redirect('back');
 };
 
 module.exports = {
@@ -154,6 +183,7 @@ module.exports = {
     paymentDebt,
     payment,
     getPayment,
-    getProductIncart,
-    // callbackPayment,
+    getProductInCart,
+    addToCart,
+    deleteCartItem,
 };

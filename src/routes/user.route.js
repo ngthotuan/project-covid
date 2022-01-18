@@ -16,6 +16,8 @@ router.post('/change-password', userController.postChangePassword);
 router.get('/payment-debt', userController.paymentDebt);
 router.get('/payment', userController.getPayment);
 router.post('/payment', userController.payment);
-router.get('/cart', userController.getProductIncart);
+router.get('/cart', userController.getProductInCart);
+router.get('/add-to-cart/:id', userController.addToCart);
+router.get('/delete-cart-item/:id', userController.deleteCartItem);
 
 module.exports = router;

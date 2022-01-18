@@ -2,151 +2,84 @@
 <div id="page-content">
   <div class="content-header">
     <div class="header-section">
-      <h1>Giỏ hàng(2)</h1>
+      <h1>Giỏ hàng (<%= carts.length %>)</h1>
     </div>
   </div>
-  <!-- Orders Block -->
-  <div class="block">
-    <!-- Orders Title -->
-    <div class="block-title">
-      <div class="block-options pull-right">
-        <button type="button" class="btn btn-danger mb-2">
-          <i class="fa fa-times"></i><strong> Xóa khỏi giỏ hàng</strong>
-        </button>
+  <%- include('../partials/messages')%>
+  <%if(carts.length === 0) {%>
+  <div class="alert alert-info">
+    <p>Giỏ hàng của bạn đang trống.</p>
+  </div>
+  <%} else {%>
+  <% carts.forEach(item => {%>
+    <!-- Orders Block -->
+    <div class="block">
+      <!-- Orders Title -->
+      <div class="block-title">
+        <div class="block-options pull-right">
+          <a href="/users/delete-cart-item/<%= item.id %>" class="btn btn-danger mb-2">
+            <i class="fa fa-times"></i><strong> Xóa khỏi giỏ hàng</strong>
+          </a>
+        </div>
+        <h2><i class="fa fa-truck"></i> <strong><%= item.category.name %></strong></h2>
       </div>
-      <h2><i class="fa fa-truck"></i> <strong>Gói 1</strong> (2)</h2>
-    </div>
-    <!-- END Orders Title -->
+      <!-- END Orders Title -->
 
-    <table class="table table-bordered table-vcenter">
-      <thead>
+      <table class="table table-bordered table-vcenter">
+        <thead>
         <tr>
           <th>Tên sản phẩm</th>
           <th class="text-center">Giá thành</th>
           <th class="text-center">Số lượng</th>
+          <th class="text-center">Giới hạn</th>
           <th class="text-center">Tổng</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <a href="page_ecom_order_view.html"><strong>Sản phẩm 1</strong></a>
-          </td>
-          <td class="text-center">100.000 vnd</td>
-          <td class="text-center">
-            <input
-              type="number"
-              style="width: 100px; margin: auto"
-              class="form-control"
-              value="1"
-              min="1"
-              step="1"
-            />
-          </td>
-          <td>
-            <strong>500.000 vnd</strong>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a href="page_ecom_order_view.html"><strong>Sản phẩm 1</strong></a>
-          </td>
-          <td class="text-center">100.000 vnd</td>
-          <td class="text-center">
-            <input
-              type="number"
-              style="width: 100px; margin: auto"
-              class="form-control"
-              value="1"
-              min="1"
-              step="1"
-            />
-          </td>
-          <td>
-            <strong>500.000 vnd</strong>
-          </td>
-        </tr>
+        </thead>
+        <tbody>
+        <% item.category.product_categories.forEach(pc => { %>
+          <tr>
+            <td>
+              <a href="#"><strong><%= pc.product.name %></strong></a>
+            </td>
+            <td class="text-center"><%= pc.product.amount %> VND</td>
+            <td class="text-center">
+              <input
+                      type="number"
+                      style="width: 100px; margin: auto"
+                      class="form-control  text-center"
+                      value="1"
+                      min="1"
+                      step="1"
+              />
+            </td>
+            <td class="text-center">
+              <input
+                  type="number"
+                  disabled
+                  value="<%= pc.limit_product %>"
+                  class="form-control text-center"
+                  style="width: 100px; margin: auto"
+              />
+            </td>
+            <td>
+              <strong><%= pc.product.amount %> VND</strong>
+            </td>
+          </tr>
+        <% })%>
         <tr class="active">
-          <td colspan="3" class="text-right text-uppercase">
+          <td colspan="4" class="text-right text-uppercase">
             <strong>Tổng giá:</strong>
           </td>
           <td><strong>$975,00</strong></td>
         </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="block">
-    <!-- Orders Title -->
-    <div class="block-title">
-      <div class="block-options pull-right">
-        <button type="button" class="btn btn-danger mb-2">
-          <i class="fa fa-times"></i><strong> Xóa khỏi giỏ hàng</strong>
-        </button>
-      </div>
-      <h2><i class="fa fa-truck"></i> <strong>Gói 2</strong> (2)</h2>
+        </tbody>
+      </table>
     </div>
-    <!-- END Orders Title -->
-
-    <table class="table table-bordered table-vcenter">
-      <thead>
-        <tr>
-          <th>Tên sản phẩm</th>
-          <th class="text-center">Giá thành</th>
-          <th class="text-center">Số lượng</th>
-          <th class="text-center">Tổng</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <a href="page_ecom_order_view.html"><strong>Sản phẩm 1</strong></a>
-          </td>
-          <td class="text-center">100.000 vnd</td>
-          <td class="text-center">
-            <input
-              type="number"
-              style="width: 100px; margin: auto"
-              class="form-control"
-              value="1"
-              min="1"
-              step="1"
-            />
-          </td>
-          <td>
-            <strong>500.000 vnd</strong>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a href="page_ecom_order_view.html"><strong>Sản phẩm 1</strong></a>
-          </td>
-          <td class="text-center">100.000 vnd</td>
-          <td class="text-center">
-            <input
-              type="number"
-              style="width: 100px; margin: auto"
-              class="form-control"
-              value="1"
-              min="1"
-              step="1"
-            />
-          </td>
-          <td>
-            <strong>500.000 vnd</strong>
-          </td>
-        </tr>
-        <tr class="active">
-          <td colspan="3" class="text-right text-uppercase">
-            <strong>Tổng giá:</strong>
-          </td>
-          <td><strong>$975,00</strong></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <!-- END Orders Block -->
+    <!-- END Orders Block -->
+  <%})%>
   <div class="block" style="text-align: end; padding-bottom: 20px">
     <h4><strong>Tổng thanh toán:</strong> 340.000 VND</h4>
     <button type="button" class="btn btn-primary mb-2">Thanh toán</button>
   </div>
+  <%}%>
 </div>

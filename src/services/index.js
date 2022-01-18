@@ -7,4 +7,5 @@ module.exports = {
     districtService: require('./district.service'),
     provinceService: require('./province.service'),
     AccountHistoryService: require('./account-history.service'),
+    cartService: require('./cart.service'),
 };

@@ -60,14 +60,16 @@
   <!-- Right Header Navigation -->
   <ul class="nav navbar-nav-custom pull-right">
     <!-- Shopping card -->
+    <% if(user.role === 'USER'){ %>
     <li>
       <a href="/users/cart">
         <i class="fa fa-3x fa-cart-plus text-danger"></i>
         <span class="label label-primary label-indicator animation-floating"
-          >2</span
+        ><%= cart_count %></span
         >
       </a>
     </li>
+    <% } %>
     <!-- END Shopping card -->
 
     <!-- User Dropdown -->
