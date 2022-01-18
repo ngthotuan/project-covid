@@ -15,6 +15,7 @@ const _province = require('./province.model');
 const _status_histories = require('./status_histories.model');
 const _transaction_histories = require('./transaction_histories.model');
 const _ward = require('./ward.model');
+const _cart_item = require('./cart_item.model');
 
 function initModels(sequelize) {
     const account = _account(sequelize, DataTypes);
@@ -33,6 +34,7 @@ function initModels(sequelize) {
     const status_histories = _status_histories(sequelize, DataTypes);
     const transaction_histories = _transaction_histories(sequelize, DataTypes);
     const ward = _ward(sequelize, DataTypes);
+    const cart_item = _cart_item(sequelize, DataTypes);
 
     account_histories.belongsTo(account, {
         as: 'account',
@@ -131,6 +133,17 @@ function initModels(sequelize) {
     patient.belongsTo(ward, { as: 'ward', foreignKey: 'ward_id' });
     ward.hasMany(patient, { as: 'patients', foreignKey: 'ward_id' });
 
+    cart_item.belongsTo(patient, { as: 'patient', foreignKey: 'patient_id' });
+    patient.hasMany(cart_item, { as: 'cart_items', foreignKey: 'patient_id' });
+    cart_item.belongsTo(category, {
+        as: 'category',
+        foreignKey: 'category_id',
+    });
+    category.hasMany(cart_item, {
+        as: 'cart_items',
+        foreignKey: 'category_id',
+    });
+
     return {
         AccountModel: account,
         AccountHistoryModel: account_histories,
@@ -148,6 +161,7 @@ function initModels(sequelize) {
         StatusHistoryModel: status_histories,
         TransactionHistoryModel: transaction_histories,
         WardModel: ward,
+        CartItemModel: cart_item,
     };
 }
 module.exports = initModels;

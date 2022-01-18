@@ -15,8 +15,9 @@ async function connect() {
         await sequelize.authenticate();
         const allModels = models(sequelize);
         await Promise.all(
-            Object.values(allModels).map((model) =>
-                model.sync({ alter: true }),
+            Object.values(allModels).map(
+                (model) => model.sync(),
+                // model.sync({ alter: true })
             ),
         );
         console.log('Connection has been established successfully.');
