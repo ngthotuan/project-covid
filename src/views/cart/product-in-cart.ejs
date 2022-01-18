@@ -1,85 +1,169 @@
 <!-- Page content -->
 <div id="page-content">
-  <div class="content-header">
-    <div class="header-section">
-      <h1>Giỏ hàng (<%= carts.length %>)</h1>
-    </div>
-  </div>
-  <%- include('../partials/messages')%>
-  <%if(carts.length === 0) {%>
-  <div class="alert alert-info">
-    <p>Giỏ hàng của bạn đang trống.</p>
-  </div>
-  <%} else {%>
-  <% carts.forEach(item => {%>
-    <!-- Orders Block -->
-    <div class="block">
-      <!-- Orders Title -->
-      <div class="block-title">
-        <div class="block-options pull-right">
-          <a href="/users/delete-cart-item/<%= item.id %>" class="btn btn-danger mb-2">
-            <i class="fa fa-times"></i><strong> Xóa khỏi giỏ hàng</strong>
-          </a>
+    <div class="content-header">
+        <div class="header-section">
+            <h1>Giỏ hàng (<%= carts.length %>)</h1>
         </div>
-        <h2><i class="fa fa-truck"></i> <strong><%= item.category.name %></strong></h2>
-      </div>
-      <!-- END Orders Title -->
-
-      <table class="table table-bordered table-vcenter">
-        <thead>
-        <tr>
-          <th>Tên sản phẩm</th>
-          <th class="text-center">Giá thành</th>
-          <th class="text-center">Số lượng</th>
-          <th class="text-center">Giới hạn</th>
-          <th class="text-center">Tổng</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% item.category.product_categories.forEach(pc => { %>
-          <tr>
-            <td>
-              <a href="#"><strong><%= pc.product.name %></strong></a>
-            </td>
-            <td class="text-center"><%= pc.product.amount %> VND</td>
-            <td class="text-center">
-              <input
-                      type="number"
-                      style="width: 100px; margin: auto"
-                      class="form-control  text-center"
-                      value="1"
-                      min="1"
-                      step="1"
-              />
-            </td>
-            <td class="text-center">
-              <input
-                  type="number"
-                  disabled
-                  value="<%= pc.limit_product %>"
-                  class="form-control text-center"
-                  style="width: 100px; margin: auto"
-              />
-            </td>
-            <td>
-              <strong><%= pc.product.amount %> VND</strong>
-            </td>
-          </tr>
-        <% })%>
-        <tr class="active">
-          <td colspan="4" class="text-right text-uppercase">
-            <strong>Tổng giá:</strong>
-          </td>
-          <td><strong>$975,00</strong></td>
-        </tr>
-        </tbody>
-      </table>
     </div>
-    <!-- END Orders Block -->
-  <%})%>
-  <div class="block" style="text-align: end; padding-bottom: 20px">
-    <h4><strong>Tổng thanh toán:</strong> 340.000 VND</h4>
-    <button type="button" class="btn btn-primary mb-2">Thanh toán</button>
-  </div>
-  <%}%>
+    <%- include('../partials/messages') %>
+    <% if(carts.length === 0) { %>
+        <div class="alert alert-info">
+            <p>Giỏ hàng của bạn đang trống.</p>
+        </div>
+    <% } else { %>
+        <form method="post">
+            <% carts.forEach(item => { %>
+                <input type="hidden" name="categoryIds" value="<%= item.category.id %>">
+                <!-- Orders Block -->
+                <div class="block">
+                    <!-- Orders Title -->
+                    <div class="block-title">
+                        <div class="block-options pull-right">
+                            <a href="/users/delete-cart-item/<%= item.id %>" class="btn btn-danger mb-2">
+                                <i class="fa fa-times"></i><strong> Xóa khỏi giỏ hàng</strong>
+                            </a>
+                        </div>
+                        <h2><i class="fa fa-truck"></i> <strong><%= item.category.name %></strong></h2>
+                    </div>
+                    <!-- END Orders Title -->
+
+                    <table class="table table-bordered table-vcenter">
+                        <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th class="text-center">Giá thành</th>
+                            <th class="text-center">Số lượng</th>
+                            <th class="text-center">Giới hạn</th>
+                            <th class="text-center">Tổng</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% item.category.product_categories.forEach(pc => { %>
+                            <tr>
+                                <td>
+                                    <a href="#"><strong><%= pc.product.name %></strong></a>
+                                </td>
+                                <input type="hidden" name="productIds-<%= item.category.id %>" value="<%= pc.product.id %>">
+                                <td class="text-center"><span><%= pc.product.amount %></span> VND</td>
+                                <td class="text-center">
+                                    <input
+                                            type="number"
+                                            style="width: 100px; margin: auto"
+                                            class="form-control text-center input-quantity"
+                                            value="1"
+                                            min="1"
+                                            step="1"
+                                            name="productQuantities-<%= item.category.id %>"
+                                            max="<%= pc.limit_product %>"
+                                    />
+                                </td>
+                                <td class="text-center">
+                                    <input
+                                            type="number"
+                                            disabled
+                                            value="<%= pc.limit_product %>"
+                                            class="form-control text-center"
+                                            style="width: 100px; margin: auto"
+                                    />
+                                </td>
+                                <td class="text-center">
+                                    <span class="amount-item"><%= pc.product.amount %></span> VND
+                                </td>
+                            </tr>
+                        <% }) %>
+                        <tr class="active">
+                            <td colspan="4" class="text-right text-uppercase">
+                                <strong>Tổng giá:</strong>
+                            </td>
+                            <td><strong class="total-item"><span class="total-item-amount">0</span> VND</strong></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END Orders Block -->
+            <% }) %>
+            <div class="block" style="text-align: end; padding-bottom: 20px">
+                <h4><strong>Tổng thanh toán:</strong><span id="total">0</span> VND</h4>
+                <button type="submit" class="btn btn-primary mb-2">Thanh toán</button>
+            </div>
+        </form>
+    <% } %>
 </div>
+
+<script>
+    $(function () {
+        $('#btnPayment').click(function () {
+            console.log('click');
+            const json = {
+                total: 0,
+                categories: [
+                    {
+                        categoryId: 0,
+                        products: [],
+                    },
+                ]
+            }
+
+            json.total = $('#total').text();
+            $('.input-quantity').each(function () {
+                const categoryId = $(this).closest('tr').prevAll('tr').length;
+                const productId = $(this).closest('tr').index();
+                const quantity = $(this).val();
+                json.categories[categoryId].products[productId] = quantity;
+            });
+
+        })
+
+        // const json = {
+        //     total: 123,
+        //     categories: [
+        //         {
+        //             categoryId: 1,
+        //             products: [
+        //                 {
+        //                     productId: 1,
+        //                     quantity: 1,
+        //                 },
+        //                 {
+        //                     productId: 1,
+        //                     quantity: 1,
+        //                 },
+        //             ],
+        //         },
+        //     ]
+        // }
+
+        $('tbody').each(function () {
+            let totalAmountItem = 0;
+            $(this).find('.amount-item').each(function () {
+                totalAmountItem += parseInt($(this).text());
+            });
+            $(this).find('.total-item-amount').text(totalAmountItem);
+        });
+
+        let total_amount = 0;
+        $('.total-item-amount').each(function () {
+            total_amount += parseInt($(this).text());
+        });
+        $('#total').text(total_amount);
+
+
+        $('.input-quantity').on('change', function () {
+            let quantity = $(this).val();
+            let price = $(this).parent().parent().find('td.text-center').eq(0).children('span').text();
+
+            let amount = quantity * price;
+            $(this).parent().parent().find('td.text-center').eq(3).children('span').text(amount);
+            let totalAmountItem = 0;
+            $(this).closest('tbody').find('.amount-item').each(function () {
+                totalAmountItem += parseInt($(this).text());
+            });
+            $(this).parent().parent().parent().find('.total-item-amount').text(totalAmountItem);
+            let total_amount = 0;
+            $('.total-item-amount').each(function () {
+                total_amount += parseInt($(this).text());
+            });
+            $('#total').text(total_amount);
+        });
+    });
+</script>
