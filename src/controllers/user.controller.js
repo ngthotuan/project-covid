@@ -137,6 +137,11 @@ const getPayment = async (req, res, next) => {
 //     }
 //     res.redirect('/details');
 // };
+
+const getProductIncart = (req, res, next) => {
+    res.render('cart/product-in-cart');
+};
+
 module.exports = {
     getProfile,
     getTransactionHistory,
@@ -149,5 +154,6 @@ module.exports = {
     paymentDebt,
     payment,
     getPayment,
+    getProductIncart,
     // callbackPayment,
 };

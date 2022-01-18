@@ -16,5 +16,6 @@ router.post('/change-password', userController.postChangePassword);
 router.get('/payment-debt', userController.paymentDebt);
 router.get('/payment', userController.getPayment);
 router.post('/payment', userController.payment);
+router.get('/cart', userController.getProductIncart);
 
 module.exports = router;
