@@ -17,6 +17,7 @@ router.get('/payment-debt', userController.paymentDebt);
 router.get('/payment', userController.getPayment);
 router.post('/payment', userController.payment);
 router.get('/cart', userController.getProductInCart);
+router.post('/cart', userController.postProductInCart);
 router.get('/add-to-cart/:id', userController.addToCart);
 router.get('/delete-cart-item/:id', userController.deleteCartItem);
 

@@ -131,6 +131,25 @@ const getProductInCart = async (req, res, next) => {
     }
 };
 
+const postProductInCart = async (req, res, next) => {
+    const categoryIds = req.body.categoryIds;
+    const categories = categoryIds.map((categoryId) => {
+        const productIds = req.body[`productIds-${categoryId}`];
+        const productQuantities = req.body[`productQuantities-${categoryId}`];
+        const products = productIds.map((productId, index) => {
+            return {
+                productId,
+                quantity: productQuantities[index],
+            };
+        });
+        return {
+            categoryId,
+            products,
+        };
+    });
+    res.json(categories);
+};
+
 const addToCart = async (req, res) => {
     const { id: categoryId } = req.params;
     const patientId = req.user.patient_id;
@@ -184,6 +203,7 @@ module.exports = {
     payment,
     getPayment,
     getProductInCart,
+    postProductInCart,
     addToCart,
     deleteCartItem,
 };
