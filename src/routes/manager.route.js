@@ -9,5 +9,5 @@ router.get('/', managerController.getList);
 router.get('/block/:id', managerController.getBlockAccount);
 router.get('/un-block/:id', managerController.getUnBlockAccount);
 router.get('/:id', managerController.getById);
-router.get('update/:id', managerController.getUpdate);
+router.get('/edit/:id', managerController.getUpdate);
 module.exports = router;

@@ -1,6 +1,6 @@
 <div class="block">
     <div class="block-title">
-        <h2><i class="fa fa-user-secret"></i> <strong>Lịch sử thay đổi tài khoản </strong>(<%= account_histories?.length %>)</h2>
+        <h2><i class="fa fa-user-secret"></i> <strong>Lịch sử hoạt động </strong>(<%= account_histories?.length %>)</h2>
     </div>
     <% if(account_histories?.length) { %>
         <table id="detail-account-history" class="table table-bordered table-striped table-vcenter">
@@ -23,7 +23,7 @@
         </table>
     <% } else { %>
         <div class="alert alert-info">
-            <h4><i class="fa fa-info-circle"></i> Không có lịch sử thay đổi tài khoản.</h4>
+            <h4><i class="fa fa-info-circle"></i> Không có lịch sử hoạt động.</h4>
         </div>
     <% } %>
 </div>

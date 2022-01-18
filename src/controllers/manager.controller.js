@@ -4,7 +4,8 @@ const { RoleConstants } = require('../constants');
 const roleConstant = require('../constants/role.constant');
 
 const getCreateAccount = (req, res, next) => {
-    const roles = RoleConstants;
+    let roles = RoleConstants;
+    delete roles.USER;
     res.render('managers/form', { title: 'Tạo tài khoản', roles });
 };
 
