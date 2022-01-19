@@ -31,16 +31,16 @@
                         <% } %>
                     </tr>
                     <tr>
-                        <td class="text-right"><strong>Tài khoản cho phép</strong></td>
-                        <td><%= patient.credit %></td>
+                        <td class="text-right"><strong>Hạn mức tối đa</strong></td>
+                        <td><%= patient.credit %> VND</td>
                     </tr>
                     <tr>
-                        <td class="text-right"><strong>Khoản nợ</strong></td>
-                        <td><%= patient.debt %></td>
+                        <td class="text-right"><strong>Dư nợ hiện tại</strong></td>
+                        <td><%= patient.debt %> VND</td>
                     </tr>
                     <tr>
-                        <td class="text-right"><strong>Trả khoản nhỏ nhất</strong></td>
-                        <td><%= patient.payment_min %></td>
+                        <td class="text-right"><strong>Thanh toán tối thiểu</strong></td>
+                        <td><%= patient.payment_min %> VND</td>
                     </tr>
                     <tr>
                         <td class="text-right"><strong>Khu điều trị/cách ly</strong></td>
@@ -50,13 +50,6 @@
 
                     </tbody>
                 </table>
-                <div class="block-section text-center">
-                    <h3>
-                        <a href="/users/payment">
-                            Thanh toán khoản nợ<br><small></small>
-                        </a>
-                    </h3>
-                </div>
             </div>
 
         </div>

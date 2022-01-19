@@ -9,7 +9,7 @@
                 <!-- General Data Title -->
                 <div class="block-title">
                     <h2>
-                        <i class="fa fa-pencil"></i> <strong>Thông tin nạp tiền</strong>
+                        <i class="fa fa-money"></i> <strong>Thông tin nạp tiền</strong>
                     </h2>
                 </div>
                 <!-- END General Data Title -->
@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="price"
-                        >Số nợ trong tài khoản</label
+                        >Dư nợ hiện tại</label
                         >
                         <div class="col-md-9">
                             <div class="input-group">
@@ -53,18 +53,36 @@
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="price"
-                        >Số tiền thanh toán</label
+                        >Thanh toán tối thiểu</label
                         >
                         <div class="col-md-9">
                             <div class="input-group">
                                 <div class="input-group-addon">đ</div>
                                 <input
                                         type="text"
+                                        class="form-control"
+                                        value="<%= patient.payment_min %>"
+                                        disabled
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="price"
+                        >Nhập số tiền thanh toán</label
+                        >
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <div class="input-group-addon">đ</div>
+                                <input
+                                        type="number"
                                         id="price"
+                                        min="<%= patient.payment_min %>"
+                                        max="<%= patient.debt %>"
                                         name="amount"
                                         class="form-control"
                                         required
-                                        placeholder="0,00"
+                                        placeholder="Nhập số tiền cần thanh toán trong phạm vi từ <%= patient.payment_min %> đến <%= patient.debt %>"
                                 />
                             </div>
                         </div>
@@ -75,8 +93,8 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-floppy-o"></i> Xác nhận nạp tiền
                             </button>
-                            <button type="reset" class="btn btn-danger">
-                                <i class="fa fa-floppy"></i> Xóa bỏ toàn bộ
+                            <button type="reset" class="btn btn-warning">
+                                <i class="fa fa-floppy"></i> Xóa trắng
                             </button>
                         </div>
                     </div>

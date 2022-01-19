@@ -7,8 +7,6 @@
             <thead>
             <tr>
                 <th class="text-center" style="width: 70px;">Mã</th>
-                <th class="hidden-xs text-center">Phương thức</th>
-                <th class="hidden-xs text-center">Trạng thái</th>
                 <th class="hidden-xs text-center">Mô tả</th>
                 <th class="text-center">Số tiền</th>
                 <th class="hidden-xs text-center">Ngày tạo</th>
@@ -18,8 +16,6 @@
             <% transaction_histories.forEach((transaction_history, index) => { %>
                 <tr>
                     <td class="text-center"><%= index + 1 %></td>
-                    <td class="hidden-xs text-center"><%= transaction_history.method %></td>
-                    <td class="hidden-xs text-center"><%= transaction_history.status %></td>
                     <td class="hidden-xs text-center"><%= transaction_history.description %></td>
                     <td class="text-center"><%= transaction_history.amount %></td>
                     <td class="hidden-xs text-center"><%= moment(transaction_history.created_date).tz('Asia/Ho_Chi_Minh').format('DD-MM-YYYY, hh:mm:ss') %></td>

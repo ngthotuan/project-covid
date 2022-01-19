@@ -89,7 +89,7 @@ const getTransactionHistory = async (req, res, next) => {
 };
 const getBuyHistory = async (req, res, next) => {
     const patient = await patientService.getBuyHistory(req.user.patient_id);
-    console.log(patient);
+    console.log(patient.orders);
     res.render('users/user-buy-history', { patient });
 };
 const paymentDebt = async (req, res, next) => {
@@ -134,7 +134,7 @@ const getProductInCart = async (req, res, next) => {
 };
 
 const postProductInCart = async (req, res, next) => {
-    const categoryIds = req.body.categoryIds;
+    const categoryIds = Array.from(req.body.categoryIds);
     const totalAmount = req.body.totalAmount;
 
     const categories = categoryIds.map((categoryId) => {
@@ -214,6 +214,27 @@ const deleteCartItem = async (req, res) => {
     res.redirect('back');
 };
 
+function groupBy(objectArray, property) {
+    return objectArray.reduce(function (acc, obj) {
+        const key = obj[property];
+        if (!acc[key]) {
+            acc[key] = [];
+        }
+        acc[key].push(obj);
+        return acc;
+    }, {});
+}
+
+const getOrderDetail = async (req, res) => {
+    const { id: orderId } = req.params;
+    const order = await orderService.findOrderDetailById(orderId);
+    const order_products = groupBy(order.order_products, 'category_id');
+    res.render('cart/order-detail', {
+        totalAmount: order.total_amount,
+        order_products,
+    });
+};
+
 module.exports = {
     getProfile,
     getTransactionHistory,
@@ -230,4 +251,5 @@ module.exports = {
     postProductInCart,
     addToCart,
     deleteCartItem,
+    getOrderDetail,
 };

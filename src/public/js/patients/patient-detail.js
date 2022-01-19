@@ -49,5 +49,13 @@ $(function () {
             [5, 10, 20, 'Tất cả'],
         ],
     });
+    $('#detail-buy-history').dataTable({
+        order: [[0, 'asc']],
+        pageLength: 10,
+        lengthMenu: [
+            [5, 10, 20, -1],
+            [5, 10, 20, 'Tất cả'],
+        ],
+    });
     $('.dataTables_filter input').attr('placeholder', 'Tìm kiếm...');
 });

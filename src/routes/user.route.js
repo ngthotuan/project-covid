@@ -20,5 +20,6 @@ router.get('/cart', userController.getProductInCart);
 router.post('/cart', userController.postProductInCart);
 router.get('/add-to-cart/:id', userController.addToCart);
 router.get('/delete-cart-item/:id', userController.deleteCartItem);
+router.get('/orders/detail/:id', userController.getOrderDetail);
 
 module.exports = router;

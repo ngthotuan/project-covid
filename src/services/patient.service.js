@@ -204,12 +204,6 @@ const getBuyHistory = async (patientId) => {
             {
                 model: OrdersModel,
                 as: 'orders',
-                include: [
-                    {
-                        model: CategoryModel,
-                        as: 'category',
-                    },
-                ],
             },
         ],
     };

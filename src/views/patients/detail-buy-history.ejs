@@ -1,26 +1,33 @@
 <div class="block">
     <div class="block-title">
-        <h2><i class="fa fa-paypal"></i> <strong>Lịch sử mua hàng </strong>(<%= orders?.length %>)</h2>
+        <h2><i class="fa fa-history"></i> <strong>Lịch sử mua hàng </strong>(<%= orders?.length %>)</h2>
     </div>
     <% if(orders?.length) { %>
-        <table id="detail-payment-history" class="table table-bordered table-striped table-vcenter">
+        <table id="detail-buy-history" class="table table-bordered table-striped table-vcenter">
             <thead>
             <tr>
                 <th class="text-center" style="width: 70px;">Mã</th>
-                <th class="hidden-xs text-center">Tổng tiền</th>
-                <th class="hidden-xs text-center">Tổng sản phẩm</th>
-                <th class="hidden-xs text-center">Gói nhu yếu phẩm</th>
+                <th class="hidden-xs text-center">Số gói nhu yếu phẩm</th>
                 <th class="hidden-xs text-center">Ngày tạo</th>
+                <th class="hidden-xs text-center">Tổng tiền</th>
+                <th class="hidden-xs text-center">Hành động</th>
             </tr>
             </thead>
             <tbody>
-            <% orders.forEach((order, index) => { %>
+            <% orders.forEach((order) => { %>
                 <tr>
-                    <td class="text-center"><%= index + 1 %></td>
-                    <td class="hidden-xs text-center"><%= order.total_amount %></td>
-                    <td class="hidden-xs text-center"><%= order.total_product %></td>
-                    <td class="hidden-xs text-center"><%= order.category.name %></td>
+                    <td class="text-center"><a href="/users/orders/detail/<%= order.id %>"><%= order.id %></a></td>
+                    <td class="hidden-xs text-center"><%= order.total_category %></td>
                     <td class="hidden-xs text-center"><%= moment(order.created_time).tz('Asia/Ho_Chi_Minh').format('DD-MM-YYYY, hh:mm:ss') %></td>
+                    <td class="hidden-xs text-center"><%= order.total_amount %> VND</td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <a data-toggle="tooltip" title="Xem chi tiêt"
+                               href="/users/orders/detail/<%= order.id %>"  class="btn btn-success">
+                                <i class="fa fa-file"></i>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             <% }) %>
             </tbody>

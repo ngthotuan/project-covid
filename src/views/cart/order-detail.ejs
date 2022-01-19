@@ -1,0 +1,64 @@
+<!-- Page content -->
+<div id="page-content">
+    <div class="content-header">
+        <div class="header-section">
+            <h1>Chi tiết đơn hàng
+                <a href="/users/category-history" class="pull-right btn btn-success"> Trở lại</a>
+            </h1>
+
+        </div>
+    </div>
+    <%- include('../partials/messages') %>
+    <%for(let key in order_products) { %>
+        <!-- Orders Block -->
+        <div class="block">
+            <!-- Orders Title -->
+            <div class="block-title">
+                <h2><i class="fa fa-truck"></i> <strong><%= order_products[key][0].category.name %></strong></h2>
+            </div>
+            <!-- END Orders Title -->
+
+            <table class="table table-bordered table-vcenter">
+                <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th class="text-center">Số lượng</th>
+                    <th class="text-center">Thành tiền</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% order_products[key].forEach(op => { %>
+                    <tr>
+                        <td>
+                            <a href="#"><strong><%= op.product.name %></strong></a>
+                        </td>
+                        <td class="text-center">
+                            <input
+                                    type="number"
+                                    style="width: 100px; margin: auto"
+                                    class="form-control text-center input-quantity"
+                                    readonly
+                                    value="<%= op.quantity %>"
+                            />
+                        </td>
+                        <td class="text-center">
+                            <input
+                                    type="number"
+                                    style="width: 100px; margin: auto"
+                                    class="form-control text-center amount-item"
+                                    readonly
+                                    value="<%= op.amount %>"
+                            />
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <!-- END Orders Block -->
+    <% } %>
+    <div class="block" style="text-align: end; padding-bottom: 20px">
+        <h4><strong>Tổng thanh toán: </strong><span id="total"><%= totalAmount %></span> VND</h4>
+    </div>
+
+</div>

@@ -1,5 +1,5 @@
 const { sequelize } = require('../db');
-const { OrdersModel, CategoryModel, ProductCategoryModel, ProductModel } =
+const { OrdersModel, OrderProductModel, ProductModel, CategoryModel } =
     require('../models')(sequelize);
 
 const findById = (id) => {
@@ -34,6 +34,33 @@ const save = (categories, totalAmount, patientId) => {
     });
 };
 
+const findOrderDetailById = (id) => {
+    return OrdersModel.findOne({
+        where: {
+            id,
+        },
+        include: [
+            {
+                model: OrderProductModel,
+                as: 'order_products',
+                include: [
+                    {
+                        model: ProductModel,
+                        as: 'product',
+                        attributes: ['name'],
+                    },
+                    {
+                        model: CategoryModel,
+                        as: 'category',
+                        attributes: ['name'],
+                    },
+                ],
+            },
+        ],
+    });
+};
+
 module.exports = {
     save,
+    findOrderDetailById,
 };
