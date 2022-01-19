@@ -22,7 +22,7 @@
                 <td><a href="/patients?id=<%= patient.id %>"><%= patient.name %></a></td>
                 <td class="hidden-xs text-center"><strong><%= patient.identity %></strong></td>
                 <% if(patient.status !== null){ %>
-                    <td class="text-center hidden-xs"><strong>F<%= patient.status %></strong></td>
+                    <td class="text-center hidden-xs"><strong><%= patient.status!=='-1'?'F'+patient.status:'Khỏi bệnh' %></strong></td>
                 <% } else { %>
                     <td class="text-center hidden-xs"><strong></strong></td>
                 <% } %>
