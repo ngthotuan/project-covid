@@ -1,4 +1,4 @@
-const { patientService } = require('../services');
+const { patientService, transactionHistoryService } = require('../services');
 const bcrypt = require('bcrypt');
 
 const callbackPayment = async (req, res, next) => {
@@ -13,6 +13,12 @@ const callbackPayment = async (req, res, next) => {
             debt: Math.abs(patient.debt - amount),
         });
         patient.save();
+        await transactionHistoryService.save({
+            amount,
+            created_date: Date.now(),
+            description: `Thang toán dư nợ`,
+            patient_id: patient.patient_id,
+        });
     }
     res.redirect('/details');
 };

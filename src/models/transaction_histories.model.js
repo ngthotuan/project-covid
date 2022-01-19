@@ -21,14 +21,6 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.STRING(255),
                 allowNull: true,
             },
-            method: {
-                type: DataTypes.STRING(255),
-                allowNull: true,
-            },
-            status: {
-                type: DataTypes.STRING(255),
-                allowNull: true,
-            },
             patient_id: {
                 type: DataTypes.BIGINT,
                 allowNull: true,

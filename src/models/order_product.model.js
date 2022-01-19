@@ -13,6 +13,10 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
+            amount: {
+                type: DataTypes.BIGINT,
+                allowNull: false,
+            },
             order_id: {
                 type: DataTypes.BIGINT,
                 allowNull: true,

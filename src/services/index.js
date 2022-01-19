@@ -6,6 +6,8 @@ module.exports = {
     hospitalService: require('./hospital.service'),
     districtService: require('./district.service'),
     provinceService: require('./province.service'),
-    AccountHistoryService: require('./account-history.service'),
+    accountHistoryService: require('./account-history.service'),
     cartService: require('./cart.service'),
+    orderService: require('./order.service'),
+    transactionHistoryService: require('./transaction-history.service'),
 };

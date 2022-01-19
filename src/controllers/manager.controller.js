@@ -1,4 +1,4 @@
-const { accountService, AccountHistoryService } = require('../services');
+const { accountService, accountHistoryService } = require('../services');
 const passport = require('passport');
 const { RoleConstants } = require('../constants');
 const roleConstant = require('../constants/role.constant');
@@ -79,7 +79,7 @@ const getById = async (req, res, next) => {
         const condition = {
             where: { account_id: id },
         };
-        const accountHistory = await AccountHistoryService.findAll(condition);
+        const accountHistory = await accountHistoryService.findAll(condition);
         res.render('managers/detail', {
             title: 'Thông tin người quản lý',
             manager: account,

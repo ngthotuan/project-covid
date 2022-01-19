@@ -1,9 +1,11 @@
 const {
     patientService,
-    AccountHistoryService,
+    accountHistoryService,
     accountService,
     categoryService,
     cartService,
+    orderService,
+    transactionHistoryService,
 } = require('../services');
 const bcrypt = require('bcrypt');
 
@@ -69,7 +71,7 @@ const getUserHistories = async (req, res, next) => {
         req.user.patient_id,
         include,
     );
-    const accountHistory = await AccountHistoryService.findAll(condition);
+    const accountHistory = await accountHistoryService.findAll(condition);
     res.render('users/user-history', {
         patient,
         account_histories: accountHistory,
@@ -133,13 +135,17 @@ const getProductInCart = async (req, res, next) => {
 
 const postProductInCart = async (req, res, next) => {
     const categoryIds = req.body.categoryIds;
+    const totalAmount = req.body.totalAmount;
+
     const categories = categoryIds.map((categoryId) => {
         const productIds = req.body[`productIds-${categoryId}`];
         const productQuantities = req.body[`productQuantities-${categoryId}`];
+        const productAmounts = req.body[`productAmounts-${categoryId}`];
         const products = productIds.map((productId, index) => {
             return {
                 productId,
                 quantity: productQuantities[index],
+                amount: productAmounts[index],
             };
         });
         return {
@@ -147,7 +153,25 @@ const postProductInCart = async (req, res, next) => {
             products,
         };
     });
-    res.json(categories);
+    const order = await orderService.save(
+        categories,
+        totalAmount,
+        req.user.patient_id,
+    );
+    await cartService.deleteByPatientId(req.user.patient_id);
+    await accountHistoryService.save({
+        created_date: new Date(),
+        account_id: req.user.id,
+        action: `Thanh toán đơn hàng ${order.id} số tiền ${totalAmount}`,
+    });
+    await transactionHistoryService.save({
+        amount: totalAmount,
+        created_date: Date.now(),
+        description: `Thanh toán đơn hàng ${order.id}`,
+        patient_id: req.user.patient_id,
+    });
+    req.flash('success_msg', 'Đặt hàng thành công!');
+    res.redirect('/users/category-history');
 };
 
 const addToCart = async (req, res) => {
