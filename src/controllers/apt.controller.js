@@ -23,7 +23,7 @@ const callbackPayment = async (req, res, next) => {
                 amount,
                 created_date: Date.now(),
                 description: `Thanh toán dư nợ`,
-                patient_id: patient.patient_id,
+                patient_id: patient.id,
             });
             req.flash('success_msg', 'Thanh toán thành công');
         } catch (err) {
