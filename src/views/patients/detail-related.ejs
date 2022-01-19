@@ -24,7 +24,7 @@
                     <td class="hidden-xs text-center"><strong><%= patient.identity %></strong></td>
 
                 <% if(patient.status !== null){ %>
-                        <td class="hidden-xs text-center"><strong>F<%= patient.status %></strong></td>
+                        <td class="hidden-xs text-center"><strong><%= patient.status!=='-1'?'F'+patient.status:'Khỏi bệnh' %></strong></td>
                     <% } else { %>
                         <td class="hidden-xs text-center"><strong></strong></td>
                     <% } %>

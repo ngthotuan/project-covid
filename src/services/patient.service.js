@@ -194,8 +194,14 @@ const updateStatus = async (patientSaved, transaction, newStatus) => {
     );
 
     const patients = await patientSaved.getPatients();
-    for (let i = 0; i < patients.length; i++) {
-        await updateStatus(patients[i], transaction, parseInt(newStatus) + 1);
+    if (parseInt(newStatus) !== -1) {
+        for (let i = 0; i < patients.length; i++) {
+            await updateStatus(
+                patients[i],
+                transaction,
+                parseInt(newStatus) + 1,
+            );
+        }
     }
 };
 const getBuyHistory = async (patientId) => {

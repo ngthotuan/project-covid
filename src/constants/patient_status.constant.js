@@ -1,4 +1,5 @@
 const arrayStatus = [
+    { value: 'Khỏi bệnh', key: -1 },
     { value: 'F0', key: 0 },
     { value: 'F1', key: 1 },
     { value: 'F2', key: 2 },

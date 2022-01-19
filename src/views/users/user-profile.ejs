@@ -25,7 +25,7 @@
                     <tr>
                         <td class="text-right"><strong>Trạng thái</strong></td>
                         <% if(patient.status !== null){ %>
-                            <td><strong>F<%= patient.status %></strong></td>
+                            <td><strong><%= patient.status!=='-1'?'F'+patient.status:'Khỏi bệnh' %></strong></td>
                         <% } else { %>
                             <td><strong></strong></td>
                         <% } %>
