@@ -11374,10 +11374,216 @@ VALUES (1, 'Phường Phúc Xá', 1),
        (32245, 'Xã Tân Ân', 973),
        (32248, 'Xã Đất Mũi', 973);
 
-INSERT INTO "hospital" ("id", "address", "current_size", "name", "size", "district_id", "province_id", "ward_id")
-VALUES (4, 'Số 325 Hàng Xanh', 0, 'Bệnh Viện Nhân Dân Gia Định', 20000, 575, 56, 22726),
-       (5, 'Sô 2 Nguyễn Thị Minh Khai', 0, 'Bệnh Viện Đa Khoa Thủ Đức', 100000, 626, 64, 23689),
-       (6, '319 Nguyễn Trãi', 0, 'Khu điều trị quận 9', 500, 774, 79, 27307),
-       (1, 'Số 99 Nguyễn Thái Học', 0, 'Bệnh viện Chợ Rẫy', 5000, 28, 2, 823),
-       (3, 'So 227 Nguyễn Văn Cừ', 0, 'Bệnh viện Nhân Dân 115', 10000, 596, 60, 23020),
-       (2, 'Sô 234 Lý Thái Tổ', 0, 'Bệnh viện Y Học Dược', 7000, 84, 10, 2809);
+INSERT INTO "hospital" ("address", "current_size", "name", "size", "district_id", "province_id", "ward_id")
+VALUES ('Số 325 Hàng Xanh', 0, 'Bệnh Viện Nhân Dân Gia Định', 20000, 575, 56, 22726),
+       ('Sô 2 Nguyễn Thị Minh Khai', 0, 'Bệnh Viện Đa Khoa Thủ Đức', 100000, 626, 64, 23689),
+       ('319 Nguyễn Trãi', 0, 'Khu điều trị quận 9', 500, 774, 79, 27307),
+       ('Số 99 Nguyễn Thái Học', 0, 'Bệnh viện Chợ Rẫy', 5000, 28, 2, 823),
+       ('So 227 Nguyễn Văn Cừ', 0, 'Bệnh viện Nhân Dân 115', 10000, 596, 60, 23020),
+       ('Sô 234 Lý Thái Tổ', 0, 'Bệnh viện Y Học Dược', 7000, 84, 10, 2809);
+
+INSERT INTO "account" ("id", "balance", "blocked", "password", "role", "username", "patient_id")
+VALUES (1, NULL, '0', '$2b$08$4jDoI77r75/92DDm2nuQXe7SqAWktcijkRC6DJNcOZjJ.z9f99AHO', 'ADMIN', 'admin', NULL),
+       (2, 0, '0', '$2b$08$o/mHLGpKDzOojoa/PXyOwe6LG8CSEsrzjH1snxP2u5CCkYCMIuqra', 'MANAGER', 'vu', NULL),
+       (3, 0, '0', '$2b$08$zfgV0qaWuJIgCAjsf/Dfju2f78HNSimu3rJ7Za/nWCBqpn12Uwq0e', 'MANAGER', 'xuantuan', NULL),
+       (4, 0, '0', '$2b$08$zF0doy3gBrUaeNYhNoyi0ukfzyzdf1EgFGyvCpuempNMwGZQd3lyO', 'MANAGER', 'thotuan', NULL),
+       (7, NULL, NULL, NULL, 'USER', '171287811', 3),
+       (9, NULL, NULL, NULL, 'USER', '171265714', 5),
+       (10, NULL, NULL, NULL, 'USER', '171291818', 6),
+       (11, NULL, NULL, NULL, 'USER', '178221549', 7),
+       (12, NULL, NULL, NULL, 'USER', '171287812', 8),
+       (13, NULL, NULL, NULL, 'USER', '171287813', 9),
+       (5, NULL, NULL, '$2b$08$RDsxPUDz71vrOuwZzv80vuhXPalF6Op/MckhyDGw.oJzIQnhKcIYK', NULL, '171291817', 1),
+       (8, NULL, NULL, '$2b$08$KXaR8TopAcwCBK4rIzRMn.hkQfbgMcp/9jgAOUoH9.KXq/dTFGS3q', 'USER', '171292816', 4),
+       (6, NULL, NULL, '$2b$08$xIYW5NePhymbz9PmqXyO4O3tD4R70Dhniwzaf81V3ADgJMqvKWi86', 'USER', '171291812', 2);
+
+INSERT INTO "account_histories" ("id", "action", "created_date", "account_id")
+VALUES (1, 'Tạo sản phẩm mới: Bí đỏ hồ lô', '2022-01-20 15:49:30.64+00', 2),
+       (2, 'Tạo sản phẩm mới: Bí đao', '2022-01-20 15:50:50.826+00', 2),
+       (3, 'Tạo sản phẩm mới: Thịt đùi heo C.P khay 500g', '2022-01-20 15:51:50.749+00', 4),
+       (4, 'Tạo sản phẩm mới: Cải ngọt', '2022-01-20 15:52:26.126+00', 2),
+       (5, 'Tạo sản phẩm mới: Cam vàng', '2022-01-20 15:53:45.913+00', 2),
+       (6, 'Tạo sản phẩm mới: Nấm đùi gà', '2022-01-20 15:55:21.446+00', 2),
+       (7, 'Tạo sản phẩm mới: Gạo', '2022-01-20 15:55:34.477+00', 3),
+       (8, 'Tạo sản phẩm mới: Sườn non heo Meat Master khay 400g (9-11 miếng)', '2022-01-20 15:55:40.728+00', 4),
+       (9, 'Cập nhật sản phẩm: Bí đỏ hồ lô', '2022-01-20 15:56:02.64+00', 2),
+       (10, 'Cập nhật sản phẩm: Bí đao', '2022-01-20 15:56:20.985+00', 2),
+       (11, 'Cập nhật sản phẩm: Cải ngọt', '2022-01-20 15:56:49.456+00', 2),
+       (12, 'Tạo sản phẩm mới: Cá hộp', '2022-01-20 15:57:56.41+00', 3),
+       (13, 'Tạo sản phẩm mới: Đùi bò nhập khẩu đông lạnh', '2022-01-20 15:59:15.954+00', 4),
+       (14, 'Thêm gói nhu yêu phầm mới: Gói rau củ quả', '2022-01-20 16:00:59.314+00', 2),
+       (15, 'Tạo sản phẩm mới: Má đùi gà nhập khẩu túi', '2022-01-20 16:01:04.221+00', 4),
+       (16, 'Tạo sản phẩm mới: Mực ghim nhập khẩu đông lạnh', '2022-01-20 16:02:43.045+00', 4),
+       (17, 'Thêm gói nhu yêu phầm mới: Gói trái cây, nấm', '2022-01-20 16:02:44.747+00', 2),
+       (18, 'Cập nhật sản phẩm: Gạo', '2022-01-20 16:04:49.29+00', 3),
+       (19, 'Cập nhật sản phẩm: Cá hộp', '2022-01-20 16:05:22.063+00', 3),
+       (20, 'Tạo sản phẩm mới: Chuối sấy', '2022-01-20 16:06:33.301+00', 3),
+       (21, 'Tạo sản phẩm mới: Nui', '2022-01-20 16:07:13.641+00', 3),
+       (22, 'Tạo sản phẩm mới: Thịt heo chà bông', '2022-01-20 16:08:11.915+00', 3),
+       (23, 'Thêm gói nhu yêu phầm mới: Thịt các loại', '2022-01-20 16:09:00.09+00', 4),
+       (24, 'Thêm gói nhu yêu phầm mới: Gói hải sản', '2022-01-20 16:09:57.006+00', 4),
+       (25, 'Thêm gói nhu yêu phầm mới: Gói sản phẩm thô', '2022-01-20 16:10:19.189+00', 3),
+       (26, 'Thêm gói nhu yêu phầm mới: Gói sản phẩm đồ ăn nhanh', '2022-01-20 16:12:26.138+00', 3),
+       (27, 'Cập nhật gói nhu yếu phẩm: Gói sản phẩm thô', '2022-01-20 16:13:24.592+00', 3),
+       (28, 'Tạo mới bệnh nhân: Phan Thái Duy', '2022-01-20 16:17:53.191+00', 2),
+       (29, 'Tạo mới bệnh nhân: Nguyen Tho Tuan', '2022-01-20 16:18:00.354+00', 4),
+       (30, 'Tạo mới bệnh nhân: Lê Văn', '2022-01-20 16:18:30.723+00', 3),
+       (31, 'Tạo mới bệnh nhân: Nguyễn Văn Vũ', '2022-01-20 16:20:17.494+00', 3),
+       (32, 'Tạo mới bệnh nhân: Lê Hoài Lâm', '2022-01-20 16:21:13.593+00', 2),
+       (33, 'Tạo mới bệnh nhân: Lê Văn Tú', '2022-01-20 16:21:59.202+00', 3),
+       (34, 'Cập nhật thông tin bệnh nhân: Phan Thái Duy', '2022-01-20 16:22:55.711+00', 2),
+       (35, 'Tạo mới bệnh nhân: Lê Văn Vũ', '2022-01-20 16:23:36.747+00', 4),
+       (36, 'Cập nhật thông tin bệnh nhân: Lê Hoài Lâm', '2022-01-20 16:24:07.505+00', 2),
+       (37, 'Tạo mới bệnh nhân: Phan Thị Mến', '2022-01-20 16:24:43.977+00', 4),
+       (38, 'Thanh toán đơn hàng 1 số tiền 339000', '2022-01-20 16:27:01.155+00', 8),
+       (39, 'Thanh toán đơn hàng 2 số tiền 238000', '2022-01-20 16:27:40.934+00', 6);
+
+
+INSERT INTO "category" ("id", "limit_person", "limit_time", "name")
+VALUES (1, 10, 'WEEK', 'Gói rau củ quả'),
+       (2, 5, 'MONTH', 'Gói trái cây, nấm'),
+       (3, 20, 'DATE', 'Thịt các loại'),
+       (4, 10, 'MONTH', 'Gói hải sản'),
+       (6, 10, 'WEEK', 'Gói sản phẩm đồ ăn nhanh'),
+       (5, 5, 'WEEK', 'Gói sản phẩm thô');
+
+INSERT INTO "hospital_histories" ("id", "export_time", "hospital_name", "import_time", "patient_id")
+VALUES (1, NULL, 'Bệnh Viện Đa Khoa Thủ Đức', '2022-01-20 16:04:55.526+00', 1),
+       (3, NULL, 'Bệnh viện Chợ Rẫy', '2022-01-20 16:17:59.346+00', 3),
+       (4, NULL, 'Bệnh Viện Nhân Dân Gia Định', '2022-01-20 16:18:28.498+00', 4),
+       (5, NULL, 'Bệnh viện Y Học Dược', '2022-01-20 16:20:16.31+00', 5),
+       (6, NULL, 'Bệnh viện chấn thương chỉnh hình', '2022-01-20 16:21:11.171+00', 6),
+       (7, NULL, 'Bệnh Viện Đa Khoa Thủ Đức', '2022-01-20 16:21:57.004+00', 7),
+       (2, '2022-01-20 16:22:54.452+00', 'Bệnh viện Chợ Rẫy', '2022-01-20 16:17:50.855+00', 2),
+       (8, NULL, 'Bệnh Viện Nhân Dân Gia Định', '2022-01-20 16:22:55.24+00', 2),
+       (9, NULL, 'Khu điều trị quận 9', '2022-01-20 16:23:34.561+00', 8),
+       (10, NULL, 'Bệnh viện Nhân Dân 115', '2022-01-20 16:24:41.564+00', 9);
+
+INSERT INTO "image" ("id", "path", "product_id")
+VALUES (2, '1642693769973-bi-do-ho-lo-tui-700g-202012282211425458.jpg', 1),
+       (3, '1642693769980-bi-do-ho-lo-tui-700g-202012282211419654.jpg', 1),
+       (4, '1642693850169-bi-dao-goi-500g-202112312052060937.jpg', 2),
+       (5, '1642693850176-bi-dao-goi-500g-202112312052055408.jpg', 2),
+       (6, '1642693850179-bi-dao-goi-500g-202112312052049433.jpg', 2),
+       (7, '1642693909872-thitheo1.jpg', 3),
+       (8, '1642693909874-thit2.jpg', 3),
+       (9, '1642693909875-thit3.jpg', 3),
+       (10, '1642693909877-thit4.jpg', 3),
+       (13, '1642693945408-cai-ngot-baby-htx-cu-chi-goi-300g-202201051108062898.jpg', 4),
+       (14, '1642694025270-cam-vang-valencia-uc-hop-1kg-4-5-trai-202101271645511757.jpg', 5),
+       (15, '1642694025272-cam-vang-valencia-uc-hop-1kg-4-5-trai-202101271645517121.jpg', 5),
+       (16, '1642694025277-cam-vang-valencia-ai-cap-nhap-khau-hop-1kg-4-5-trai-201905241825574425.jpg', 5),
+       (17, '1642694120747-nam-dui-ga-vi-200g-202011071708454643.jpg', 6),
+       (18, '1642694120748-nam-dui-ga-vi-200g-202011071708459966.jpg', 6),
+       (19, '1642694120749-nam-dui-ga-vi-200g-202011071708467231.jpg', 6),
+       (23, '1642694140395-suon-non-heo-meat-master-khay-400g-202111201218415591.jpg', 8),
+       (24, '1642694140390-suon-non-heo-meat-master-khay-400g-9-11-mieng-202112021434046777.jpg', 8),
+       (25, '1642694140391-suon-non-heo-meat-master-khay-400g-9-11-mieng-202112021434051447.jpg', 8),
+       (26, '1642694140397-suon-non-heo-meat-master-khay-400g-202111201245196376.jpeg', 8),
+       (27, '1642694162004-bi-do-ho-lo-tui-700g-202012282211431952.jpg', 1),
+       (28, '1642694208565-cai-ngot-baby-htx-cu-chi-goi-300g-202201051108059430.jpg', 4),
+       (29, '1642694208577-cai-ngot-baby-htx-cu-chi-goi-300g-202201051108059430.jpg', 4),
+       (33, '1642694355189-dui-bo-nhap-khau-dong-lanh-tui-500g-202201171735160203.jpg', 10),
+       (34, '1642694355183-dui-bo-nhap-khau-dong-lanh-tui-500g-202110021939376203.jpg', 10),
+       (35, '1642694355194-dui-bo-nhap-khau-dong-lanh-tui-500g-202201171735167500.jpg', 10),
+       (36, '1642694355331-dui-bo-nhap-khau-dong-lanh-tui-500g-202201171735175355.jpg', 10),
+       (37, '1642694463732-ma-dui-ga-nhap-khau-tui-500g-202107101441018927.jpeg', 11),
+       (38, '1642694463732-ma-dui-ga-nhap-khau-tui-500g-202107101441012437.jpeg', 11),
+       (39, '1642694463733-ma-dui-ga-nhap-khau-tui-500g-202107101441025411.jpeg', 11),
+       (40, '1642694562404-muc-ghim-nhap-khau-dong-lanh-tui-300g-202109281340140538.jpg', 12),
+       (41, '1642694562406-muc-ghim-nhap-khau-dong-lanh-tui-300g-202109281340149397.jpg', 12),
+       (42, '1642694562407-muc-ghim-nhap-khau-dong-lanh-tui-300g-202109281340157500.jpg', 12),
+       (43, '1642694688235-gao2.jpg', 7),
+       (44, '1642694688246-gao3.jpg', 7),
+       (45, '1642694688247-gaojpg.jpg', 7),
+       (46, '1642694720970-ca họp 2.jpg', 9),
+       (47, '1642694720977-ca hop.jpg', 9),
+       (48, '1642694720978-cahop3.jpg', 9),
+       (49, '1642694792654-chuoi 3.jpg', 13),
+       (50, '1642694792654-chuoi.jpg', 13),
+       (51, '1642694792657-chuoi2.jpg', 13),
+       (52, '1642694832988-nui.jpg', 14),
+       (53, '1642694832989-nui2.jpg', 14),
+       (54, '1642694832993-nui3.jpg', 14),
+       (55, '1642694891248-nuisay 2.jpg', 15),
+       (56, '1642694891249-nuisay1.jpg', 15),
+       (57, '1642694891250-nuisay3.jpg', 15);
+
+
+INSERT INTO "order_product" ("id", "quantity", "order_id", "product_id", "category_id", "amount")
+VALUES (1, 1, 1, 4, 1, 20000),
+       (2, 1, 1, 1, 1, 18000),
+       (3, 1, 1, 5, 2, 60000),
+       (4, 1, 1, 6, 2, 23000),
+       (5, 1, 1, 1, 2, 18000),
+       (6, 1, 1, 8, 3, 130000),
+       (7, 1, 1, 3, 3, 70000),
+       (8, 1, 2, 1, 1, 18000),
+       (9, 1, 2, 4, 1, 20000),
+       (10, 1, 2, 8, 3, 130000),
+       (11, 1, 2, 3, 3, 70000);
+
+INSERT INTO "orders" ("id", "created_time", "patient_id", "total_amount", "total_category")
+VALUES (1, '2022-01-20 16:27:00.062+00', 4, 339000, 3),
+       (2, '2022-01-20 16:27:40.437+00', 2, 238000, 2);
+
+INSERT INTO "patient" ("id", "credit", "debt", "identity", "name", "payment_min", "status", "district_id",
+                       "hospital_id", "parent_id", "province_id", "ward_id", "dob", "create_date", "modified_date")
+VALUES (1, 5000000, 0, '171291817', 'Hoàng Minh Vũ', 5000, '0', 58, 2, NULL, 6, 1840, '1999-01-19 00:00:00',
+        '2022-01-20 15:44:40.017+00', '2022-01-20 15:44:40.017+00'),
+       (3, 5000000, 0, '171287811', 'Nguyen Tho Tuan', 5000, '1', 20, 4, NULL, 1, 646, '2000-03-09 00:00:00',
+        '2022-01-20 16:13:45.382+00', '2022-01-20 16:13:45.382+00'),
+       (4, 5000000, 339000, '171292816', 'Lê Văn', 5000, '1', 52, 1, 1, 4, 1735, '1999-03-04 00:00:00',
+        '2022-01-20 16:13:45.382+00', '2022-01-20 16:13:45.382+00'),
+       (5, 5000000, 0, '171265714', 'Nguyễn Văn Vũ', 5000, '2', 29, 6, 4, 2, 877, '1999-03-12 00:00:00',
+        '2022-01-20 16:13:45.382+00', '2022-01-20 16:13:45.382+00'),
+       (7, 5000000, 0, '178221549', 'Lê Văn Tú', 5000, '2', 52, 2, 5, 4, 1732, '1999-07-08 00:00:00',
+        '2022-01-20 16:13:45.382+00', '2022-01-20 16:13:45.382+00'),
+       (2, 5000000, 238000, '171291812', 'Phan Thái Duy', 5000, '3', 47, 1, NULL, 4, 1471, '2021-12-28 00:00:00',
+        '2022-01-20 16:13:45.382+00', '2022-01-20 16:22:53.973+00'),
+       (8, 5000000, 0, '171287812', 'Lê Văn Vũ', 5000, '2', 45, 3, 3, 4, 1372, '1999-12-01 00:00:00',
+        '2022-01-20 16:13:45.382+00', '2022-01-20 16:13:45.382+00'),
+       (6, 5000000, 0, '171291818', 'Lê Hoài Lâm', 5000, '4', 72, 7, NULL, 8, 2230, '2021-12-26 00:00:00',
+        '2022-01-20 16:13:45.382+00', '2022-01-20 16:24:06.877+00'),
+       (9, 5000000, 0, '171287813', 'Phan Thị Mến', 5000, '1', 28, 5, 3, 2, 823, '1992-01-16 00:00:00',
+        '2022-01-20 16:13:45.382+00', '2022-01-20 16:13:45.382+00');
+
+INSERT INTO "product" ("id", "amount", "name", "unit")
+VALUES (3, 70000, 'Thịt đùi heo C.P khay 500g', 'kg'),
+       (5, 60000, 'Cam vàng', 'Kg'),
+       (6, 23000, 'Nấm đùi gà', 'Gram'),
+       (8, 130000, 'Sườn non heo Meat Master khay 400g (9-11 miếng)', 'khay'),
+       (1, 18000, 'Bí đỏ hồ lô', 'Gram'),
+       (2, 15000, 'Bí đao', 'Gram'),
+       (4, 20000, 'Cải ngọt', 'Gram'),
+       (10, 129500, 'Đùi bò nhập khẩu đông lạnh', 'túi'),
+       (11, 23500, 'Má đùi gà nhập khẩu túi', 'túi'),
+       (12, 20000, 'Mực ghim nhập khẩu đông lạnh', 'con'),
+       (7, 15000, 'Gạo', 'Ký'),
+       (9, 15000, 'Cá hộp', 'hộp'),
+       (13, 25000, 'Chuối sấy', 'Gói'),
+       (14, 20000, 'Nui', 'Gói'),
+       (15, 50000, 'Thịt heo chà bông', 'Hộp');
+
+INSERT INTO "product_categories" ("id", "limit_product", "category_id", "product_id")
+VALUES (1, 5, 1, 4),
+       (2, 4, 1, 1),
+       (3, 20, 2, 5),
+       (4, 10, 2, 6),
+       (5, 5, 2, 1),
+       (6, 5, 3, 8),
+       (7, 2, 3, 3),
+       (8, 20, 4, 12),
+       (9, 10, 4, 10),
+       (10, 2, 5, 7),
+       (11, 3, 5, 14),
+       (12, 5, 6, 13),
+       (13, 5, 6, 15);
+
+INSERT INTO "status_histories" ("id", "destination", "source", "patient_id", "created_date")
+VALUES (1, '3', '1', 2, '2022-01-20 16:22:53.811+00'),
+       (2, '4', '5', 6, '2022-01-20 16:24:06.72+00');
+
+INSERT INTO "transaction_histories" ("id", "amount", "created_date", "description", "patient_id", "code")
+VALUES (1, 339000, '2022-01-20 16:27:01.316+00', 'Thanh toán đơn hàng 1', 4, '0424e6ad-a0ce-46fe-85ca-56785f8e4a10'),
+       (2, 238000, '2022-01-20 16:27:41.104+00', 'Thanh toán đơn hàng 2', 2, 'ed72b9ba-91ee-4489-a48f-28863bf35fc3');
