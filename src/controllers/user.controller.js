@@ -243,6 +243,9 @@ const getAllNotification = async (req, res, next) => {
     const { patientId } = req.params;
     const notifications = await notificationService.findByPatientId(patientId);
     res.render('users/user-notification', { notifications });
+    for (const notification of notifications) {
+        notification.update({ view: true });
+    }
     // res.json( notifications);
 };
 module.exports = {

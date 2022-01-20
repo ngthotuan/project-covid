@@ -13,16 +13,14 @@ const findByPatientId = async (patientId) => {
             patient_id: patientId,
         },
     });
-    for (const notification of notifications) {
-        await notification.update({ view: true });
-    }
+
     return notifications;
 };
 const countByPatintId = async (patientId) => {
     if (!patientId) {
         return 0;
     }
-    return NotificationModel.count({
+    return await NotificationModel.count({
         where: {
             view: false,
             patient_id: patientId,
