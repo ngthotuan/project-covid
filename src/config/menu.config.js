@@ -94,10 +94,10 @@ const menu = [
         icon: 'gi gi-sampler',
         url: '/payments',
         sub: [
-            {
-                name: 'Thay đổi hạn mức',
-                url: '/payments/change-limit',
-            },
+            // {
+            //     name: 'Thay đổi hạn mức',
+            //     url: '/payments/change-limit',
+            // },
             {
                 name: 'Duyệt danh sách',
                 url: '/payments',
