@@ -6,6 +6,7 @@ const {
     cartService,
     orderService,
     transactionHistoryService,
+    notificationService,
 } = require('../services');
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
@@ -238,6 +239,12 @@ const getOrderDetail = async (req, res) => {
     });
 };
 
+const getAllNotification = async (req, res, next) => {
+    const { patientId } = req.params;
+    const notifications = await notificationService.findByPatientId(patientId);
+    res.render('users/user-notification', { notifications });
+    // res.json( notifications);
+};
 module.exports = {
     getProfile,
     getTransactionHistory,
@@ -255,4 +262,5 @@ module.exports = {
     addToCart,
     deleteCartItem,
     getOrderDetail,
+    getAllNotification,
 };

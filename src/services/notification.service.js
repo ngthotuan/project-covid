@@ -14,8 +14,19 @@ const findByPatientId = async (patientId) => {
         },
     });
 };
+const countByPatintId = async (patientId) => {
+    if (!patientId) {
+        return 0;
+    }
+    return NotificationModel.count({
+        where: {
+            patient_id: patientId,
+        },
+    });
+};
 
 module.exports = {
     save,
     findByPatientId,
+    countByPatintId,
 };

@@ -24,12 +24,12 @@ module.exports = function (sequelize, DataTypes) {
             create_date: {
                 type: DataTypes.DATE,
                 allowNull: true,
-                default: Date.now(),
+                defaultValue: Date.now(),
             },
             modified_date: {
                 type: DataTypes.DATE,
                 allowNull: true,
-                default: Date.now(),
+                defaultValue: Date.now(),
             },
             identity: {
                 type: DataTypes.STRING(255),

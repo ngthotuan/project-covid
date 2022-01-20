@@ -13,6 +13,10 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
+            created_date: {
+                type: DataTypes.DATE,
+                defaultValue: Date.now(),
+            },
             patient_id: {
                 type: DataTypes.INTEGER,
                 allowNull: true,

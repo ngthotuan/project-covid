@@ -1,6 +1,6 @@
 const moment = require('moment-timezone');
 const { menu } = require('../config');
-const { cartService } = require('../services');
+const { cartService, notificationService } = require('../services');
 
 module.exports = (app) => {
     app.use(async (req, res, next) => {
@@ -12,6 +12,8 @@ module.exports = (app) => {
         res.locals.cart_count = await cartService.countByPatientId(
             req?.user?.patient_id,
         );
+        res.locals.notification_count =
+            await notificationService.countByPatintId(req?.user?.patient_id);
         next();
     });
 };

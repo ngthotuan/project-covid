@@ -61,6 +61,14 @@
   <ul class="nav navbar-nav-custom pull-right">
     <!-- Shopping card -->
     <% if(user.role === 'USER'){ %>
+      <li>
+        <a href="/users/notification/<%=user.patient_id%>">
+          <i class="fa fa-3x fa-bell text-danger"></i>
+          <span class="label label-primary label-indicator animation-floating"
+          ><%= notification_count?notification_count:0 %></span
+          >
+        </a>
+      </li>
     <li>
       <a href="/users/cart">
         <i class="fa fa-3x fa-cart-plus text-danger"></i>
@@ -69,6 +77,7 @@
         >
       </a>
     </li>
+
     <% } %>
     <!-- END Shopping card -->
 
