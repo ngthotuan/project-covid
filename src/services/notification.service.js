@@ -12,6 +12,7 @@ const findByPatientId = async (patientId) => {
         where: {
             patient_id: patientId,
         },
+        order: [['created_date', 'DESC']],
     });
 
     return notifications;
