@@ -11,21 +11,7 @@ const getCreateAccount = (req, res, next) => {
 
 const postCreateAccount = async (req, res, next) => {
     const username = req.body.username;
-    const password = req.body.password;
-    const confirmPassword = req.body.confirmPassword;
     const role = req.body.role;
-
-    if (!username || !password) {
-        req.flash('username', username);
-        req.flash('password', password);
-        req.flash('error_msg', 'Thiếu trường username hoặc password');
-        return res.redirect('/managers/create');
-    }
-
-    if (!confirmPassword || confirmPassword !== password) {
-        req.flash('error_msg', 'Vui lòng xác nhận lại mật khẩu');
-        return res.redirect('/managers/create');
-    }
 
     try {
         const existedAccount = await accountService.findAccountByUsername(
@@ -33,20 +19,13 @@ const postCreateAccount = async (req, res, next) => {
         );
         if (existedAccount) {
             req.flash('error_msg', 'Username đã tồn tại');
-            req.flash('username', username);
-            res.redirect('/managers/create');
+            return res.redirect('/managers/create');
         }
 
-        const newAccount = await accountService.createAccount(
-            username,
-            password,
-            role,
-        );
-        req.flash('success_msg', 'Tạo tài khoản khẩu thành công');
+        await accountService.createAccount(username, role);
+        req.flash('success_msg', 'Tạo tài khoản thành công');
         return res.redirect('/managers');
     } catch (err) {
-        req.flash('username', username);
-        req.flash('password', password);
         req.flash('error_msg', 'Đã có lỗi xảy ra');
         console.log(err);
         return res.redirect('/managers');

@@ -9,7 +9,7 @@ function findAll(condition) {
 }
 
 const findAccountByUsername = (username) => {
-    return AccountModel.findOne({ where: { username: username } });
+    return AccountModel.findOne({ where: { username } });
 };
 
 const createPasswordInLogin = async (username, password) => {
@@ -25,11 +25,9 @@ const createPasswordInLogin = async (username, password) => {
     return account;
 };
 
-const createAccount = async (username, password, role) => {
-    const passwordHashed = bcrypt.hashSync(password, 8);
+const createAccount = async (username, role) => {
     const newAccount = await AccountModel.create({
         username: username,
-        password: passwordHashed,
         role: role,
         blocked: false,
         balance: 0,
