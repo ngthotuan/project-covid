@@ -1,6 +1,11 @@
 const { sequelize } = require('../db');
-const { OrdersModel, OrderProductModel, ProductModel, CategoryModel } =
-    require('../models')(sequelize);
+const {
+    OrdersModel,
+    OrderProductModel,
+    ProductModel,
+    CategoryModel,
+    PatientModel,
+} = require('../models')(sequelize);
 
 const findById = (id) => {
     return OrdersModel.findOne({
@@ -10,7 +15,7 @@ const findById = (id) => {
     });
 };
 
-const save = (categories, totalAmount, patientId) => {
+const save = async (categories, totalAmount, patientId) => {
     const order = {
         created_time: Date.now(),
         patient_id: patientId,
@@ -29,6 +34,10 @@ const save = (categories, totalAmount, patientId) => {
             })
             .flat(),
     };
+    const patient = await PatientModel.findByPk(patientId);
+    await patient.update({
+        debt: patient.debt + totalAmount,
+    });
     return OrdersModel.create(order, {
         include: 'order_products',
     });
