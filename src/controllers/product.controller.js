@@ -1,4 +1,4 @@
-const { productService } = require('../services');
+const { productService, accountHistoryService } = require('../services');
 
 const index = async (req, res, next) => {
     try {
@@ -22,6 +22,10 @@ const postCreate = async (req, res, next) => {
         });
         await productService.create(req.body);
         req.flash('success_msg', 'Thêm sản phẩm thành công');
+        accountHistoryService.log(
+            req.user.id,
+            'Tạo sản phẩm mới: ' + req.body.name,
+        );
         res.redirect('/products');
     } catch (error) {
         next(error);
@@ -51,6 +55,10 @@ const postEdit = async (req, res, next) => {
         });
         await productService.update(id, req.body);
         req.flash('success_msg', 'Cập nhật sản phẩm thành công');
+        accountHistoryService.log(
+            req.user.id,
+            'Cập nhật sản phẩm: ' + req.body.name,
+        );
         res.redirect('/products');
     } catch (error) {
         console.log(error);
@@ -80,6 +88,7 @@ const remove = async (req, res, next) => {
         const id = req.params.id;
         await productService.remove(id);
         req.flash('success_msg', 'Xóa sản phẩm thành công');
+        accountHistoryService.log(req.user.id, 'Xóa sản phẩm id: ' + id);
         return res.redirect('/products');
     } catch (error) {
         if (error.name === 'SequelizeForeignKeyConstraintError') {

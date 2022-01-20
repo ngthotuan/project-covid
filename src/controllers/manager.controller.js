@@ -100,8 +100,6 @@ const getUnBlockAccount = async (req, res, next) => {
     res.redirect('/managers');
 };
 
-const getUpdate = async (req, res, next) => {};
-
 module.exports = {
     getCreateAccount,
     postCreateAccount,
@@ -109,5 +107,4 @@ module.exports = {
     getBlockAccount,
     getById,
     getUnBlockAccount,
-    getUpdate,
 };
