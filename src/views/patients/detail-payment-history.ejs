@@ -1,31 +1,45 @@
 <div class="block">
-    <div class="block-title">
-        <h2><i class="fa fa-paypal"></i> <strong>Lịch sử giao dịch </strong>(<%= transaction_histories?.length %>)</h2>
-    </div>
-    <% if(transaction_histories?.length) { %>
-        <table id="detail-payment-history" class="table table-bordered table-striped table-vcenter">
-            <thead>
-            <tr>
-                <th class="text-center" style="width: 70px;">Mã</th>
-                <th class="hidden-xs text-center">Mô tả</th>
-                <th class="text-center">Số tiền</th>
-                <th class="hidden-xs text-center">Ngày tạo</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% transaction_histories.forEach((transaction_history, index) => { %>
-                <tr>
-                    <td class="text-center"><%= index + 1 %></td>
-                    <td class="hidden-xs text-center"><%= transaction_history.description %></td>
-                    <td class="text-center"><%= transaction_history.amount %></td>
-                    <td class="hidden-xs text-center"><%= moment(transaction_history.created_date).tz('Asia/Ho_Chi_Minh').format('DD-MM-YYYY, hh:mm:ss') %></td>
-                </tr>
-            <% }) %>
-            </tbody>
-        </table>
-    <% } else { %>
-        <div class="alert alert-info">
-            <h4><i class="fa fa-info-circle"></i>Không có lịch sử giao dịch.</h4>
-        </div>
-    <% } %>
+  <div class="block-title">
+    <h2>
+      <i class="fa fa-paypal"></i>
+      <strong>Lịch sử giao dịch </strong>(<%=transaction_histories?.length %>)
+    </h2>
+  </div>
+  <% if(transaction_histories?.length) { %>
+  <table
+    id="detail-payment-history"
+    class="table table-bordered table-striped table-vcenter"
+  >
+    <thead>
+      <tr>
+        <th class="text-center" style="width: 70px">Mã</th>
+        <th class="hidden-xs text-center">Mô tả</th>
+        <th class="text-center">Số tiền</th>
+        <th class="hidden-xs text-center">Ngày tạo</th>
+        <th class="hidden-xs text-center">Mã giao dịch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% transaction_histories.forEach((transaction_history, index) => { %>
+      <tr>
+        <td class="text-center"><%= index + 1 %></td>
+        <td class="hidden-xs text-center">
+          <%= transaction_history.description %>
+        </td>
+        <td class="text-center"><%= transaction_history.amount %></td>
+        <td class="hidden-xs text-center">
+          <%=
+          moment(transaction_history.created_date).tz('Asia/Ho_Chi_Minh').format('DD-MM-YYYY,hh:mm:ss')
+          %>
+        </td>
+        <td class="text-center"><%= transaction_history?.code %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } else { %>
+  <div class="alert alert-info">
+    <h4><i class="fa fa-info-circle"></i>Không có lịch sử giao dịch.</h4>
+  </div>
+  <% } %>
 </div>

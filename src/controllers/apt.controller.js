@@ -6,7 +6,7 @@ const callbackPayment = async (req, res, next) => {
     const { token, success } = req.query;
     if (success) {
         try {
-            const { amount, dataCallback } = jsonwebtoken.verify(
+            const { amount, dataCallback, code } = jsonwebtoken.verify(
                 token,
                 process.env.CLIENT_SECRET,
             );
@@ -24,6 +24,7 @@ const callbackPayment = async (req, res, next) => {
                 created_date: Date.now(),
                 description: `Thanh toán dư nợ`,
                 patient_id: patient.id,
+                code,
             });
             req.flash('success_msg', 'Thanh toán thành công');
         } catch (err) {
