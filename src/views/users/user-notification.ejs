@@ -12,15 +12,17 @@
                         <tr>
                             <th class="text-center" style="width: 70px;">Mã</th>
                             <th class="hidden-xs text-center">Thông báo</th>
+                            <th class="hidden-xs text-center">Trạng thái</th>
                             <th class="hidden-xs text-center">Ngày thông báo</th>
                             <th class="hidden-xs text-center">Hành động</th>
                         </tr>
                         </thead>
                         <tbody>
                         <% notifications.forEach((notification) => { %>
-                            <tr>
+                            <tr >
                                 <td class="hidden-xs text-center"><%= notification.id %></td>
                                 <td class="hidden-xs text-center"><%= notification.description %></td>
+                                <td class="hidden-xs text-center"><%= notification.view?'Đã xem':'Chưa xem'%></td>
                                 <td class="hidden-xs text-center"><%= moment(notification.created_date).tz('Asia/Ho_Chi_Minh').format('DD-MM-YYYY, hh:mm:ss') %></td>
                                 <td class="text-center">
                                     <div class="btn-group btn-group-xs">

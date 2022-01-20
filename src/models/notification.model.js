@@ -17,6 +17,10 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.DATE,
                 defaultValue: Date.now(),
             },
+            view: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
             patient_id: {
                 type: DataTypes.INTEGER,
                 allowNull: true,
