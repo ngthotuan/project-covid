@@ -2,11 +2,13 @@ const {
     patientService,
     provinceService,
     hospitalService,
+    accountHistoryService,
 } = require('../services');
 const { PatientStatusConstant } = require('../constants/');
 const { Op } = require('sequelize');
 require('dotenv').config();
 const axios = require('axios');
+const { logger } = require('../utils');
 const { HOST_PAYMENT } = process.env;
 
 const getList = async (req, res, next) => {
@@ -23,7 +25,7 @@ const getList = async (req, res, next) => {
     };
     if (req.query.id != null) return next();
     const listPatient = await patientService.findAll(condition);
-    res.render('patients/list', { listPatient });
+    res.render('patients/list', { patients: listPatient.rows });
 };
 const getCreate = async (req, res, next) => {
     const condition = {
@@ -68,6 +70,10 @@ const postCreate = async (req, res, next) => {
         return res.redirect('back');
     }
     req.flash('success_msg', 'Tạo bệnh nhân thành công');
+    accountHistoryService.log(
+        req.user.id,
+        'Tạo mới bệnh nhân: ' + req.body.name,
+    );
     res.redirect('back');
 };
 const getUpdate = async (req, res, next) => {
@@ -97,7 +103,11 @@ const getUpdate = async (req, res, next) => {
 };
 const postUpdate = async (req, res, next) => {
     try {
-        const patientUpdate = await patientService.update({ ...req.body });
+        await patientService.update({ ...req.body });
+        accountHistoryService.log(
+            req.user.id,
+            'Cập nhật thông tin bệnh nhân: ' + req.body.name,
+        );
         res.redirect('back');
     } catch (e) {
         console.log(e);

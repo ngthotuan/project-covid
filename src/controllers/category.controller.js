@@ -1,4 +1,8 @@
-const { categoryService, productService } = require('../services');
+const {
+    categoryService,
+    productService,
+    accountHistoryService,
+} = require('../services');
 
 const getList = async (req, res, next) => {
     const categories = await categoryService.findAll();
@@ -40,8 +44,12 @@ const postCreate = async (req, res, next) => {
     };
 
     try {
-        const categorySaved = await categoryService.createCategory(category);
+        await categoryService.createCategory(category);
         req.flash('success_msg', 'Thêm sản phẩm thành công');
+        accountHistoryService.log(
+            req.user.id,
+            'Thêm gói nhu yêu phầm mới: ' + category.name,
+        );
     } catch (err) {
         req.flash('error_msg', 'Thêm sản phẩm thất bại');
     }
@@ -49,7 +57,6 @@ const postCreate = async (req, res, next) => {
 };
 
 const getUpdate = async (req, res, next) => {
-    console;
     const id = req.params.id;
     const category = await categoryService.findById(id);
     const products = await productService.findAll();
@@ -84,15 +91,16 @@ const postUpdate = async (req, res, next) => {
         limit_person: req.body.limit_person,
         limit_time: req.body.limit_time,
     };
-    // try {
-    const categoryUpdated = await categoryService.update(
-        category,
-        product_categories,
-    );
-    req.flash('success_msg', 'Cập nhật sản phẩm thành công');
-    // } catch (err) {
-    //     req.flash('error_msg', 'Cập nhật sản phẩm thất bại');
-    // }
+    try {
+        await categoryService.update(category, product_categories);
+        req.flash('success_msg', 'Cập nhật gói nhu yếu phẩm thành công');
+        accountHistoryService.log(
+            req.user.id,
+            'Cập nhật gói nhu yếu phẩm: ' + category.name,
+        );
+    } catch (err) {
+        req.flash('error_msg', 'Cập nhật gói nhu yếu phẩm thất bại');
+    }
     res.redirect('/categories');
 };
 
@@ -102,6 +110,10 @@ const destroy = async (req, res, next) => {
         const category = await categoryService.destroy(id);
         if (category) {
             req.flash('success_msg', 'Xoá gói sản phẩm thành công');
+            accountHistoryService.log(
+                req.user.id,
+                'Xóa gói nhu yếu phẩm: ' + category.name,
+            );
         } else {
             req.flash('error_msg', 'Không tìm thấy gói sản phẩm');
         }

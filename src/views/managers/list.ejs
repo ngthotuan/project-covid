@@ -45,7 +45,7 @@
             <tbody>
             <% accounts.forEach(function(account,index) { %>
             <tr>
-                <td class="text-center"><a href="/managers?id=<%= account.id %>"><strong><%= index +1 %></strong></a></td>
+                <td class="text-center"><%= account.id %></td>
                 <td><a href="/managers/<%= account.id %>"><%= account.username %></a></td>
                 <td class="text-center hidden-xs"><%= account.role %></td>
                 <%if(account.blocked){%>
@@ -55,8 +55,8 @@
                         <%}%>
                 <td class="text-center">
                     <div class="btn-group btn-group-xs">
-                        <a href="/managers/edit/<%= account.id %>" data-toggle="tooltip" title="Edit" class="btn btn-default"><i
-                                class="fa fa-pencil"></i></a>
+                        <a href="/managers/<%= account.id %>" data-toggle="tooltip" title="Xem chi tiết" class="btn btn-default"><i
+                                class="fa fa-file"></i></a>
                         <%if(account.blocked){%>
                             <button id="<%= account.id %>" data-toggle="tooltip" onclick="showConfirmUnBlock(this)" title="Mở khóa tài khoản"
                                 class="btn-delete btn btn-xs btn-danger">

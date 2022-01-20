@@ -10,5 +10,6 @@ module.exports = {
     cartService: require('./cart.service'),
     orderService: require('./order.service'),
     transactionHistoryService: require('./transaction-history.service'),
+    notificationService: require('./notification.service'),
     statusHistoryService: require('./status-history.service'),
 };

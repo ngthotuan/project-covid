@@ -11,6 +11,7 @@ function route(app) {
     app.use('/users', require('./user.route'));
     app.use('/', require('./site.route'));
     app.use('/managers', require('./manager.route'));
+    app.use('/payments', require('./payment.route'));
 }
 
 module.exports = route;

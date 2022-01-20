@@ -75,7 +75,6 @@ const update = async (category, productcategoriesUpdate) => {
             ({ product_id }) => product_id === productCategoryUpdate.product_id,
         );
 
-        console.log(productCategoryUpdate);
         if (checkFind < 0) {
             await ProductCategoryModel.create(productCategoryUpdate);
         }
