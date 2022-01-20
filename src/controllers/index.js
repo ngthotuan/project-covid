@@ -8,5 +8,6 @@ module.exports = {
     managerController: require('./manager.controller'),
     userController: require('./user.controller'),
     aptController: require('./apt.controller'),
+    paymentController: require('./payment.controller'),
     ...require('./api'),
 };

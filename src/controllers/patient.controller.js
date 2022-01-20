@@ -23,7 +23,7 @@ const getList = async (req, res, next) => {
     };
     if (req.query.id != null) return next();
     const listPatient = await patientService.findAll(condition);
-    res.render('patients/list', { listPatient });
+    res.render('patients/list', { patients: listPatient.rows });
 };
 const getCreate = async (req, res, next) => {
     const condition = {

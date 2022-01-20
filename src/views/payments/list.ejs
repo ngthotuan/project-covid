@@ -3,12 +3,12 @@
     <!-- Quick Stats -->
     <div class="row text-center">
         <div class="col-sm-6">
-            <a href="/patients/create" class="widget widget-hover-effect2">
+            <a href="/payments/notification" class="widget widget-hover-effect2">
                 <div class="widget-extra themed-background-success">
-                    <h4 class="widget-content-light"><strong>Thêm mới</strong> bệnh nhân</h4>
+                    <h4 class="widget-content-light"><strong>Thông báo</strong> toàn bộ</h4>
                 </div>
                 <div class="widget-extra-full"><span class="h2 text-success animation-expandOpen"><i
-                                class="fa fa-plus"></i></span></div>
+                                class="fa fa-paypal"></i></span></div>
             </a>
         </div>
         <div class="col-sm-6">
@@ -30,7 +30,7 @@
             <h2><strong>Tất cả</strong> sản phẩm</h2>
         </div>
         <!-- END All Products Title -->
-
+        <%- include('../partials/messages') %>
         <!-- All Products Content -->
         <table id="ecom-products" class="table table-bordered table-striped table-vcenter">
             <thead>
@@ -48,26 +48,26 @@
             </thead>
             <tbody>
             <% patients.forEach(function(patient,index) { %>
-            <tr>
-                <td class="text-center"><a href="/patients?id=<%= patient.id %>"><strong><%= index +1 %></strong></a></td>
-                <td><a href="/patients?id=<%= patient.id %>"><%= patient.name %></a></td>
-                <td><a href="/patients?id=<%= patient.id %>"><%= patient.identity %></a></td>
-                <%if(patient.status !==null){%>
-                <td class="text-center hidden-xs"><strong ><%= patient.status!=='-1'?'F'+patient.status:'Khỏi bệnh' %></strong></td>
-                <%} else {%>
-                <td class="hidden-xs text-center"><strong ></strong></td>
-                <%}%>
-                <td class="hidden-xs text-center"><%=  patient.ward?.name + ", "+patient.district?.name+", " + patient.province?.name  %></td>
-                <td class="hidden-xs text-center"><%= patient.hospital?.name %></td>
-                <td class="hidden-xs text-center"><%= patient.debt %></td>
-                <td class="hidden-xs text-center"><%= patient.credit %></td>
-                <td class="text-center">
-                    <div class="btn-group btn-group-xs">
-                        <a href="/patients/edit/<%= patient.id %>" data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-pencil"></i></a>
-<!--                        <a href="javascript:void(0)" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>-->
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td class="text-center"><a href="/patients?id=<%= patient.id %>"><strong><%= index +1 %></strong></a></td>
+                    <td><a href="/patients?id=<%= patient.id %>"><%= patient.name %></a></td>
+                    <td><a href="/patients?id=<%= patient.id %>"><%= patient.identity %></a></td>
+                    <%if(patient.status !==null){%>
+                        <td class="text-center hidden-xs"><strong ><%= patient.status!=='-1'?'F'+patient.status:'Khỏi bệnh' %></strong></td>
+                    <%} else {%>
+                        <td class="hidden-xs text-center"><strong ></strong></td>
+                    <%}%>
+                    <td class="hidden-xs text-center"><%=  patient.ward?.name + ", "+patient.district?.name+", " + patient.province?.name  %></td>
+                    <td class="hidden-xs text-center"><%= patient.hospital?.name %></td>
+                    <td class="hidden-xs text-center"><%= patient.debt %></td>
+                    <td class="hidden-xs text-center"><%= patient.credit %></td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <a href="/payments/notification/<%= patient.id %>" data-toggle="tooltip" title="Nhắc nhở thanh toán" class="btn btn-primary"><i class="fa fa-paypal"></i></a>
+                            <!--                        <a href="javascript:void(0)" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>-->
+                        </div>
+                    </td>
+                </tr>
             <% }); %>
             </tbody>
         </table>

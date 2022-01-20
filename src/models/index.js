@@ -16,6 +16,7 @@ const _status_histories = require('./status_histories.model');
 const _transaction_histories = require('./transaction_histories.model');
 const _ward = require('./ward.model');
 const _cart_item = require('./cart_item.model');
+const _notification = require('./notification.model');
 
 function initModels(sequelize) {
     const account = _account(sequelize, DataTypes);
@@ -35,7 +36,16 @@ function initModels(sequelize) {
     const transaction_histories = _transaction_histories(sequelize, DataTypes);
     const ward = _ward(sequelize, DataTypes);
     const cart_item = _cart_item(sequelize, DataTypes);
+    const notification = _notification(sequelize, DataTypes);
 
+    notification.belongsTo(patient, {
+        as: 'patient',
+        foreignKey: 'patient_id',
+    });
+    patient.hasMany(notification, {
+        as: 'notifications',
+        foreignKey: 'patient_id',
+    });
     account_histories.belongsTo(account, {
         as: 'account',
         foreignKey: 'account_id',
@@ -166,6 +176,7 @@ function initModels(sequelize) {
         TransactionHistoryModel: transaction_histories,
         WardModel: ward,
         CartItemModel: cart_item,
+        NotificationModel: notification,
     };
 }
 module.exports = initModels;
