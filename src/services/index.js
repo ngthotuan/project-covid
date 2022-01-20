@@ -11,4 +11,5 @@ module.exports = {
     orderService: require('./order.service'),
     transactionHistoryService: require('./transaction-history.service'),
     notificationService: require('./notification.service'),
+    statusHistoryService: require('./status-history.service'),
 };

@@ -6,7 +6,7 @@ const menu = [
         name: 'Dashboard',
         roles: [MANAGER],
         icon: 'gi gi-stopwatch',
-        url: '/',
+        url: '/dashboard',
     },
     {
         name: 'Bệnh Nhân',

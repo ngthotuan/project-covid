@@ -8,6 +8,7 @@ const {
     transactionHistoryService,
 } = require('../services');
 const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require('uuid');
 
 const {} = require('../services');
 const getList = async (req, res, next) => {
@@ -89,7 +90,6 @@ const getTransactionHistory = async (req, res, next) => {
 };
 const getBuyHistory = async (req, res, next) => {
     const patient = await patientService.getBuyHistory(req.user.patient_id);
-    console.log(patient.orders);
     res.render('users/user-buy-history', { patient });
 };
 const paymentDebt = async (req, res, next) => {
@@ -159,16 +159,19 @@ const postProductInCart = async (req, res, next) => {
         req.user.patient_id,
     );
     await cartService.deleteByPatientId(req.user.patient_id);
+
     await accountHistoryService.save({
         created_date: new Date(),
         account_id: req.user.id,
         action: `Thanh toán đơn hàng ${order.id} số tiền ${totalAmount}`,
     });
+    const code = uuidv4();
     await transactionHistoryService.save({
         amount: totalAmount,
         created_date: Date.now(),
         description: `Thanh toán đơn hàng ${order.id}`,
         patient_id: req.user.patient_id,
+        code,
     });
     req.flash('success_msg', 'Đặt hàng thành công!');
     res.redirect('/users/category-history');

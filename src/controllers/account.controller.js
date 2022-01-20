@@ -73,7 +73,14 @@ const postLoginPassword = (req, res, next) => {
             if (err) {
                 return res.redirect('/accounts/login');
             }
-            return res.redirect('/');
+            switch (user.role) {
+                case RoleConstants.MANAGER:
+                    return res.redirect('/dashboard');
+                case RoleConstants.USER:
+                    return res.redirect('/users/details');
+                default:
+                    return res.redirect('/');
+            }
         });
     })(req, res, next);
 };
