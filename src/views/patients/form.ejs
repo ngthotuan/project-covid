@@ -151,21 +151,21 @@
                         <label class="col-md-3 control-label" for="patient-debt">Tiền nợ(*)</label>
                         <div class="col-md-9">
                             <input type="number" id="patient-debt" name="debt" class="form-control"
-                                    placeholder="Nhập tiên nợ" value='<%= typeof patient !== 'undefined' ? patient.debt:""%>'>
+                                    placeholder="Nhập tiên nợ" value='<%= typeof patient !== 'undefined' ? patient.debt:0%>'>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="patient-credit">Tiền cho phép(*)</label>
                         <div class="col-md-9">
                             <input type="number" id="patient-credit" name="credit" class="form-control"
-                                    placeholder="Nhập tiền cho phép" value='<%= typeof patient !== 'undefined' ? patient.credit:""%>'>
+                                    placeholder="Nhập tiền cho phép" value='<%= typeof patient !== 'undefined' ? patient.credit:5000000%>'>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="patient-payment-min">Số tiền chi trả nhỏ nhất(*)</label>
                         <div class="col-md-9">
                             <input type="number" id="patient-payment-min" name="payment_min" class="form-control"
-                                    placeholder="Nhập số tiền chi trả nhỏ nhất" value='<%= typeof patient !== 'undefined' ? patient.payment_min:""%>'>
+                                    placeholder="Nhập số tiền chi trả nhỏ nhất" value='<%= typeof patient !== 'undefined' ? patient.payment_min: 5000%>'>
                         </div>
                     </div>
 

@@ -57,5 +57,14 @@ $(function () {
             [5, 10, 20, 'Tất cả'],
         ],
     });
+    $('#user-notification').dataTable({
+        order: [[3, 'desc']],
+        pageLength: 10,
+        lengthMenu: [
+            [5, 10, 20, -1],
+            [5, 10, 20, 'Tất cả'],
+        ],
+    });
+
     $('.dataTables_filter input').attr('placeholder', 'Tìm kiếm...');
 });

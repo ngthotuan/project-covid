@@ -11,7 +11,7 @@
         </div>
         <% if(notifications?.length) { %>
         <table
-          id="detail-buy-history"
+          id="user-notification"
           class="table table-bordered table-vcenter"
         >
           <thead>
@@ -25,7 +25,7 @@
           </thead>
           <tbody>
             <% notifications.forEach((notification) => { %>
-            <tr class="<%= notification.view? '' : 'table-success' %>">
+            <tr class="<%= notification.view? '' : 'bg-info' %>">
               <td class="hidden-xs text-center"><%= notification.id %></td>
               <td class="hidden-xs text-center">
                 <%= notification.description %>

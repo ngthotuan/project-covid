@@ -54,7 +54,7 @@ $(document).ready(() => {
             $('.form-group')
                 .eq(1)
                 .append(
-                    `<div class="help-block animation-slideDown">Mật khẩu không khớp á</div>`,
+                    `<div class="help-block animation-slideDown">Mật khẩu không khớp</div>`,
                 );
             return false;
         }

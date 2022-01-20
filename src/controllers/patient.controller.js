@@ -108,9 +108,11 @@ const postUpdate = async (req, res, next) => {
             req.user.id,
             'Cập nhật thông tin bệnh nhân: ' + req.body.name,
         );
+        req.flash('success_msg', 'Cập nhật bệnh nhân thành công');
         res.redirect('back');
     } catch (e) {
-        console.log(e);
+        req.flash('error_msg', 'Cập nhật bệnh nhân thât bại');
+        res.redirect('back');
     }
 };
 module.exports = {
