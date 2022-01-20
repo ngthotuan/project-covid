@@ -62,7 +62,7 @@ const postCreate = async (req, res, next) => {
         return res.redirect('back');
     }
     try {
-        await axios.post(`${HOST_PAYMENT}/api/users/create`, {
+        await axios.post(`${HOST_PAYMENT}/api/create`, {
             username: req.body.identity,
         });
     } catch (error) {

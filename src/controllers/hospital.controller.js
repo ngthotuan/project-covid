@@ -32,6 +32,7 @@ const postCreate = async (req, res, next) => {
         req.flash('success_msg', 'Thêm khu điều trị, cách ly thành công');
         res.redirect('/hospitals');
     } catch (error) {
+        console.log(error);
         next(error);
     }
 };
