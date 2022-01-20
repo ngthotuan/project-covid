@@ -12,9 +12,9 @@
             </tr>
             </thead>
             <tbody>
-            <% account_histories.forEach(function(account_history, index) { %>
+            <% account_histories.forEach(function(account_history) { %>
                 <tr>
-                    <td class="text-center"><strong><%= index + 1 %></strong></td>
+                    <td class="text-center"><strong><%= account_history.id %></strong></td>
                     <td class="text-center"><%= account_history.action %></td>
                     <td class="hidden-xs text-center"><%= moment(account_history.created_date).tz('Asia/Ho_Chi_Minh').format('DD-MM-YYYY, hh:mm:ss') %></td>
                 </tr>
