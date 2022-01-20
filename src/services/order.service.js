@@ -60,7 +60,17 @@ const findOrderDetailById = (id) => {
     });
 };
 
+const countOrderProduct = () => {
+    return OrderProductModel.count();
+};
+
+const countCategories = () => {
+    return OrdersModel.sum('total_category');
+};
+
 module.exports = {
     save,
     findOrderDetailById,
+    countCategories,
+    countOrderProduct,
 };

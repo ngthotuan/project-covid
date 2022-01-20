@@ -21,6 +21,16 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.DATE,
                 allowNull: true,
             },
+            create_date: {
+                type: DataTypes.DATE,
+                allowNull: true,
+                default: Date.now(),
+            },
+            modified_date: {
+                type: DataTypes.DATE,
+                allowNull: true,
+                default: Date.now(),
+            },
             identity: {
                 type: DataTypes.STRING(255),
                 allowNull: true,

@@ -1,5 +1,4 @@
 const { sequelize } = require('../db');
-const bcrypt = require('bcrypt');
 
 const {
     PatientModel,
@@ -10,7 +9,6 @@ const {
     StatusHistoryModel,
     HospitalModel,
     OrdersModel,
-    CategoryModel,
 } = require('../models')(sequelize);
 
 const { RoleConstants } = require('../constants');
@@ -184,6 +182,7 @@ const updateStatus = async (patientSaved, transaction, newStatus) => {
     await PatientModel.update(
         {
             status: newStatus,
+            modified_date: Date.now(),
         },
         {
             where: {
@@ -204,6 +203,7 @@ const updateStatus = async (patientSaved, transaction, newStatus) => {
         }
     }
 };
+
 const getBuyHistory = async (patientId) => {
     const include = {
         include: [
@@ -215,10 +215,52 @@ const getBuyHistory = async (patientId) => {
     };
     return await findByIdWithInclude(patientId, include);
 };
+
 const payment = (patientId, amount, description) => {
     const linkPayment = `${process.env.HOST_PAYMENT}/payment?dataCallback=${patientId}&clientId=${process.env.CLIENT_ID}&amount=${amount}&description=${description}&redirect=${process.env.REDIRECT_LINK}`;
     return linkPayment;
 };
+const statisticStatusBetween = async (startDate, endDate, status) => {
+    const countStatus = await PatientModel.count({
+        where: {
+            status: status,
+            modified_date: {
+                [Op.between]: [startDate, endDate],
+            },
+        },
+    });
+    return countStatus;
+};
+const statisticStatus = async (status) => {
+    const countStatus = await PatientModel.count({
+        where: {
+            status,
+        },
+    });
+    return countStatus;
+};
+const statisticStatusAll = async () => {
+    let arrStatus = {};
+    for (let i = 0; i < 4; i++) {
+        arrStatus['F' + i] = await statisticStatus(i + '');
+    }
+    return arrStatus;
+};
+const statisticStatusBetweenAll = async (startDate, endDate) => {
+    let arrStatus = {};
+    for (let i = 0; i < 4; i++) {
+        arrStatus['F' + i] = await statisticStatusBetween(
+            startDate,
+            endDate,
+            i + '',
+        );
+    }
+    return arrStatus;
+};
+const sumDebt = () => {
+    return PatientModel.sum('debt');
+};
+
 module.exports = {
     findAll,
     save,
@@ -227,4 +269,8 @@ module.exports = {
     findByIdWithInclude,
     getBuyHistory,
     payment,
+    statisticStatusBetweenAll,
+    statisticStatusAll,
+
+    sumDebt,
 };

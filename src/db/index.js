@@ -17,7 +17,7 @@ async function connect() {
         await Promise.all(
             Object.values(allModels).map(
                 (model) => model.sync(),
-                // (model) => model.sync({ alter: true })
+                //  (model) => model.sync({ alter: true })
             ),
         );
         console.log('Connection has been established successfully.');

@@ -29,7 +29,7 @@
                         <i class="fa fa-hourglass-start"></i>
                     </a>
                     <h3 class="text-center animation-stretchRight" style="flex: 1">Số lượng các gói Nhu yếu phẩm được
-                        tiêu thụ<br><strong style="font-size: 50px">50</strong></h3>
+                        tiêu thụ<br><strong style="font-size: 50px"><%= countCategories %></strong></h3>
                 </div>
             </div>
             <!-- END Widget -->
@@ -42,7 +42,7 @@
                         <i class="gi gi-package"></i>
                     </a>
                     <h3 class="text-center animation-stretchRight" style="flex: 1">
-                        Số lượng các sản phẩm được tiêu thụ<br><strong style="font-size: 50px">50</strong></h3>
+                        Số lượng các sản phẩm được tiêu thụ<br><strong style="font-size: 50px"><%= countProducts%></strong></h3>
                 </div>
             </div>
             <!-- END Widget -->
@@ -55,7 +55,7 @@
                         <i class="fa fa-money"></i>
                     </a>
                     <h3 class="text-center animation-stretchRight" style="flex: 1">
-                        Tổng dư nợ<br><strong style="font-size: 50px">50000000</strong>
+                        Tổng dư nợ<br><strong style="font-size: 50px"><%= sumDebt%></strong>
                     </h3>
                 </div>
             </div>
@@ -73,22 +73,24 @@
             <!-- END Example Title -->
 
             <!-- Example Content -->
-            <form action="" method="post" class="form-horizontal" onsubmit="return false;">
+            <form class="form-horizontal">
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="example-daterange1">Chọn khoảng thời gian: </label>
                     <div class="col-md-6">
                         <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
-                            <input type="text" id="example-daterange1" name="example-daterange1"
+                            <input type="text" name="startDate"
+                                   value="<%= typeof startDate !== undefined ? startDate : ''%>"
                                    class="form-control text-center" placeholder="Ngày bắt đầu">
                             <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
-                            <input type="text" id="example-daterange2" name="example-daterange2"
+                            <input type="text" name="endDate"
+                                   value="<%= typeof endDate !== undefined ? endDate : ''%>"
                                    class="form-control text-center" placeholder="Ngày kết thức">
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Vẽ
                         </button>
-                        <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Reset</button>
+                        <a href="/dashboard" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Xóa</a>
                     </div>
                 </div>
             </form>
@@ -109,7 +111,7 @@
 
             <!-- Example Content -->
             <div style="max-width: 300px; margin: 20px auto">
-                <canvas id="chartOther" style="width:300px;max-width:600px"></canvas>
+                <canvas id="chartOther"></canvas>
             </div>
             <!-- END Example Content -->
         </div>
@@ -120,8 +122,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 </script>
 <script>
+
     const xValues = ["F0", "F1", "F2", "F3"];
-    const yValues = [55, 49, 44, 24];
+    const yValues = [<%= ["F0", "F1", "F2", "F3"].map(key => countStatus[key])%>];
     const barColors = ["red", "green", "blue", "orange"];
 
     new Chart("chartStatus", {
@@ -144,19 +147,14 @@
             }
         }
     });
-</script>
-<script>
-    const xValues1 = ["Chuyển trạng thái", " Khỏi bệnh"];
-    const yValues1 = [10, 1];
-    const barColors1 = ["blue", "red"];
 
     new Chart("chartOther", {
         type: "bar",
         data: {
-            labels: xValues1,
+            labels: ["Chuyển trạng thái", " Khỏi bệnh"],
             datasets: [{
-                backgroundColor: barColors1,
-                data: yValues1
+                backgroundColor: ["blue", "red"],
+                data: [<%= statusHistory.rotation %>, <%= statusHistory.cured %>]
             }]
         },
         options: {
