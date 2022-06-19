@@ -13,20 +13,20 @@ function initModels(sequelize) {
     var product_mapping = _product_mapping(sequelize, DataTypes);
 
     partner_account.belongsTo(partner, {
-        as: 'partner_name_partner',
-        foreignKey: 'partner_name',
+        as: 'partner_code_partner',
+        foreignKey: 'partner_code',
     });
     partner.hasMany(partner_account, {
         as: 'partner_accounts',
-        foreignKey: 'partner_name',
+        foreignKey: 'partner_code',
     });
     product_mapping.belongsTo(partner, {
-        as: 'partner_name_partner',
-        foreignKey: 'partner_name',
+        as: 'partner_code_partner',
+        foreignKey: 'partner_code',
     });
     partner.hasMany(product_mapping, {
         as: 'product_mappings',
-        foreignKey: 'partner_name',
+        foreignKey: 'partner_code',
     });
     product_mapping.belongsTo(product, {
         as: 'product_code_product',

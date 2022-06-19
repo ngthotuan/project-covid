@@ -5,6 +5,7 @@ function route(app) {
     // app.use(checkAuthenAndAuthor);
     app.use(overrideBody);
     app.use('/products', require('./product.route'));
+    app.use('/partners', require('./partner.route'));
     app.use('/', require('./site.route'));
 }
 

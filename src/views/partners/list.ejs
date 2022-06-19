@@ -1,0 +1,94 @@
+<!-- Page content -->
+<div id="page-content">
+    <!-- Quick Stats -->
+    <div class="row text-center">
+        <div class="col-sm-6">
+            <a href="/partners/create" class="widget widget-hover-effect2">
+                <div class="widget-extra themed-background-success">
+                    <h4 class="widget-content-light"><strong>Add new</strong> partner</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 text-success animation-expandOpen"><i
+                                class="fa fa-plus"></i></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <a href="javascript:void(0)" class="widget widget-hover-effect2">
+                <div class="widget-extra themed-background-dark">
+                    <h4 class="widget-content-light"><strong>All</strong> partner</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><%= list.length %></span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- END Quick Stats -->
+
+    <!-- All partners Block -->
+    <div class="block full">
+        <!-- All partners Title -->
+        <div class="block-title">
+            <h2><strong>All</strong> partner</h2>
+        </div>
+        <!-- END All partners Title -->
+        <%- include('../partials/messages') %>
+        <!-- All partners Content -->
+        <table id="ecom-partners" class="table table-bordered table-striped table-vcenter">
+            <thead>
+            <tr>
+                <th class="text-center">Code</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Active</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% list.forEach(function(partner) { %>
+            <tr>
+                <td class="text-center"><strong><%= partner.code %></strong></td>
+                <td class="text-center"><%= partner.name %></a></td>
+                <td class="text-center"><%= partner.is_active %></td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-xs">
+                        <a href="/partners/edit/<%= partner.code %>" data-toggle="tooltip"
+                           title="Chỉnh sửa" class="btn btn-default"
+                        >
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <button data-toggle="tooltip" onclick="showConfirmDelete(this)" title="Xóa"
+                                class="btn-delete btn btn-xs btn-danger"
+                        >
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <% }); %>
+            </tbody>
+        </table>
+        <!-- END All partners Content -->
+    </div>
+    <!-- END All partners Block -->
+</div>
+<!-- END Page Content -->
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirm Delete</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure to delete item:</h4>
+                <h5>Code: <b id="partnerId"></b></h5>
+                <h5>Name: <b id="partnerName"></b></h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <a id="partnerDeleteLink" type="button" class="btn btn-danger">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Load and execute javascript code used only in this page -->
+<script src="/js/partners/partner-list.js"></script>

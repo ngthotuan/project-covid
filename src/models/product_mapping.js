@@ -17,12 +17,12 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.STRING(255),
                 allowNull: true,
             },
-            partner_name: {
+            partner_code: {
                 type: DataTypes.STRING(255),
                 allowNull: true,
                 references: {
                     model: 'partner',
-                    key: 'name',
+                    key: 'code',
                 },
             },
             product_code: {
@@ -46,9 +46,9 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FK6o6ob500qdire9pee8xpstsqf',
+                    name: 'FKhlx9eoh1bwvcaku2loa77ht5d',
                     using: 'BTREE',
-                    fields: [{ name: 'partner_name' }],
+                    fields: [{ name: 'partner_code' }],
                 },
                 {
                     name: 'FKo8bj18rh2pkw1s64dmweb7295',

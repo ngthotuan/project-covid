@@ -1,8 +1,5 @@
 const { sequelize } = require('../db');
-const { product: ProductModel, ImageModel } = require('../models')(sequelize);
-const path = require('path');
-const { file } = require('../utils');
-const { ProductConstant } = require('../constants');
+const { product: ProductModel } = require('../models')(sequelize);
 
 const findAll = () => ProductModel.findAll();
 

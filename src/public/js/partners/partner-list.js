@@ -1,7 +1,7 @@
 $(function () {
     // init table
     App.datatables();
-    $('#ecom-products').dataTable({
+    $('#ecom-partners').dataTable({
         columnDefs: [{ orderable: false, targets: [3] }],
         order: [[0, 'asc']],
         pageLength: 5,
@@ -14,10 +14,10 @@ $(function () {
 });
 
 function showConfirmDelete(button) {
-    const productId = $(button).parents('tr').find('td:first-child').text();
-    const productName = $(button).parents('tr').find('td:nth-child(2)').text();
-    $('#productId').text(productId);
-    $('#productDeleteLink').attr('href', '/products/remove/' + productId);
-    $('#productName').text(productName);
+    const partnerId = $(button).parents('tr').find('td:first-child').text();
+    const partnerName = $(button).parents('tr').find('td:nth-child(2)').text();
+    $('#partnerId').text(partnerId);
+    $('#partnerDeleteLink').attr('href', '/partners/remove/' + partnerId);
+    $('#partnerName').text(partnerName);
     $('#confirmDelete').modal('show');
 }

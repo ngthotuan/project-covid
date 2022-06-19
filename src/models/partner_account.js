@@ -16,13 +16,13 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.STRING(255),
                 allowNull: true,
             },
-            partner_name: {
+            partner_code: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
                 primaryKey: true,
                 references: {
                     model: 'partner',
-                    key: 'name',
+                    key: 'code',
                 },
             },
         },
@@ -35,7 +35,7 @@ module.exports = function (sequelize, DataTypes) {
                     name: 'PRIMARY',
                     unique: true,
                     using: 'BTREE',
-                    fields: [{ name: 'partner_name' }, { name: 'username' }],
+                    fields: [{ name: 'partner_code' }, { name: 'username' }],
                 },
             ],
         },
