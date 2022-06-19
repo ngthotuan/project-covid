@@ -16,33 +16,33 @@
                 <div class="widget-extra themed-background-dark">
                     <h4 class="widget-content-light"><strong>All</strong> product</h4>
                 </div>
-                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><%= products.length %></span>
+                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><%= list.length %></span>
                 </div>
             </a>
         </div>
     </div>
     <!-- END Quick Stats -->
 
-    <!-- All Products Block -->
+    <!-- All products Block -->
     <div class="block full">
-        <!-- All Products Title -->
+        <!-- All products Title -->
         <div class="block-title">
             <h2><strong>All</strong> product</h2>
         </div>
-        <!-- END All Products Title -->
+        <!-- END All products Title -->
         <%- include('../partials/messages') %>
-        <!-- All Products Content -->
+        <!-- All products Content -->
         <table id="ecom-products" class="table table-bordered table-striped table-vcenter">
             <thead>
             <tr>
-                <th class="text-center">FA Code</th>
+                <th class="text-center">Code</th>
                 <th class="text-center">Name</th>
                 <th class="text-center">Active</th>
                 <th class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <% products.forEach(function(product) { %>
+            <% list.forEach(function(product) { %>
             <tr>
                 <td class="text-center"><strong><%= product.code %></strong></td>
                 <td class="text-center"><%= product.name %></a></td>
@@ -50,11 +50,11 @@
                 <td class="text-center">
                     <div class="btn-group btn-group-xs">
                         <a href="/products/edit/<%= product.code %>" data-toggle="tooltip"
-                           title="Chỉnh sửa" class="btn btn-default"
+                           title="Edit" class="btn btn-default"
                         >
                             <i class="fa fa-pencil"></i>
                         </a>
-                        <button data-toggle="tooltip" onclick="showConfirmDelete(this)" title="Xóa"
+                        <button data-toggle="tooltip" onclick="showConfirmDelete(this)" title="Delete"
                                 class="btn-delete btn btn-xs btn-danger"
                         >
                             <i class="fa fa-times"></i>
@@ -65,9 +65,9 @@
             <% }); %>
             </tbody>
         </table>
-        <!-- END All Products Content -->
+        <!-- END All products Content -->
     </div>
-    <!-- END All Products Block -->
+    <!-- END All products Block -->
 </div>
 <!-- END Page Content -->
 <!-- Button trigger modal -->

@@ -1,22 +1,22 @@
-const { productService } = require('../services');
+const { productService: Service } = require('../services');
 
 const index = async (req, res, next) => {
     try {
-        const products = await productService.findAll();
-        res.render('products/list', { title: 'Products', products });
+        const list = await Service.findAll();
+        res.render('products/list', { title: 'products', list });
     } catch (error) {
         next(error);
     }
 };
 
 const getCreate = (req, res) => {
-    res.render('products/form', { title: 'Add new Product' });
+    res.render('products/form', { title: 'Add new product' });
 };
 
 const postCreate = async (req, res, next) => {
     try {
-        await productService.create(req.body);
-        req.flash('success_msg', 'Product created successfully');
+        await Service.create(req.body);
+        req.flash('success_msg', 'product created successfully');
         res.redirect('/products');
     } catch (error) {
         next(error);
@@ -25,13 +25,12 @@ const postCreate = async (req, res, next) => {
 
 const getEdit = async (req, res, next) => {
     try {
-        const product = await productService.findById(req.params.id);
-        console.log(product);
-        if (!product) {
-            req.flash('error_msg', 'Product not found');
+        const entity = await Service.findById(req.params.id);
+        if (!entity) {
+            req.flash('error_msg', 'product not found');
             return res.redirect('/products');
         }
-        res.render('products/form', { title: 'Update Product', product });
+        res.render('products/form', { title: 'Update product', entity });
     } catch (error) {
         next(error);
     }
@@ -40,9 +39,8 @@ const getEdit = async (req, res, next) => {
 const postEdit = async (req, res, next) => {
     try {
         const id = req.params.id;
-        console.log(req.body);
-        await productService.update(id, req.body);
-        req.flash('success_msg', 'Product updated successfully');
+        await Service.update(id, req.body);
+        req.flash('success_msg', 'product updated successfully');
         res.redirect('/products');
     } catch (error) {
         console.log(error);
@@ -53,12 +51,12 @@ const postEdit = async (req, res, next) => {
 const remove = async (req, res, next) => {
     try {
         const id = req.params.id;
-        await productService.remove(id);
-        req.flash('success_msg', 'Product removed successfully');
+        await Service.remove(id);
+        req.flash('success_msg', 'product removed successfully');
         return res.redirect('/products');
     } catch (error) {
         if (error.name === 'SequelizeForeignKeyConstraintError') {
-            req.flash('error_msg', 'Product has been used');
+            req.flash('error_msg', 'product has been used');
             return res.redirect('/products');
         } else {
             next(error);
