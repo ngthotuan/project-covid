@@ -1,0 +1,56 @@
+<!-- Page content -->
+<div id="page-content">
+    <!-- product Edit Content -->
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <!-- General Data Block -->
+            <div class="block">
+                <%- include('../partials/messages') %>
+                <!-- General Data Title -->
+                <div class="block-title">
+                    <h2><i class="fa fa-pencil"></i> <strong>Export Payermax</strong></h2>
+                </div>
+                <!-- END General Data Title -->
+
+                <!-- General Data Content -->
+
+                <div>
+                   
+                </div>
+                <form id="payermax-form" method="post" class="form-horizontal form-bordered">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="products">Choose products</label>
+                        <div class="col-md-9">
+                            <select id="products" name="products" class="select-chosen" data-placeholder="Select products..." style="width: 250px;" multiple>
+                                <% product_mappings.forEach(function(pm) { %>
+                                    <option value="<%- pm.product_code %>"><%- pm.product_code %> (<%- pm.product_code_product.name %>)</option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="startDate">Date Range (Default lastMonth)</label>
+                        <div class="col-md-9">
+                            <div class="input-group input-daterange" data-date-format="yyyy-mm-dd">
+                                <input type="text" id="startDate" name="startDate" class="form-control text-center" placeholder="From">
+                                <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                                <input type="text" id="endDate" name="endDate" class="form-control text-center" placeholder="To">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-md-6 col-md-offset-6">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!-- END General Data Content -->
+            </div>
+            <!-- END General Data Block -->
+        </div>
+    </div>
+    <!-- END product Edit Content -->
+</div>
+<!-- END Page Content -->
+<script src="/js/export_logs/payermax.js"></script>
