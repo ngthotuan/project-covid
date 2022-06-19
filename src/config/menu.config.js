@@ -86,7 +86,17 @@ const menu = [
         name: 'Export logs',
         roles: [MANAGER, ADMIN, USER],
         icon: 'gi gi-package',
-        url: '/exports',
+        url: 'export_logs',
+        sub: [
+            {
+                name: 'Adyen',
+                url: '/export_logs/adyen',
+            },
+            {
+                name: 'Payermax',
+                url: '/export_logs/payermax',
+            },
+        ],
     },
 ];
 

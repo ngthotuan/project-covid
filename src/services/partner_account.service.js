@@ -17,10 +17,26 @@ const remove = async (id) => {
     const entity = await Model.findByPk(id);
     await entity.destroy();
 };
+
+const findByPartnerCode = (partnerCode) => {
+    return Model.findOne({
+        where: {
+            partner_code: partnerCode,
+        },
+    });
+};
+
+const findAllByCondition = (condition) => {
+    return Model.findAll({
+        where: condition,
+    });
+};
 module.exports = {
     findAll,
     create,
     findById,
     update,
     remove,
+    findByPartnerCode,
+    findAllByCondition,
 };
