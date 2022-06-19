@@ -54,15 +54,15 @@ const menu = [
         name: 'Product Mapping',
         roles: [MANAGER, ADMIN],
         icon: 'gi gi-more_items',
-        url: '/product-mappings',
+        url: '/product_mappings',
         sub: [
             {
                 name: 'Add new',
-                url: '/product-mappings/create',
+                url: '/product_mappings/create',
             },
             {
                 name: 'List',
-                url: '/product-mappings',
+                url: '/product_mappings',
             },
         ],
     },

@@ -1,0 +1,98 @@
+<!-- Page content -->
+<div id="page-content">
+    <!-- Quick Stats -->
+    <div class="row text-center">
+        <div class="col-sm-6">
+            <a href="/product_mappings/create" class="widget widget-hover-effect2">
+                <div class="widget-extra themed-background-success">
+                    <h4 class="widget-content-light"><strong>Add new</strong> product_mapping</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 text-success animation-expandOpen"><i
+                                class="fa fa-plus"></i></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <a href="javascript:void(0)" class="widget widget-hover-effect2">
+                <div class="widget-extra themed-background-dark">
+                    <h4 class="widget-content-light"><strong>All</strong> product_mapping</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><%= list.length %></span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- END Quick Stats -->
+
+    <!-- All product_mappings Block -->
+    <div class="block full">
+        <!-- All product_mappings Title -->
+        <div class="block-title">
+            <h2><strong>All</strong> product_mapping</h2>
+        </div>
+        <!-- END All product_mappings Title -->
+        <%- include('../partials/messages') %>
+        <!-- All product_mappings Content -->
+        <table id="ecom-product_mappings" class="table table-bordered table-striped table-vcenter">
+            <thead>
+            <tr>
+                <th class="text-center d-none" style="display: none;">Id</th>
+                <th class="text-center">PartnerCode</th>
+                <th class="text-center">ProductCode</th>
+                <th class="text-center">MerchantCode</th>
+                <th class="text-center">MerchantName</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% list.forEach(function(product_mapping) { %>
+            <tr>
+                <td class="text-center" style="display: none;"><strong><%= product_mapping.id %></strong></td>
+                <td class="text-center"><strong><%= product_mapping.partner_code %></strong></td>
+                <td class="text-center"><%= product_mapping.product_code %></a></td>
+                <td class="text-center"><%= product_mapping.merchant_code %></td>
+                <td class="text-center"><%= product_mapping.merchant_name %></td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-xs">
+                        <a href="/product_mappings/edit/<%= product_mapping.id %>" data-toggle="tooltip"
+                           title="Edit" class="btn btn-default"
+                        >
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <button data-toggle="tooltip" onclick="showConfirmDelete(this)" title="Delete"
+                                class="btn-delete btn btn-xs btn-danger"
+                        >
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <% }); %>
+            </tbody>
+        </table>
+        <!-- END All product_mappings Content -->
+    </div>
+    <!-- END All product_mappings Block -->
+</div>
+<!-- END Page Content -->
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirm Delete</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure to delete item:</h4>
+                <h5>PartnerCode: <b id="product_mappingId"></b></h5>
+                <h5>Username: <b id="product_mappingName"></b></h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <a id="product_mappingDeleteLink" type="button" class="btn btn-danger">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Load and execute javascript code used only in this page -->
+<script src="/js/product_mappings/product_mapping-list.js"></script>

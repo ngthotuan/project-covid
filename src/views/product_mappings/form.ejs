@@ -1,0 +1,94 @@
+<!-- Page content -->
+<div id="page-content">
+    <!-- product_mapping Edit Content -->
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <!-- General Data Block -->
+            <div class="block">
+                <%- include('../partials/messages') %>
+                <!-- General Data Title -->
+                <div class="block-title">
+                    <h2><i class="fa fa-pencil"></i> <strong>Edit product_mapping</strong></h2>
+                </div>
+                <!-- END General Data Title -->
+
+                <!-- General Data Content -->
+                <form id="product_mapping-form" method="post" class="form-horizontal form-bordered">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="partner">Partner</label>
+                        <div class="col-md-9">
+                            <select
+                                    id="partner"
+                                    name="partner_code"
+                                    class="select-chosen"
+                                    data-placeholder="Select Partner"
+                            >
+                                <option value="">Select Partner</option>
+                                <% partners.forEach(function(partner) { %>
+                                    <option value="<%= partner.code %>"
+                                            <%= typeof entity !== 'undefined' ? entity.partner_code === partner.code ? 'selected' : '' : '' %>
+                                    >
+                                        <%= `${partner.code} (${partner.name})`%>
+                                    </option>
+                                <%})%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="product">Product</label>
+                        <div class="col-md-9">
+                            <select
+                                    id="product"
+                                    name="product_code"
+                                    class="select-chosen"
+                                    data-placeholder="Select product"
+                            >
+                                <option value="">Select product</option>
+                                <% products.forEach(function(product) { %>
+                                    <option value="<%= product.code %>"
+                                            <%= typeof entity !== 'undefined' ? entity.product_code === product.code ? 'selected' : '' : '' %>
+                                    >
+                                        <%= `${product.code} (${product.name})`%>
+                                    </option>
+                                <%})%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="merchant_code">Merchant Code</label>
+                        <div class="col-md-9">
+                            <input type="text" id="merchant_code" name="merchant_code"
+                            value="<%= typeof entity !== 'undefined' ? entity.merchant_code : '' %>"
+                                class="form-control" placeholder="merchant_code" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="merchant_name">Merchant Name</label>
+                        <div class="col-md-9">
+                            <input type="text" id="merchant_name" name="merchant_name"
+                            value="<%= typeof entity !== 'undefined' ? entity.merchant_name : '' %>"
+                                class="form-control" placeholder="merchant_name" />
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-md-6 col-md-offset-6">
+                            <% if(typeof entity !== "undefined") {%>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Update
+                                </button>
+                            <% } else { %>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Create
+                                </button>
+                            <% } %>
+                                <a href="/product_mappings" class="btn btn-danger"><i class="fa fa-times"></i> Cancel</a>
+                        </div>
+                    </div>
+                </form>
+                <!-- END General Data Content -->
+            </div>
+            <!-- END General Data Block -->
+        </div>
+    </div>
+    <!-- END product_mapping Edit Content -->
+</div>
+<!-- END Page Content -->
+<script src="/js/product_mappings/product_mapping-form.js"></script>

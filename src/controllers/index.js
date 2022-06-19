@@ -4,5 +4,6 @@ module.exports = {
     productController: require('./product.controller'),
     partnerController: require('./partner.controller'),
     partnerAccountController: require('./partner_account.controller'),
+    productMappingController: require('./product_mapping.controller'),
     ...require('./api'),
 };
