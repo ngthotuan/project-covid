@@ -1,0 +1,37 @@
+<div id="page-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block">
+                <div class="block-title">
+                    <h2><i class="fa fa-user"></i> Thông tin <strong>người dùng</strong></h2>
+                </div>
+                <div class="block-section text-center">
+                    <h3>
+                        <a href="/accounts/managers/edit/<%=manager.username%>">
+                            <strong><%= manager.username %></strong><br><small></small>
+                        </a>
+                    </h3>
+                </div>
+                <table class="table table-borderless table-striped table-vcenter">
+                    <tbody>
+                    <tr>
+                        <td class="text-right"><strong>Trạng thái</strong></td>
+                        <% if(manager.blocked){ %>
+                            <td><strong>Đã khóa</strong></td>
+                        <% } else { %>
+                            <td><strong>Hoạt động</strong></td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <td class="text-right"><strong>Phân quyền</strong></td>
+                        <td><%= manager.role %></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Load and execute javascript code used only in this page -->
+<script src="/js/accounts/account-manager-detail.js"></script>

@@ -2,6 +2,7 @@ const { accountService, accountHistoryService } = require('../services');
 const passport = require('passport');
 const { RoleConstants } = require('../constants');
 const roleConstant = require('../constants/role.constant');
+const bcrypt = require('bcrypt');
 
 function list(req, res, next) {
     accountService
@@ -141,6 +142,101 @@ const postInit = async (req, res) => {
     return res.redirect('/login');
 };
 
+const getChangePassword = (req, res) => {
+    res.render('users/change-password', {
+        title: 'Thay đổi mật khẩu',
+    });
+};
+
+const postChangePassword = async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+    if (!bcrypt.compareSync(oldPassword, req.user.password)) {
+        req.flash('error_msg', 'Mật khẩu cũ không chính xác!');
+    } else {
+        try {
+            await accountService.changePassword(req.user.username, newPassword);
+            req.flash('success_msg', 'Thay đổi mật khẩu thành công!');
+        } catch (error) {
+            console.error('user.controller change password', error);
+            req.flash('error_msg', 'Thay đổi mật khẩu thất bại!');
+        }
+    }
+    res.redirect('/accounts/change-password');
+};
+
+const getCreateAccount = (req, res, next) => {
+    let roles = RoleConstants;
+    res.render('accounts/manager-form', { title: 'Tạo tài khoản', roles });
+};
+
+const postCreateAccount = async (req, res, next) => {
+    const username = req.body.username;
+    const role = req.body.role;
+
+    try {
+        const existedAccount = await accountService.findAccountByUsername(
+            username,
+        );
+        if (existedAccount) {
+            req.flash('error_msg', 'Username đã tồn tại');
+            return res.redirect('/accounts/managers/create');
+        }
+
+        await accountService.createAccount(username, role);
+        req.flash('success_msg', 'Tạo tài khoản thành công');
+        return res.redirect('/accounts/managers');
+    } catch (err) {
+        req.flash('error_msg', 'Đã có lỗi xảy ra');
+        console.log(err);
+        return res.redirect('/accounts/managers');
+    }
+};
+
+const getList = async (req, res, next) => {
+    const accounts = await accountService.findAll({
+        // where: { role: roleConstant.MANAGER },
+        attributes: { exclude: ['password'] },
+    });
+    res.render('accounts/manager-list', {
+        title: 'Danh sách tài khoản',
+        accounts,
+    });
+};
+
+const getBlockAccount = async (req, res, next) => {
+    const id = req.params.id;
+    const account = await accountService.findById(id);
+    if (account && !account.blocked) {
+        await accountService.update(id, { blocked: true });
+    }
+    res.redirect('/accounts/managers');
+};
+
+const getById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        let account = await accountService.findById(id);
+        delete account.password;
+
+        res.render('accounts/manager-detail', {
+            title: 'Thông tin người quản lý',
+            manager: account,
+        });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
+
+const getUnBlockAccount = async (req, res, next) => {
+    const id = req.params.id;
+    const account = await accountService.findById(id);
+    if (account && account.blocked) {
+        await accountService.update(id, { blocked: false });
+    }
+    res.redirect('/accounts/managers');
+};
+
 module.exports = {
     list,
     getLoginUsername,
@@ -152,4 +248,12 @@ module.exports = {
     getLogout,
     getInit,
     postInit,
+    getChangePassword,
+    postChangePassword,
+    getCreateAccount,
+    postCreateAccount,
+    getList,
+    getBlockAccount,
+    getById,
+    getUnBlockAccount,
 };

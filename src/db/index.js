@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
-const models = require('../models');
+const models = require('../models/init-models');
 
 // Option 3: Passing parameters separately (other dialects)
 const { DB_URL, DB_NAME, DB_USER, DB_PASS, DB_HOST, DB_DIALECT } = process.env;
@@ -8,7 +8,7 @@ const sequelize = DB_URL
     ? new Sequelize(DB_URL, {
           dialect: DB_DIALECT,
           logging: false,
-          dialectOptions: { ssl: { rejectUnauthorized: false } },
+          //   dialectOptions: { ssl: { rejectUnauthorized: false } },
       })
     : new Sequelize(DB_NAME, DB_USER, DB_PASS, {
           host: DB_HOST,

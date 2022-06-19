@@ -3,47 +3,25 @@ const { ADMIN, MANAGER, USER } = RoleConstants;
 
 const menu = [
     {
-        name: 'Dashboard',
-        roles: [MANAGER],
-        icon: 'gi gi-stopwatch',
-        url: '/dashboard',
-    },
-    {
-        name: 'Bệnh Nhân',
-        roles: [MANAGER],
-        icon: 'gi gi-user',
-        url: '/patients',
+        name: 'Đối tác',
+        roles: [MANAGER, ADMIN],
+        icon: 'gi gi-vcard',
+        url: '/partners',
         sub: [
             {
                 name: 'Tạo mới',
-                url: '/patients/create',
+                url: '/partners/create',
             },
             {
                 name: 'Xem danh sách',
-                url: '/patients',
+                url: '/partners',
             },
         ],
     },
     {
-        name: 'Sản phẩm',
-        roles: [MANAGER],
-        icon: 'gi gi-cake',
-        url: '/products',
-        sub: [
-            {
-                name: 'Tạo mới',
-                url: '/products/create',
-            },
-            {
-                name: 'Xem danh sách',
-                url: '/products',
-            },
-        ],
-    },
-    {
-        name: 'Gói nhu yếu phẩm',
-        roles: [MANAGER],
-        icon: 'gi gi-shopping_cart',
+        name: 'Tài khoản đối tác',
+        roles: [MANAGER, ADMIN],
+        icon: 'gi gi-old_man',
         url: '/categories',
         sub: [
             {
@@ -57,9 +35,25 @@ const menu = [
         ],
     },
     {
-        name: 'Khu điều trị, cách ly',
-        roles: [ADMIN],
-        icon: 'gi gi-bank',
+        name: 'Product',
+        roles: [MANAGER, ADMIN],
+        icon: 'gi gi-suitcase',
+        url: '/products',
+        sub: [
+            {
+                name: 'Tạo mới',
+                url: '/products/create',
+            },
+            {
+                name: 'Xem danh sách',
+                url: '/products',
+            },
+        ],
+    },
+    {
+        name: 'Product mapping',
+        roles: [MANAGER, ADMIN],
+        icon: 'gi gi-more_items',
         url: '/hospitals',
         sub: [
             {
@@ -73,64 +67,24 @@ const menu = [
         ],
     },
     {
-        name: 'Người quản lý',
-        roles: [ADMIN],
+        name: 'Quản lý người dùng',
+        roles: [MANAGER, ADMIN],
         icon: 'gi gi-user_add',
-        url: '/managers',
+        url: '/accounts/managers',
         sub: [
             {
                 name: 'Tạo mới',
-                url: '/managers/create',
+                url: '/accounts/managers/create',
             },
             {
                 name: 'Xem danh sách',
-                url: '/managers',
+                url: '/accounts/managers',
             },
         ],
     },
     {
-        name: 'Quản lý thanh toán',
-        roles: [MANAGER],
-        icon: 'gi gi-sampler',
-        url: '/payments',
-        sub: [
-            // {
-            //     name: 'Thay đổi hạn mức',
-            //     url: '/payments/change-limit',
-            // },
-            {
-                name: 'Duyệt danh sách',
-                url: '/payments',
-            },
-        ],
-    },
-    {
-        name: 'Thông tin cá nhân',
-        roles: [USER],
-        icon: 'gi gi-old_man',
-        url: '/users',
-        sub: [
-            {
-                name: 'Các thông tin cơ bản',
-                url: '/users/details',
-            },
-            {
-                name: 'Lịch sử được quản lý',
-                url: '/users/manager-history',
-            },
-            {
-                name: 'Lịch sử tiêu thụ',
-                url: '/users/category-history',
-            },
-            {
-                name: 'Dư nợ & Lịch sử thanh toán',
-                url: '/users/payment-history',
-            },
-        ],
-    },
-    {
-        name: 'Nhu yếu phẩm',
-        roles: [USER],
+        name: 'Export logs',
+        roles: [MANAGER, ADMIN],
         icon: 'gi gi-package',
         url: '/users/categories',
     },

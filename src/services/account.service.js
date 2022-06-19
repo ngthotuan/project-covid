@@ -1,5 +1,5 @@
 const { sequelize } = require('../db');
-const { AccountModel, AccountHistoryModel } = require('../models')(sequelize);
+const { account: AccountModel } = require('../models')(sequelize);
 const bcrypt = require('bcrypt');
 
 const { RoleConstants } = require('../constants');
@@ -29,8 +29,7 @@ const createAccount = async (username, role) => {
     const newAccount = await AccountModel.create({
         username: username,
         role: role,
-        blocked: false,
-        balance: 0,
+        is_active: true,
     });
     return newAccount;
 };
@@ -44,15 +43,11 @@ const update = async (id, data) => {
     product.update(data);
 };
 
-const changePassword = async (id, password) => {
+const changePassword = async (username, password) => {
+    console.log({ username, password });
     const passwordHashed = bcrypt.hashSync(password, 8);
-    const account = await AccountModel.findByPk(id);
+    const account = await AccountModel.findByPk(username);
     account.update({ password: passwordHashed });
-    AccountHistoryModel.create({
-        account_id: id,
-        action: 'Đổi mật khẩu',
-        created_date: new Date(),
-    });
 };
 
 const count = async () => {
@@ -65,7 +60,7 @@ const createAdminAccount = async (username, password) => {
         username,
         password: hashedPassword,
         role: RoleConstants.ADMIN,
-        blocked: false,
+        is_active: true,
     });
 };
 

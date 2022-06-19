@@ -1,0 +1,117 @@
+<!-- Page content -->
+<div id="page-content">
+    <!-- Quick Stats -->
+    <div class="row text-center">
+        <div class="col-sm-6">
+            <a href="/accounts/managers/create" class="widget widget-hover-effect2">
+                <div class="widget-extra themed-background-success">
+                    <h4 class="widget-content-light"><strong>Thêm</strong> tài khoản</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 text-success animation-expandOpen"><i
+                                class="fa fa-plus"></i></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <a href="javascript:void(0)" class="widget widget-hover-effect2">
+                <div class="widget-extra themed-background-dark">
+                    <h4 class="widget-content-light"><strong>Tất cả</strong> tài khoản</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><%= accounts.length %></span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- END Quick Stats -->
+
+    <!-- All Products Block -->
+    <div class="block full">
+        <!-- All Products Title -->
+        <div class="block-title">
+            <h2><strong>Tất cả</strong> tài khoản</h2>
+        </div>
+        <!-- END All Products Title -->
+        <%- include('../partials/messages') %>
+        <!-- All Products Content -->
+        <table id="ecom-accounts" class="table table-bordered table-striped table-vcenter">
+            <thead>
+            <tr>
+                <th class="hidden-xs text-center">Username</th>
+                <th class="hidden-xs text-center">Role</th>
+                <th class="hidden-xs text-center">Trạng thái</th>
+                <th class="text-center">Hành động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% accounts.forEach(function(account,index) { %>
+            <tr>
+                <td><a href="/accounts/managers/<%= account.username %>"><%= account.username %></a></td>
+                <td class="text-center hidden-xs"><%= account.role %></td>
+                <%if(account.blocked){%>
+                    <td class="text-center hidden-xs">Đã khóa</td>
+                    <%} else {%>
+                        <td class="text-center hidden-xs">Hoạt động</td>
+                        <%}%>
+                <td class="text-center">
+                    <div class="btn-group btn-group-xs">
+                        <a href="/accounts/managers/<%= account.username %>" data-toggle="tooltip" title="Xem chi tiết" class="btn btn-default"><i
+                                class="fa fa-file"></i></a>
+                        <%if(account.blocked){%>
+                            <button id="<%= account.username %>" data-toggle="tooltip" onclick="showConfirmUnBlock(this)" title="Mở khóa tài khoản"
+                                class="btn-delete btn btn-xs btn-danger">
+                                <i class="fa fa-unlock"></i>
+                            </button>
+                        
+                            <%} else {%>
+                                <button id="<%= account.username %>" data-toggle="tooltip" onclick="showConfirmBlock(this)" title="Khóa tài khoản"
+                                    class="btn-delete btn btn-xs btn-danger">
+                                    <i class="fa fa-ban"></i>
+                                </button>
+                                <%}%>
+                    </div>
+                </td>
+            </tr>
+            <% }); %>
+            </tbody>
+        </table>
+        <!-- END All Products Content -->
+    </div>
+    <!-- END All Products Block -->
+</div>
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="confirmBlock" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Khóa tài khoản</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Bạn có chắc chắn muốn khóa tài khoản: <b id="userName"></b></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                <a id="accountBlockLink" type="button" class="btn btn-primary">Xác nhận</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmUnBlock" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Mở khóa tài khoản</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Bạn có chắc chắn muốn mở khóa tài khoản: <b id="userNameUnBlock"></b></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                <a id="confirmUnBlockLink" type="button" class="btn btn-primary">Xác nhận</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/accounts/account-manager-list.js"></script>
+<script>$(function(){ EcomAccounts.init(); });</script>

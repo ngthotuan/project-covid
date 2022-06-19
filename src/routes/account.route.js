@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { checkUsername } = require('../middleware/authentication');
+const { checkAuthenAndAuthor } = require('../middleware/authentication');
 
 const { accountController } = require('../controllers');
 
@@ -13,5 +13,15 @@ router.post('/login', accountController.postLoginUsername);
 router.get('/logout', accountController.getLogout);
 router.get('/init', accountController.getInit);
 router.post('/init', accountController.postInit);
-//router.get('/', accountController.list);
+
+router.use(checkAuthenAndAuthor);
+router.get('/change-password', accountController.getChangePassword);
+router.post('/change-password', accountController.postChangePassword);
+
+router.get('/managers/create', accountController.getCreateAccount);
+router.post('/managers/create', accountController.postCreateAccount);
+router.get('/managers/', accountController.getList);
+router.get('/managers/block/:id', accountController.getBlockAccount);
+router.get('/managers/un-block/:id', accountController.getUnBlockAccount);
+router.get('/managers/:id', accountController.getById);
 module.exports = router;
