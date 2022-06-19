@@ -19,7 +19,6 @@ $(function () {
         rules: {
             code: {
                 required: true,
-                minlength: 3,
             },
             name: {
                 required: true,
@@ -28,7 +27,6 @@ $(function () {
         messages: {
             code: {
                 required: 'Please enter product code',
-                minlength: 'Product code must be at least 3 characters long',
             },
             name: {
                 required: 'Please enter product name',

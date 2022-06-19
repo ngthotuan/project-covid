@@ -1,6 +1,7 @@
 const {
     partnerAccountService: Service,
     partnerService,
+    productService,
 } = require('../services');
 
 const index = async (req, res, next) => {
@@ -18,9 +19,11 @@ const index = async (req, res, next) => {
 const getCreate = async (req, res, next) => {
     try {
         const partners = await partnerService.findAll();
+        const products = await productService.findAll();
         res.render('partner_accounts/form', {
             title: 'Add new partner_account',
             partners,
+            products,
         });
     } catch (error) {
         next(error);
@@ -45,10 +48,12 @@ const getEdit = async (req, res, next) => {
             return res.redirect('/partner_accounts');
         }
         const partners = await partnerService.findAll();
+        const products = await productService.findAll();
         res.render('partner_accounts/form', {
             title: 'Update partner_account',
             entity,
             partners,
+            products,
         });
     } catch (error) {
         next(error);

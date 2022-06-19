@@ -35,6 +35,26 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-md-3 control-label" for="product">Product</label>
+                        <div class="col-md-9">
+                            <select
+                                    id="product"
+                                    name="product_code"
+                                    class="select-chosen"
+                                    data-placeholder="Select product"
+                            >
+                                <option value="">Select product</option>
+                                <% products.forEach(function(product) { %>
+                                    <option value="<%= product.code %>"
+                                            <%= typeof entity !== 'undefined' ? entity.product_code === product.code ? 'selected' : '' : '' %>
+                                    >
+                                        <%= `${product.code} (${product.name})`%>
+                                    </option>
+                                <%})%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-3 control-label" for="username">Username</label>
                         <div class="col-md-9">
                             <input type="text" id="username" name="username"

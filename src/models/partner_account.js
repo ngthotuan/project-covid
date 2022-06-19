@@ -29,6 +29,14 @@ module.exports = function (sequelize, DataTypes) {
                     key: 'code',
                 },
             },
+            product_code: {
+                type: DataTypes.STRING(255),
+                allowNull: true,
+                references: {
+                    model: 'product',
+                    key: 'code',
+                },
+            },
         },
         {
             sequelize,
@@ -42,9 +50,14 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FKffh0e7j96sd5h9e2idhyosq5v',
+                    name: 'fk_pa_partner',
                     using: 'BTREE',
                     fields: [{ name: 'partner_code' }],
+                },
+                {
+                    name: 'fk_pa_product',
+                    using: 'BTREE',
+                    fields: [{ name: 'product_code' }],
                 },
             ],
         },

@@ -28,6 +28,14 @@ function initModels(sequelize) {
         as: 'product_mappings',
         foreignKey: 'partner_code',
     });
+    partner_account.belongsTo(product, {
+        as: 'product_code_product',
+        foreignKey: 'product_code',
+    });
+    product.hasMany(partner_account, {
+        as: 'partner_accounts',
+        foreignKey: 'product_code',
+    });
     product_mapping.belongsTo(product, {
         as: 'product_code_product',
         foreignKey: 'product_code',

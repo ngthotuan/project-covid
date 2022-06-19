@@ -4,7 +4,7 @@ $(function () {
     $('#ecom-partners').dataTable({
         columnDefs: [{ orderable: false, targets: [3] }],
         order: [[0, 'asc']],
-        pageLength: 5,
+        pageLength: 10,
         lengthMenu: [
             [5, 10, 20, -1],
             [5, 10, 20, 'All'],

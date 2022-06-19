@@ -37,6 +37,7 @@
             <tr>
                 <th class="text-center d-none" style="display: none;">Id</th>
                 <th class="text-center">PartnerCode</th>
+                <th class="text-center">ProductCode</th>
                 <th class="text-center">Username</th>
                 <th class="text-center">Password</th>
                 <th class="text-center">Password2</th>
@@ -47,7 +48,12 @@
             <% list.forEach(function(partner_account) { %>
             <tr>
                 <td class="text-center" style="display: none;"><strong><%= partner_account.id %></strong></td>
-                <td class="text-center"><strong><%= partner_account.partner_code %></strong></td>
+                <td class="text-center">
+                    <strong><a href="/partners/edit/<%= partner_account.partner_code %>"><%= partner_account.partner_code %></a></strong>
+                </td>
+                <td class="text-center">
+                    <strong><a href="/products/edit/<%= partner_account.product_code %>"><%= partner_account.product_code %></a></strong>
+                </td>
                 <td class="text-center"><%= partner_account.username %></a></td>
                 <td class="text-center"><%= partner_account.password %></td>
                 <td class="text-center"><%= partner_account.password2 %></td>
