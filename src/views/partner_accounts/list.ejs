@@ -1,0 +1,98 @@
+<!-- Page content -->
+<div id="page-content">
+    <!-- Quick Stats -->
+    <div class="row text-center">
+        <div class="col-sm-6">
+            <a href="/partner_accounts/create" class="widget widget-hover-effect2">
+                <div class="widget-extra themed-background-success">
+                    <h4 class="widget-content-light"><strong>Add new</strong> partner_account</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 text-success animation-expandOpen"><i
+                                class="fa fa-plus"></i></span></div>
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <a href="javascript:void(0)" class="widget widget-hover-effect2">
+                <div class="widget-extra themed-background-dark">
+                    <h4 class="widget-content-light"><strong>All</strong> partner_account</h4>
+                </div>
+                <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><%= list.length %></span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- END Quick Stats -->
+
+    <!-- All partner_accounts Block -->
+    <div class="block full">
+        <!-- All partner_accounts Title -->
+        <div class="block-title">
+            <h2><strong>All</strong> partner_account</h2>
+        </div>
+        <!-- END All partner_accounts Title -->
+        <%- include('../partials/messages') %>
+        <!-- All partner_accounts Content -->
+        <table id="ecom-partner_accounts" class="table table-bordered table-striped table-vcenter">
+            <thead>
+            <tr>
+                <th class="text-center d-none" style="display: none;">Id</th>
+                <th class="text-center">PartnerCode</th>
+                <th class="text-center">Username</th>
+                <th class="text-center">Password</th>
+                <th class="text-center">Password2</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% list.forEach(function(partner_account) { %>
+            <tr>
+                <td class="text-center" style="display: none;"><strong><%= partner_account.id %></strong></td>
+                <td class="text-center"><strong><%= partner_account.partner_code %></strong></td>
+                <td class="text-center"><%= partner_account.username %></a></td>
+                <td class="text-center"><%= partner_account.password %></td>
+                <td class="text-center"><%= partner_account.password2 %></td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-xs">
+                        <a href="/partner_accounts/edit/<%= partner_account.id %>" data-toggle="tooltip"
+                           title="Edit" class="btn btn-default"
+                        >
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <button data-toggle="tooltip" onclick="showConfirmDelete(this)" title="Delete"
+                                class="btn-delete btn btn-xs btn-danger"
+                        >
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <% }); %>
+            </tbody>
+        </table>
+        <!-- END All partner_accounts Content -->
+    </div>
+    <!-- END All partner_accounts Block -->
+</div>
+<!-- END Page Content -->
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirm Delete</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure to delete item:</h4>
+                <h5>PartnerCode: <b id="partner_accountId"></b></h5>
+                <h5>Username: <b id="partner_accountName"></b></h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <a id="partner_accountDeleteLink" type="button" class="btn btn-danger">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Load and execute javascript code used only in this page -->
+<script src="/js/partner_accounts/partner_account-list.js"></script>

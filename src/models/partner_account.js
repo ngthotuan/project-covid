@@ -3,8 +3,9 @@ module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
         'partner_account',
         {
-            username: {
-                type: DataTypes.STRING(255),
+            id: {
+                autoIncrement: true,
+                type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true,
             },
@@ -16,10 +17,13 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.STRING(255),
                 allowNull: true,
             },
+            username: {
+                type: DataTypes.STRING(255),
+                allowNull: true,
+            },
             partner_code: {
                 type: DataTypes.STRING(255),
-                allowNull: false,
-                primaryKey: true,
+                allowNull: true,
                 references: {
                     model: 'partner',
                     key: 'code',
@@ -35,7 +39,12 @@ module.exports = function (sequelize, DataTypes) {
                     name: 'PRIMARY',
                     unique: true,
                     using: 'BTREE',
-                    fields: [{ name: 'partner_code' }, { name: 'username' }],
+                    fields: [{ name: 'id' }],
+                },
+                {
+                    name: 'FKffh0e7j96sd5h9e2idhyosq5v',
+                    using: 'BTREE',
+                    fields: [{ name: 'partner_code' }],
                 },
             ],
         },

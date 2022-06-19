@@ -6,6 +6,7 @@ function route(app) {
     app.use(overrideBody);
     app.use('/products', require('./product.route'));
     app.use('/partners', require('./partner.route'));
+    app.use('/partner_accounts', require('./partner_account.route'));
     app.use('/', require('./site.route'));
 }
 

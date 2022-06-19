@@ -1,21 +1,21 @@
 const { sequelize } = require('../db');
-const { product: ProductModel } = require('../models')(sequelize);
+const { product: Model } = require('../models')(sequelize);
 
-const findAll = () => ProductModel.findAll();
+const findAll = () => Model.findAll();
 
-const create = (product) => ProductModel.create(product);
+const create = (entity) => Model.create(entity);
 
-const findById = (code) => ProductModel.findByPk(code);
+const findById = (code) => Model.findByPk(code);
 
 const update = async (id, data) => {
-    const product = await ProductModel.findByPk(id);
-    product.update(data);
-    await product.save();
+    const entity = await Model.findByPk(id);
+    entity.update(data);
+    await entity.save();
 };
 
 const remove = async (id) => {
-    const product = await ProductModel.findByPk(id);
-    await product.destroy();
+    const entity = await Model.findByPk(id);
+    await entity.destroy();
 };
 module.exports = {
     findAll,

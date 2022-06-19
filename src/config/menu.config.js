@@ -22,15 +22,15 @@ const menu = [
         name: 'Partner Account',
         roles: [MANAGER, ADMIN],
         icon: 'gi gi-old_man',
-        url: '/partner-accounts',
+        url: '/partner_accounts',
         sub: [
             {
                 name: 'Add new',
-                url: '/partner-accounts/create',
+                url: '/partner_accounts/create',
             },
             {
                 name: 'List',
-                url: '/partner-accounts',
+                url: '/partner_accounts',
             },
         ],
     },
