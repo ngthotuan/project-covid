@@ -34,19 +34,19 @@ $('#manager-form').validate({
     },
     messages: {
         username: {
-            required: 'Vui lòng nhập tên đăng nhập',
+            required: 'Please enter a username',
         },
         role: {
-            required: 'Vui lòng chọn phân quyền',
+            required: 'Please select a role',
         },
         password: {
-            required: 'Vui lòng nhập mật khẩu',
-            minlength: 'Tối thiểu 6 ký tự',
+            required: 'Please enter a password',
+            minlength: 'Your password must be at least 6 characters long',
         },
         confirmPassword: {
-            required: 'Vui lòng xác nhận mật khẩu',
-            minlength: 'Tối thiểu 6 ký tự',
-            equalTo: 'Mật khẩu xác nhận không khớp',
+            required: 'Please enter a password',
+            minlength: 'Your password must be at least 6 characters long',
+            equalTo: 'Please enter the same password as above',
         },
     },
 });

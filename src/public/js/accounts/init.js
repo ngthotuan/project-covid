@@ -28,10 +28,10 @@ $(document).ready(() => {
         },
         messages: {
             username: {
-                required: 'Vui lòng nhập Username',
+                required: 'Please enter a username',
             },
             password: {
-                required: 'Vui lòng nhập mật khẩu',
+                required: 'Please enter a password',
             },
         },
     });

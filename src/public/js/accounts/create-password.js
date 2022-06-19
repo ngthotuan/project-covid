@@ -35,12 +35,12 @@ $(document).ready(() => {
         },
         messages: {
             password: {
-                required: 'Vui lòng nhập mật khẩu',
-                minlength: 'Độ dài lớn hơn 5 ký tự',
+                required: 'Please enter your password',
+                minlength: 'Your password must be at least 5 characters long',
             },
             repeat_password: {
-                required: 'Vui lòng nhập mật khẩu',
-                minlength: 'Độ dài lớn hơn 5 ký tự',
+                required: 'Please enter your password',
+                minlength: 'Your password must be at least 5 characters long',
             },
         },
     });
@@ -54,7 +54,7 @@ $(document).ready(() => {
             $('.form-group')
                 .eq(1)
                 .append(
-                    `<div class="help-block animation-slideDown">Mật khẩu không khớp</div>`,
+                    `<div class="help-block animation-slideDown">Password do not match</div>`,
                 );
             return false;
         }

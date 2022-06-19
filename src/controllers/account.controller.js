@@ -143,7 +143,7 @@ const postInit = async (req, res) => {
 };
 
 const getChangePassword = (req, res) => {
-    res.render('users/change-password', {
+    res.render('accounts/change-password', {
         title: 'Thay đổi mật khẩu',
     });
 };

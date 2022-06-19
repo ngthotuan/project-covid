@@ -31,16 +31,16 @@ $('#change-password-form').validate({
     },
     messages: {
         oldPassword: {
-            required: 'Vui lòng nhập mật khẩu cũ',
+            required: 'Please enter your old password',
         },
         newPassword: {
-            required: 'Vui lòng nhập mật khẩu mới',
-            minlength: 'Tối thiểu 6 ký tự',
+            required: 'Please enter a new password',
+            minlength: 'Your password must be at least 6 characters long',
         },
         confirmPassword: {
-            required: 'Vui lòng xác nhận mật khẩu mới',
-            minlength: 'Tối thiểu 6 ký tự',
-            equalTo: 'Mật khẩu mới không khớp',
+            required: 'Please enter a new password',
+            minlength: 'Your password must be at least 6 characters long',
+            equalTo: 'Please enter the same password as above',
         },
     },
 });

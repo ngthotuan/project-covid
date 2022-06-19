@@ -25,7 +25,7 @@ $(document).ready(() => {
         },
         messages: {
             password: {
-                required: 'Vui lòng nhập mật khẩu',
+                required: 'Please enter a password',
             },
         },
     });

@@ -25,7 +25,7 @@ $(document).ready(() => {
         },
         messages: {
             username: {
-                required: 'Vui lòng nhập username',
+                required: 'Please enter a username',
             },
         },
     });

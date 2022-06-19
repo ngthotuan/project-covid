@@ -6,8 +6,8 @@ $(function () {
         pageLength: 10,
         lengthMenu: [
             [5, 10, 20, -1],
-            [5, 10, 20, 'Tất cả'],
+            [5, 10, 20, 'All'],
         ],
     });
-    $('.dataTables_filter input').attr('placeholder', 'Tìm kiếm...');
+    $('.dataTables_filter input').attr('placeholder', 'Search...');
 });
