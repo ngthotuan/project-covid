@@ -47,8 +47,12 @@
             <% list.forEach(function(product_mapping) { %>
             <tr>
                 <td class="text-center" style="display: none;"><strong><%= product_mapping.id %></strong></td>
-                <td class="text-center"><strong><%= product_mapping.partner_code %></strong></td>
-                <td class="text-center"><%= product_mapping.product_code %></a></td>
+                <td class="text-center">
+                    <strong><a href="/partners/edit/<%= product_mapping.partner_code %>"><%= product_mapping.partner_code %></a></strong>
+                </td>
+                <td class="text-center">
+                    <strong><a href="/products/edit/<%= product_mapping.product_code %>"><%= product_mapping.product_code %></a></strong>
+                </td>
                 <td class="text-center"><%= product_mapping.merchant_code %></td>
                 <td class="text-center"><%= product_mapping.merchant_name %></td>
                 <td class="text-center">
