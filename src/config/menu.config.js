@@ -51,7 +51,7 @@ const menu = [
         ],
     },
     {
-        name: 'Product mapping',
+        name: 'Product Mapping',
         roles: [MANAGER, ADMIN],
         icon: 'gi gi-more_items',
         url: '/product-mappings',

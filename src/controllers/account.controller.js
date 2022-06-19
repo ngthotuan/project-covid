@@ -139,7 +139,7 @@ const postInit = async (req, res) => {
     const { username, password } = req.body;
     await accountService.createAdminAccount(username, password);
     req.flash('success_msg', 'Tạo tài khoản thành công');
-    return res.redirect('/login');
+    return res.redirect('/accounts/login');
 };
 
 const getChangePassword = (req, res) => {

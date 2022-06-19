@@ -28,7 +28,7 @@
                                     <option value="<%= partner.code %>"
                                             <%= typeof entity !== 'undefined' ? entity.partner_code === partner.code ? 'selected' : '' : '' %>
                                     >
-                                        <%= partner.name %>
+                                        <%= `${partner.code} (${partner.name})`%>
                                     </option>
                                 <%})%>
                             </select>

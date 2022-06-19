@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
             },
             partner_code: {
                 type: DataTypes.STRING(255),
-                allowNull: true,
+                allowNull: false,
                 references: {
                     model: 'partner',
                     key: 'code',
@@ -27,7 +27,7 @@ module.exports = function (sequelize, DataTypes) {
             },
             product_code: {
                 type: DataTypes.STRING(255),
-                allowNull: true,
+                allowNull: false,
                 references: {
                     model: 'product',
                     key: 'code',
