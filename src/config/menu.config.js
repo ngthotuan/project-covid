@@ -3,34 +3,34 @@ const { ADMIN, MANAGER, USER } = RoleConstants;
 
 const menu = [
     {
-        name: 'Đối tác',
+        name: 'Partner',
         roles: [MANAGER, ADMIN],
         icon: 'gi gi-vcard',
         url: '/partners',
         sub: [
             {
-                name: 'Tạo mới',
+                name: 'Add new',
                 url: '/partners/create',
             },
             {
-                name: 'Xem danh sách',
+                name: 'List',
                 url: '/partners',
             },
         ],
     },
     {
-        name: 'Tài khoản đối tác',
+        name: 'Partner Account',
         roles: [MANAGER, ADMIN],
         icon: 'gi gi-old_man',
-        url: '/categories',
+        url: '/partner-accounts',
         sub: [
             {
-                name: 'Tạo mới',
-                url: '/categories/create',
+                name: 'Add new',
+                url: '/partner-accounts/create',
             },
             {
-                name: 'Xem danh sách',
-                url: '/categories',
+                name: 'List',
+                url: '/partner-accounts',
             },
         ],
     },
@@ -41,11 +41,11 @@ const menu = [
         url: '/products',
         sub: [
             {
-                name: 'Tạo mới',
+                name: 'Add new',
                 url: '/products/create',
             },
             {
-                name: 'Xem danh sách',
+                name: 'List',
                 url: '/products',
             },
         ],
@@ -54,39 +54,39 @@ const menu = [
         name: 'Product mapping',
         roles: [MANAGER, ADMIN],
         icon: 'gi gi-more_items',
-        url: '/hospitals',
+        url: '/product-mappings',
         sub: [
             {
-                name: 'Tạo mới',
-                url: '/hospitals/create',
+                name: 'Add new',
+                url: '/product-mappings/create',
             },
             {
-                name: 'Xem danh sách',
-                url: '/hospitals',
+                name: 'List',
+                url: '/product-mappings',
             },
         ],
     },
     {
-        name: 'Quản lý người dùng',
+        name: 'User Management',
         roles: [MANAGER, ADMIN],
         icon: 'gi gi-user_add',
         url: '/accounts/managers',
         sub: [
             {
-                name: 'Tạo mới',
+                name: 'Add new',
                 url: '/accounts/managers/create',
             },
             {
-                name: 'Xem danh sách',
+                name: 'List',
                 url: '/accounts/managers',
             },
         ],
     },
     {
         name: 'Export logs',
-        roles: [MANAGER, ADMIN],
+        roles: [MANAGER, ADMIN, USER],
         icon: 'gi gi-package',
-        url: '/users/categories',
+        url: '/exports',
     },
 ];
 

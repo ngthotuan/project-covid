@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/css/products/product-form.css">
 <!-- Page content -->
 <div id="page-content">
     <!-- Product Edit Content -->
@@ -6,65 +5,38 @@
         <div class="col-sm-10 col-sm-offset-1">
             <!-- General Data Block -->
             <div class="block">
+                <%- include('../partials/messages') %>
                 <!-- General Data Title -->
                 <div class="block-title">
-                    <h2><i class="fa fa-pencil"></i> <strong>Thông tin sản phẩm</strong></h2>
+                    <h2><i class="fa fa-pencil"></i> <strong>Edit Product</strong></h2>
                 </div>
                 <!-- END General Data Title -->
 
                 <!-- General Data Content -->
-                <form method="post" id="product-form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                <form id="product-form" method="post" class="form-horizontal form-bordered">
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="name">Tên</label>
+                        <label class="col-md-3 control-label" for="code">FA Code</label>
                         <div class="col-md-9">
-                            <input type="text" id="name" name="name" class="form-control"
-                                   value="<%= typeof product !== 'undefined' ? product.name : '' %>"
-                                   required placeholder="Nhập tên sản phẩm">
+                            <input type="text" id="code" name="code"
+                                value="<%= typeof product !== 'undefined' ? product.code : '' %>"
+                                class="form-control" placeholder="code" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="price">Giá tiền</label>
+                        <label class="col-md-3 control-label" for="name">Name</label>
                         <div class="col-md-9">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-usd"></i></div>
-                                <input type="text" id="price" name="amount" class="form-control"
-                                       value="<%= typeof product !== 'undefined' ? Number(product.amount) : '' %>"
-                                       required placeholder="0,00">
-                            </div>
+                            <input type="text" id="name" name="name"
+                            value="<%= typeof product !== 'undefined' ? product.name : '' %>"
+                                class="form-control" placeholder="name" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="unit">Đơn vị định lượng</label>
+                        <label class="col-md-3 control-label" for="is_active">Active</label>
                         <div class="col-md-9">
-                            <input type="text" id="unit" name="unit" class="form-control"
-                                   value="<%= typeof product !== 'undefined' ? product.unit : '' %>"
-                                   required placeholder="Cái, Gói, Kg,...">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="images">Hình ảnh</label>
-                        <div class="col-md-9">
-                            <div class="row equal m-2" id="images">
-                                <% if (typeof product !== 'undefined' && product.images.length > 0) { %>
-                                    <% for (let i = 0; i < product.images.length; i++) { %>
-                                        <div class="col-sm-6 block extra-image">
-                                            <button onclick="removeExtraImage(this)"
-                                                    class="btn fa fa-times-circle fa-2x text-danger center"
-                                                    title="Xóa ảnh này"></button>
-                                            <img class="w-90"
-                                                 src="/product-images/<%= product.images[i].path %>"
-                                                 alt="<%= product.images[i].path %>"><br>
-                                            <input accept="image/*" class="form-file m-2" name="images" type="file"/>
-                                            <input type="hidden" name="imageIds" value="<%= product.images[i].id %>">
-                                            <input type="hidden" name="imagePaths" value="<%= product.images[i].path %>">
-                                        </div>
-                                    <% } %>
-                                <% } %>
-                            <div class="col-sm-6 block extra-image">
-                                <img alt="Xem trước hình ảnh" class="w-90"
-                                     src="/img/image-thumbnail.png"><br>
-                                <input accept="image/*" class="form-file m-2" name="images" type="file"/>
-                            </div>
+                            <label class="switch switch-primary">
+                                <input type="checkbox" id="is_active" name="is_active" 
+                                <%- typeof product !== 'undefined' ? product.is_active ? "checked" : "" : "" %>><span></span>
+                            </label>
                         </div>
                     </div>
                     <div class="form-group form-actions">

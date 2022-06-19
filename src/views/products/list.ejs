@@ -5,7 +5,7 @@
         <div class="col-sm-6">
             <a href="/products/create" class="widget widget-hover-effect2">
                 <div class="widget-extra themed-background-success">
-                    <h4 class="widget-content-light"><strong>Tạo mới</strong> sản phẩm</h4>
+                    <h4 class="widget-content-light"><strong>Add new</strong> product</h4>
                 </div>
                 <div class="widget-extra-full"><span class="h2 text-success animation-expandOpen"><i
                                 class="fa fa-plus"></i></span></div>
@@ -14,7 +14,7 @@
         <div class="col-sm-6">
             <a href="javascript:void(0)" class="widget widget-hover-effect2">
                 <div class="widget-extra themed-background-dark">
-                    <h4 class="widget-content-light"><strong>Tất cả</strong> sản phẩm</h4>
+                    <h4 class="widget-content-light"><strong>All</strong> product</h4>
                 </div>
                 <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen"><%= products.length %></span>
                 </div>
@@ -27,7 +27,7 @@
     <div class="block full">
         <!-- All Products Title -->
         <div class="block-title">
-            <h2><strong>Tất cả</strong> sản phẩm</h2>
+            <h2><strong>All</strong> product</h2>
         </div>
         <!-- END All Products Title -->
         <%- include('../partials/messages') %>
@@ -35,28 +35,21 @@
         <table id="ecom-products" class="table table-bordered table-striped table-vcenter">
             <thead>
             <tr>
-                <th class="text-center" style="width: 70px;">Mã</th>
-                <th>Tên</th>
-                <th class="text-right hidden-xs">Giá</th>
-                <th class="hidden-xs text-center">Đơn vị</th>
-                <th class="text-center">Hành động</th>
+                <th class="text-center">FA Code</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Active</th>
+                <th class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
             <% products.forEach(function(product) { %>
             <tr>
-                <td class="text-center"><strong><%= product.id %></strong></td>
-                <td><a href="/products/view/<%= product.id %>" onclick="showModalDetail(<%= product.id %>)"><%= product.name %></a></td>
-                <td class="text-right hidden-xs"><strong><%= product.amount %></strong></td>
-                <td class="hidden-xs text-center"><%= product.unit %></td>
+                <td class="text-center"><strong><%= product.code %></strong></td>
+                <td class="text-center"><%= product.name %></a></td>
+                <td class="text-center"><%= product.is_active %></td>
                 <td class="text-center">
                     <div class="btn-group btn-group-xs">
-                        <button data-toggle="tooltip" onclick="showModalDetail(<%= product.id %>)" title="Xem chi tiêt"
-                                class="btn btn-success"
-                        >
-                            <i class="fa fa-file"></i>
-                        </button>
-                        <a href="/products/edit/<%= product.id %>" data-toggle="tooltip"
+                        <a href="/products/edit/<%= product.code %>" data-toggle="tooltip"
                            title="Chỉnh sửa" class="btn btn-default"
                         >
                             <i class="fa fa-pencil"></i>
@@ -83,29 +76,16 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Xác nhận xóa</h3>
+                <h3 class="modal-title">Confirm Delete</h3>
             </div>
             <div class="modal-body">
-                <h4>Bạn có chắc chắn muốn xóa sản phẩm với thông tin như sau:</h4>
-                <h5>Mã: <b id="productId"></b></h5>
-                <h5>Tên: <b id="productName"></b></h5>
+                <h4>Are you sure to delete item:</h4>
+                <h5>Code: <b id="productId"></b></h5>
+                <h5>Name: <b id="productName"></b></h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy bỏ</button>
-                <a id="productDeleteLink" type="button" class="btn btn-danger">Xóa</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="detailModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <a id="productEdit" href="#" class="btn btn-primary">Cập nhật</a>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <a id="productDeleteLink" type="button" class="btn btn-danger">Yes</a>
             </div>
         </div>
     </div>

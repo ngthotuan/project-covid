@@ -2,7 +2,7 @@ $(function () {
     // init table
     App.datatables();
     $('#ecom-products').dataTable({
-        columnDefs: [{ orderable: false, targets: [4] }],
+        columnDefs: [{ orderable: false, targets: [3] }],
         order: [[0, 'asc']],
         pageLength: 5,
         lengthMenu: [
@@ -20,13 +20,4 @@ function showConfirmDelete(button) {
     $('#productDeleteLink').attr('href', '/products/remove/' + productId);
     $('#productName').text(productName);
     $('#confirmDelete').modal('show');
-}
-
-function showModalDetail(productId) {
-    this.event.preventDefault();
-    $('#productEdit').attr('href', '/products/edit/' + productId);
-    $('#detailModal')
-        .modal('show')
-        .find('.modal-body')
-        .load('/products/view/' + productId);
 }

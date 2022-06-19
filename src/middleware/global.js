@@ -7,7 +7,7 @@ module.exports = (app) => {
         res.locals.error_msg = req.flash('error_msg');
         res.locals.menu = menu;
         res.locals.moment = moment;
-        res.locals.user = req.user;
+        res.locals.user = req.user ? req.user : { role: 'ADMIN' };
         next();
     });
 };
