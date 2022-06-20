@@ -105,10 +105,11 @@ const postExportAdyen = async (req, res, next) => {
                     );
                     clearInterval(id);
 
-                    res.render('export_logs/adyen', {
+                    res.render('export_logs/result', {
                         title: 'Export Adyen',
-                        url: '#',
-                        url2: 'https://ca-live.adyen.com/ca/ca/reports/details.shtml?reportCode=S3B-UEx34QX5cMTpxQnVaOydtZnAoJUAmLElTJixlaXtNZSVNP1ks',
+                        url: 'https://ca-live.adyen.com/ca/ca/reports/details.shtml?reportCode=S3B-UEx34QX5cMTpxQnVaOydtZnAoJUAmLElTJixlaXtNZSVNP1ks',
+                        message: 'Go to Adyen to download the file',
+                        data: {},
                     });
                 }
             }, 2000);
@@ -223,13 +224,33 @@ const postExportPayerMax = async (req, res, next) => {
         }
         console.log('Successful product: ', successfulProduct.length);
         console.log('Successful product: ', successfulProduct);
+
+        res.render('export_logs/result', {
+            title: 'Export PayerMax',
+            // url: '',
+            message: `Export data success for ${successfulProduct.length} products`,
+            data: successfulProduct,
+        });
     } catch (error) {
         next(error);
     }
 };
+
+const test = async (req, res, next) => {
+    res.render('export_logs/result', {
+        title: 'Result',
+        url: '123213',
+        message: 'success',
+        data: {
+            sdfsdf: 'sdfsdf',
+        },
+    });
+};
+
 module.exports = {
     getExportAdyen,
     postExportAdyen,
     getExportPayerMax,
     postExportPayerMax,
+    test,
 };

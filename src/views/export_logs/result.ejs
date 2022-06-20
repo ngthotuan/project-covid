@@ -1,0 +1,33 @@
+<!-- Page content -->
+<div id="page-content">
+    <!-- product Edit Content -->
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <!-- General Data Block -->
+            <div class="block">
+                <%- include('../partials/messages') %>
+                <!-- General Data Title -->
+                <div class="block-title">
+                    <h2><i class="fa fa-pencil"></i> <strong>Export Result</strong></h2>
+                </div>
+                <!-- END General Data Title -->
+
+                <!-- Private Notes Content -->
+                <div class="alert alert-info">
+                    <i class="fa fa-fw fa-info-circle"></i> <%= message %>
+                </div>
+                <div class="mb-3">
+                    <% if(typeof url !== 'undefined') { %>
+                        <a href="<%= url %>" class="btn btn-success btn-lg"><i class="fa fa-download"></i> Download</a>
+                    <% } %>
+                    <textarea class="form-control" rows="20" placeholder="Data..." ><%= JSON.stringify(data, null, "\t") %></textarea>
+                </div>
+                <!-- END Private Notes Content -->
+            </div>
+            <!-- END General Data Block -->
+        </div>
+    </div>
+    <!-- END product Edit Content -->
+</div>
+<!-- END Page Content -->
+<script src="/js/export_logs/payermax.js"></script>
