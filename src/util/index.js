@@ -15,7 +15,13 @@ const getMonth = (format, date = new Date()) => {
     return moment.format(date, format);
 };
 
+const formatDate = (timestamp, format = 'YYYY-MM-DD HH:mm:ss') => {
+    return moment(timestamp).format(format);
+};
+
 module.exports = {
     getDateRange,
     sleep,
+    getMonth,
+    formatDate,
 };

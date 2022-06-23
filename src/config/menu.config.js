@@ -96,6 +96,10 @@ const menu = [
                 name: 'Payermax',
                 url: '/export_logs/payermax',
             },
+            {
+                name: 'Unipin',
+                url: '/export_logs/unipin',
+            },
         ],
     },
 ];
