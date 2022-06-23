@@ -198,7 +198,7 @@ const postExportPayerMax = async (req, res, next) => {
 
         const condition = {
             partner_code: 'payermax',
-            product_code: { [Op.in]: products },
+            merchant_code: { [Op.in]: products },
         };
         console.log('PayerMax condition', condition);
         const product_mappings = await productMappingService.findAllByCondition(
@@ -283,11 +283,9 @@ const exportDataUnipin = async (
                 },
             },
         );
-        console.log(response);
         return response.data;
     } catch (err) {
         console.error('error: ', err.msg);
-        console.error(err);
         return null;
     }
 };
@@ -307,14 +305,14 @@ const postExportUnipin = async (req, res, next) => {
             endDate = util.formatDate(endDate, 'MM/DD/YYYY');
         }
 
-        console.log('postExportPayerMax startDate', startDate);
-        console.log('postExportPayerMax endDate', endDate);
+        console.log('postExportUnipin startDate', startDate);
+        console.log('postExportUnipin endDate', endDate);
 
         const condition = {
             partner_code: 'unipin',
-            product_code: { [Op.in]: products },
+            merchant_code: { [Op.in]: products },
         };
-        console.log('postExportPayerMax condition', condition);
+        console.log('postExportUnipin condition', condition);
         const product_mappings = await productMappingService.findAllByCondition(
             condition,
         );
