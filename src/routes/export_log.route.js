@@ -8,5 +8,6 @@ router.get('/payermax', exportLogController.payermax.get);
 router.post('/payermax', exportLogController.payermax.post);
 router.get('/unipin', exportLogController.unipin.get);
 router.post('/unipin', exportLogController.unipin.post);
-router.get('/test', exportLogController.gash.get);
+router.get('/gudang', exportLogController.gudang.get);
+router.post('/gudang', exportLogController.gudang.post);
 module.exports = router;

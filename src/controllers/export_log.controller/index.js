@@ -1,5 +1,5 @@
 module.exports = {
-    gash: require('./gash'),
+    gudang: require('./gudang'),
     adyen: require('./adyen'),
     payermax: require('./payermax'),
     unipin: require('./unipin'),

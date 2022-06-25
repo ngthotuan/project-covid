@@ -26,6 +26,20 @@ const findByPartnerCode = (partnerCode) => {
     });
 };
 
+const findByAllPartnerCode = (partnerCode) => {
+    return Model.findAll({
+        where: {
+            partner_code: partnerCode,
+        },
+    });
+};
+
+const findOneByCondition = (condition) => {
+    return Model.findOne({
+        where: condition,
+    });
+};
+
 const findAllByCondition = (condition) => {
     return Model.findAll({
         where: condition,
@@ -38,5 +52,7 @@ module.exports = {
     update,
     remove,
     findByPartnerCode,
+    findByAllPartnerCode,
+    findOneByCondition,
     findAllByCondition,
 };
