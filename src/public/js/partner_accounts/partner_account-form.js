@@ -28,7 +28,6 @@ $(function () {
             },
             password: {
                 required: true,
-                number: true,
             },
         },
         messages: {

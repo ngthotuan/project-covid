@@ -100,10 +100,17 @@ const menu = [
                 name: 'Unipin',
                 url: '/export_logs/unipin',
             },
-
             {
                 name: 'Gudang',
                 url: '/export_logs/gudang',
+            },
+            {
+                name: 'Gash',
+                url: '/export_logs/gash',
+            },
+            {
+                name: 'Mycard',
+                url: '/export_logs/mycard',
             },
         ],
     },

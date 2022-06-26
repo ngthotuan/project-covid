@@ -16,9 +16,9 @@ module.exports = {
     async get(req, res, next) {
         try {
             const product_mappings =
-                await productMappingService.findAllByPartnerCode('gudang');
-            res.render('export_logs/gudang', {
-                title: 'Export Gudang',
+                await productMappingService.findAllByPartnerCode('mycard');
+            res.render('export_logs/mycard', {
+                title: 'Export Mycard',
                 product_mappings,
             });
         } catch (error) {
@@ -27,7 +27,7 @@ module.exports = {
     },
     async post(req, res, next) {
         try {
-            let { products, startDate, endDate, includeVoucher } = req.body;
+            let { products, startDate, endDate } = req.body;
 
             if (typeof products === 'string') {
                 products = [products];
@@ -35,18 +35,18 @@ module.exports = {
 
             if (!startDate || !endDate) {
                 [startDate, endDate] = util.getDateRange();
-                startDate = util.formatDate(startDate, 'DD/MM/YYYY');
-                endDate = util.formatDate(endDate, 'DD/MM/YYYY');
+                startDate = util.formatDate(startDate, 'YYYY-MM-DD');
+                endDate = util.formatDate(endDate, 'YYYY-MM-DD');
             }
 
-            console.log('Gudang startDate', startDate);
-            console.log('Gudang endDate', endDate);
+            console.log('Mycard startDate', startDate);
+            console.log('Mycard endDate', endDate);
 
             const condition = {
-                partner_code: 'gudang',
+                partner_code: 'mycard',
                 merchant_code: { [Op.in]: products },
             };
-            console.log('Gudang condition', condition);
+            console.log('Mycard condition', condition);
             const product_mappings =
                 await productMappingService.findAllByCondition(condition);
 
@@ -59,20 +59,31 @@ module.exports = {
                     );
                     const account =
                         await partnerAccountService.findOneByCondition({
-                            partner_code: 'gudang',
+                            partner_code: 'mycard',
                             product_code: pm.product_code,
                         });
 
-                    const currentProduct = `GUDANG - ${pm.product_code_product.code} - ${pm.product_code_product.name} (${pm.merchant_code} - ${pm.merchant_name})`;
+                    const currentProduct = `MYCARD - ${pm.merchant_code} - ${pm.merchant_name}`;
+                    console.log(currentProduct);
                     // login to get session and export
-                    const url = 'https://www.gudangvoucher.com/admmc/';
-                    const txtUsername = By.xpath("//input[@name='c_username']");
-                    const txtPassword = By.xpath("//input[@name='c_password']");
-                    const btnLogin = By.xpath("//input[@name='tombol']");
+                    const url = 'http://bargain.mycard520.com.tw/SWWebMVC/';
+                    const txtUsername = By.id('Account');
+                    const txtPassword = By.id('Password');
+                    const btnLogin = By.id('btnLogin');
+                    const navReport = By.css(
+                        `a[href="javascript:GoToRedirectPage('http://bargain.mycard520.com.tw/MyCardWebBack/QueryTransactionAndReplenishment/Default/Index');"]`,
+                    );
+                    const detailRad = By.xpath(
+                        "//label[normalize-space()='Details']",
+                    );
+                    const startDateInput = By.id('StartDate_D');
+                    const endDateInput = By.id('EndDate_D');
+
                     let driver = await new Builder()
                         .forBrowser(selenium.driver)
                         .build();
                     try {
+                        await driver.manage().window().maximize();
                         await driver.get(url);
                         await driver
                             .findElement(txtUsername)
@@ -83,45 +94,37 @@ module.exports = {
                         await driver.findElement(btnLogin).click();
                         const cookies = await driver.manage().getCookies();
 
-                        await util.sleep(1000);
-                        console.log('get cookie success, quit driver');
-                        await driver.quit();
+                        // await util.sleep(1000);
+                        // console.log('get cookie success, quit driver');
+                        // await driver.quit();
 
                         const cookiesValue = cookies
                             .map((cookie) => `${cookie.name}=${cookie.value}`)
                             .join('; ');
 
-                        // non voucher
-                        const nonVoucherURL = `https://www.gudangvoucher.com/admmc/index.php?ADMPGreportXls=1&fromDate=${startDate}&toDate=${endDate}&status=paid&MID=${pm.merchant_code}&customid=&ver=2007`;
-                        const response = await axios.get(nonVoucherURL, {
-                            headers: {
-                                ...selenium.headers,
-                                Cookie: cookiesValue,
-                            },
-                            responseType: 'arraybuffer',
-                        });
-                        fs.writeFileSync(
-                            currentProduct + '-NON-VOUCHER' + '.xlsx',
-                            response.data,
-                        );
-                        successfulProduct.push(currentProduct + '-NON-VOUCHER');
+                        console.log(cookiesValue);
 
-                        // voucher
-                        if (includeVoucher) {
-                            const voucherURL = `https://www.gudangvoucher.com/admmc/index.php?MSalesReportXLS=1&fromDate=${startDate}&toDate=${endDate}&MID=MID=${pm.merchant_code}`;
-                            const response1 = await axios.get(voucherURL, {
-                                headers: {
-                                    ...selenium.headers,
-                                    Cookie: cookiesValue,
-                                },
-                                responseType: 'arraybuffer',
-                            });
-                            fs.writeFileSync(
-                                currentProduct + '-VOUCHER' + '.xlsx',
-                                response1.data,
-                            );
-                            successfulProduct.push(currentProduct + '-VOUCHER');
-                        }
+                        await driver.findElement(navReport).click();
+
+                        await driver.switchTo().frame(0);
+                        await driver.findElement(detailRad).click();
+
+                        await driver.executeAsyncScript(
+                            `document.querySelector("#StartDate_D").readOnly = false; document.querySelector("#EndDate_D").readOnly = false;`,
+                        );
+
+                        await driver
+                            .findElement(startDateInput)
+                            .sendKeys(startDate);
+                        await driver
+                            .findElement(endDateInput)
+                            .sendKeys(endDate);
+
+                        await util.sleep(5000);
+                        await driver.quit();
+
+                        // TODO
+                        // export mycard
                     } catch (err) {
                         console.error(
                             `Export data failed for ${currentProduct}`,

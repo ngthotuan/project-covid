@@ -12,7 +12,14 @@ const getDateRange = (date = new Date()) => {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const getMonth = (format, date = new Date()) => {
-    return moment.format(date, format);
+    return moment(date).format(format);
+};
+
+const getLastMonth = (format) => {
+    const date = new Date();
+    const y = date.getFullYear();
+    const m = date.getMonth();
+    return moment(new Date(y, m - 1, 1)).format(format);
 };
 
 const formatDate = (timestamp, format = 'YYYY-MM-DD HH:mm:ss') => {
@@ -23,5 +30,6 @@ module.exports = {
     getDateRange,
     sleep,
     getMonth,
+    getLastMonth,
     formatDate,
 };

@@ -3,4 +3,6 @@ module.exports = {
     adyen: require('./adyen'),
     payermax: require('./payermax'),
     unipin: require('./unipin'),
+    gash: require('./gash'),
+    mycard: require('./mycard'),
 };
