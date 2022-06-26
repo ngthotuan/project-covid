@@ -1,8 +1,13 @@
 module.exports = {
-    gudang: require('./gudang'),
     adyen: require('./adyen'),
-    payermax: require('./payermax'),
-    unipin: require('./unipin'),
+    coda: require('./coda'),
     gash: require('./gash'),
+    gocpay: require('./gocpay'),
+    gudang: require('./gudang'),
+    molglobal: require('./molglobal'),
+    molthai: require('./molthai'),
     mycard: require('./mycard'),
+    payermax: require('./payermax'),
+    paypal: require('./paypal'),
+    unipin: require('./unipin'),
 };

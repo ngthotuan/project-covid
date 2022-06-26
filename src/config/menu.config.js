@@ -93,24 +93,44 @@ const menu = [
                 url: '/export_logs/adyen',
             },
             {
-                name: 'Payermax',
-                url: '/export_logs/payermax',
-            },
-            {
-                name: 'Unipin',
-                url: '/export_logs/unipin',
-            },
-            {
-                name: 'Gudang',
-                url: '/export_logs/gudang',
+                name: 'Coda (MAIL)',
+                url: '/export_logs/coda',
             },
             {
                 name: 'Gash',
                 url: '/export_logs/gash',
             },
             {
+                name: 'GOCPay',
+                url: '/export_logs/gocpay',
+            },
+            {
+                name: 'Gudang',
+                url: '/export_logs/gudang',
+            },
+            {
+                name: 'Mol Global (MAIL)',
+                url: '/export_logs/molglobal',
+            },
+            {
+                name: 'Mol Thai',
+                url: '/export_logs/molthai',
+            },
+            {
                 name: 'Mycard',
                 url: '/export_logs/mycard',
+            },
+            {
+                name: 'Payermax',
+                url: '/export_logs/payermax',
+            },
+            {
+                name: 'Paypal',
+                url: '/export_logs/paypal',
+            },
+            {
+                name: 'Unipin',
+                url: '/export_logs/unipin',
             },
         ],
     },
