@@ -19,4 +19,12 @@ module.exports = {
             }
         });
     },
+    writeFile: (path, data) => {
+        try {
+            fs.writeFileSync(path, data);
+            console.log(`${path} created`);
+        } catch (err) {
+            console.error(err.message);
+        }
+    },
 };
