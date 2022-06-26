@@ -63,6 +63,14 @@ module.exports = {
                             product_code: pm.product_code,
                         });
 
+                    if (!account) {
+                        console.error(
+                            'Account not found: ',
+                            JSON.stringify({ pm, startDate, endDate }),
+                        );
+                        continue;
+                    }
+
                     const currentProduct = `GUDANG - ${pm.product_code_product.code} - ${pm.product_code_product.name} (${pm.merchant_code} - ${pm.merchant_name})`;
                     // login to get session and export
                     const url = 'https://www.gudangvoucher.com/admmc/';
@@ -125,11 +133,9 @@ module.exports = {
                     } catch (err) {
                         console.error(
                             `Export data failed for ${currentProduct}`,
-                            exportRes,
                         );
                         console.log(err);
                         await driver.quit();
-                        next(err);
                     }
                 } catch (error) {
                     console.log('loop product mapping export error', error);

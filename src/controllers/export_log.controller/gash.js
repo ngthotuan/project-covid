@@ -57,7 +57,13 @@ module.exports = {
                             partner_code: 'gash',
                             product_code: pm.product_code,
                         });
-
+                    if (!account) {
+                        console.error(
+                            'Account not found: ',
+                            JSON.stringify({ pm, startDate, endDate }),
+                        );
+                        continue;
+                    }
                     const currentProduct = `GASH - ${pm.merchant_code} - ${pm.merchant_name}`;
                     console.log(currentProduct);
                     // login to get session and export
@@ -124,11 +130,9 @@ module.exports = {
                     } catch (err) {
                         console.error(
                             `Export data failed for ${currentProduct}`,
-                            exportRes,
                         );
                         console.log(err);
                         await driver.quit();
-                        next(err);
                     }
                 } catch (error) {
                     console.log('loop product mapping export error', error);
