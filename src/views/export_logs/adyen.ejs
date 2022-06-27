@@ -15,14 +15,13 @@
                 <!-- General Data Content -->
                 <form id="adyen-form" method="post" class="form-horizontal form-bordered">
                     <div class="form-group">
-                        <label class="col-md control-label"> 
-                            Go to this <a href="<%= url %>" target="_blank">Link</a> and copy JSESSIONID
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="JSESSIONID">JSESSIONID(*)</label>
+                        <label class="col-md-3 control-label" for="products">Choose products (multiple)</label>
                         <div class="col-md-9">
-                            <input type="text" id="JSESSIONID" name="JSESSIONID" class="form-control" placeholder="Input JSESSIONID" />
+                            <select id="products" name="products" class="select-chosen" data-placeholder="Select products..." style="width: 250px;" multiple>
+                                <% product_mappings.forEach(function(pm) { %>
+                                    <option value="<%- pm.merchant_code %>"><%- pm.product_code %> - <%- pm.product_code_product.name %> (<%- pm.merchant_code %> - <%- pm.merchant_name %>)</option>
+                                <% }); %>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">

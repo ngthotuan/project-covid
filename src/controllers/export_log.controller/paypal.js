@@ -119,10 +119,10 @@ module.exports = {
                         } else {
                             await util.click(driver, ddDateRangeSelect);
                         }
-                        // await util.click(driver, btnCreateReport);
+                        await util.click(driver, btnCreateReport);
 
                         // quit driver
-                        await driver.sleep(5000);
+                        await driver.sleep(1000);
                         await driver.quit();
                         successfulProduct.push(currentProduct);
                     } catch (err) {
