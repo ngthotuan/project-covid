@@ -6,7 +6,8 @@ const Op = require('sequelize').Op;
 const fs = require('fs');
 const { Builder, By, Key, until } = require('selenium-webdriver');
 
-const { selenium } = require('../../config');
+const { selenium: seleniumConfig } = require('../../config');
+const { selenium: seleniumUtil } = require('../../utils');
 const {
     partnerAccountService,
     productMappingService,
@@ -71,18 +72,40 @@ module.exports = {
                     const txtUsername = By.id('txtUserID');
                     const txtPassword = By.id('txtUserPWD');
                     const btnLogin = By.id('btnLogin');
+                    const inputMonth = By.id(
+                        'ctl00_MainContentPlaceHolder_TB_TRANS_MONTH',
+                    );
+                    const cbReverseOrder = By.id(
+                        'ctl00_MainContentPlaceHolder_RB_TRANS_TYPE_1',
+                    );
+                    const btnExport = By.id(
+                        'ctl00_MainContentPlaceHolder_BTN_EXPORT_REPORT',
+                    );
+
                     let driver = await new Builder()
-                        .forBrowser(selenium.driver)
+                        .forBrowser(seleniumConfig.driver)
                         .build();
                     try {
                         await driver.get(url);
-                        await driver
-                            .findElement(txtUsername)
-                            .sendKeys(account.username);
-                        await driver
-                            .findElement(txtPassword)
-                            .sendKeys(account.password);
-                        await driver.findElement(btnLogin).click();
+                        await driver.manage().window().maximize();
+                        await driver.manage().setTimeouts({
+                            implicit: seleniumConfig.timeout,
+                            pageLoad: seleniumConfig.timeout,
+                            script: seleniumConfig.timeout,
+                        });
+                        console.log(await driver.manage().getTimeouts());
+
+                        await seleniumUtil.setText(
+                            driver,
+                            txtUsername,
+                            account.username,
+                        );
+                        await seleniumUtil.setText(
+                            driver,
+                            txtPassword,
+                            account.password,
+                        );
+                        await seleniumUtil.click(driver, btnLogin);
                         const cookies = await driver.manage().getCookies();
 
                         // await util.sleep(1000);
@@ -100,33 +123,20 @@ module.exports = {
                         )[0].value;
 
                         const gpsLink = `https://msc.gashplus.com/anydoor/Sysmenu.aspx?System=GPS&Des=TW&OTP=${cookieValue}`;
-                        console.log('gpsLink', gpsLink);
                         await driver.navigate().to(gpsLink);
 
                         const exportLink = `https://msc.gashplus.com/anydoor/SysMain.aspx?OTP=${cookieValue}&url=https://eg.gashplus.com/Backend/app/ContentProviderBackEnd/MerchantBillReport_V2.aspx?IDType=1`;
-                        console.log('exportLink', exportLink);
                         await driver.navigate().to(exportLink);
 
-                        await util.sleep(5000);
-                        await util.quit();
+                        await seleniumUtil.setText(driver, inputMonth, month);
+                        await seleniumUtil.click(driver, cbReverseOrder);
+                        await seleniumUtil.click(driver, btnExport);
 
-                        // TODO
-                        // export gash
+                        successfulProduct.push(currentProduct);
 
-                        // non voucher
-                        // const nonVoucherURL = `https://www.gudangvoucher.com/admmc/index.php?ADMPGreportXls=1&fromDate=${startDate}&toDate=${endDate}&status=paid&MID=${pm.merchant_code}&customid=&ver=2007`;
-                        // const response = await axios.get(nonVoucherURL, {
-                        //     headers: {
-                        //         ...selenium.headers,
-                        //         Cookie: cookiesValue,
-                        //     },
-                        //     responseType: 'arraybuffer',
-                        // });
-                        // fs.writeFileSync(
-                        //     currentProduct + '-NON-VOUCHER' + '.xlsx',
-                        //     response.data,
-                        // );
-                        // successfulProduct.push(currentProduct + '-NON-VOUCHER');
+                        // quit driver
+                        await util.sleep(50000);
+                        await driver.quit();
                     } catch (err) {
                         console.error(
                             `Export data failed for ${currentProduct}`,
@@ -142,7 +152,7 @@ module.exports = {
             console.log('Successful product: ', successfulProduct);
 
             res.render('export_logs/result', {
-                title: 'Export Gudang',
+                title: 'Export Gash',
                 // url: '',
                 message: `Export data success for ${successfulProduct.length} products`,
                 data: successfulProduct,
