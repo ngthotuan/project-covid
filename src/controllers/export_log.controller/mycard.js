@@ -86,6 +86,8 @@ module.exports = {
                     );
                     const startDateInput = By.id('StartDate_D');
                     const endDateInput = By.id('EndDate_D');
+                    const btnQuery = By.id('QueryBTN');
+                    const txtUserID = By.id('UserID_D');
 
                     let driver = await new Builder()
                         .forBrowser(selenium.driver)
@@ -118,15 +120,22 @@ module.exports = {
                         await driver.findElement(detailRad).click();
 
                         await driver.executeAsyncScript(
-                            `document.querySelector("#StartDate_D").readOnly = false; document.querySelector("#EndDate_D").readOnly = false;`,
+                            `document.querySelector("#StartDate_D").readOnly = false;
+                            document.querySelector("#StartDate_D").value = '${startDate}';
+                            document.querySelector("#EndDate_D").readOnly = false;
+                            document.querySelector("#EndDate_D").value = '${endDate}';`,
                         );
 
-                        await driver
-                            .findElement(startDateInput)
-                            .sendKeys(startDate);
-                        await driver
-                            .findElement(endDateInput)
-                            .sendKeys(endDate);
+                        await driver.executeAsyncScript(
+                            'window.scrollTo(0, 1000);',
+                        );
+
+                        // await driver
+                        //     .findElement(startDateInput)
+                        //     .sendKeys(startDate);
+                        // await driver
+                        //     .findElement(endDateInput)
+                        //     .sendKeys(endDate);
 
                         await util.sleep(5000);
                         await driver.quit();
