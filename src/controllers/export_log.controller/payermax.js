@@ -108,7 +108,11 @@ module.exports = {
                     startDate,
                     endDate,
                 );
-                const currentProduct = `${pm.product_code_product.code} - ${pm.product_code_product.name} (${pm.merchant_code} - ${pm.merchant_name})`;
+                const currentProduct =
+                    `${pm.product_code_product.code} - ${pm.product_code_product.name} (${pm.merchant_code} - ${pm.merchant_name})`.replace(
+                        /[/\\?%*:|"<>]/g,
+                        '-',
+                    );
                 if (exportRes.code === '200') {
                     console.log(`Export data success for ${currentProduct}`);
                     successfulProduct.push(currentProduct);
