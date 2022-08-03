@@ -22,9 +22,10 @@ const smsStartDateInput = By.xpath(
     "//*[@id='exportlogpsmsform-searchdatestart']",
 );
 const smsEndDateInput = By.xpath("//*[@id='exportlogpsmsform-searchdateend']");
-const txtExportLogPSMSUsage = By.xpath(
-    "//h1[normalize-space()='Export Log PSMS Usage']",
-);
+// const txtExportLogPSMSUsage = By.xpath(
+//     "//h1[normalize-space()='Export PSMS logs']"
+// );
+const txtExportLogPSMSUsage = By.xpath("//a[text()=' Export PSMS logs']");
 const btnRunExport = By.xpath("//button[@id='btn-run-export']");
 const cashCardEWalletLink = By.xpath(
     "//a[text()=' Export Cashcard/e-Wallet logs']",
@@ -132,7 +133,7 @@ module.exports = {
                             startDate,
                         );
                         await util.setText(driver, smsEndDateInput, endDate);
-                        await util.click(driver, txtExportLogPSMSUsage);
+                        // await util.click(driver, txtExportLogPSMSUsage);
                         await util.click(driver, btnRunExport);
                         await driver.sleep(5000);
 
