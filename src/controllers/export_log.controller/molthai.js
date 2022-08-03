@@ -5,6 +5,7 @@ const md5 = require('md5');
 const Op = require('sequelize').Op;
 const fs = require('fs');
 const { Builder, By, Key, until } = require('selenium-webdriver');
+const cheerio = require('cheerio');
 
 const { selenium } = require('../../config');
 const {
@@ -56,7 +57,7 @@ module.exports = {
     },
     async post(req, res, next) {
         try {
-            let { products, startDate, endDate } = req.body;
+            let { products, startDate, endDate, downloadFile } = req.body;
 
             if (typeof products === 'string') {
                 products = [products];
@@ -70,6 +71,7 @@ module.exports = {
 
             console.log('Molthai startDate', startDate);
             console.log('Molthai endDate', endDate);
+            console.log('Molthai downloadFile', downloadFile);
 
             const condition = {
                 partner_code: 'molthai',
@@ -124,71 +126,178 @@ module.exports = {
                         await util.click(driver, btnLogin);
                         await driver.sleep(5000);
 
-                        // export psms
-                        await util.click(driver, reportLink);
-                        await util.click(driver, smsLink);
-                        await util.setText(
-                            driver,
-                            smsStartDateInput,
-                            startDate,
-                        );
-                        await util.setText(driver, smsEndDateInput, endDate);
-                        // await util.click(driver, txtExportLogPSMSUsage);
-                        await util.click(driver, btnRunExport);
-                        await driver.sleep(5000);
+                        // IF DOWNLOAD FILE IS TRUE, THEN DOWNLOAD FILE
+                        if (downloadFile) {
+                            const cookies = await driver.manage().getCookies();
+                            await util.sleep(1000);
+                            const cookiesValue = cookies
+                                .map(
+                                    (cookie) =>
+                                        `${cookie.name}=${cookie.value}`,
+                                )
+                                .join('; ');
+                            console.log('get cookie success :', cookiesValue);
+                            console.log(
+                                'Download file: ',
+                                JSON.stringify({ pm, startDate, endDate }),
+                            );
+                            const smsApiLink =
+                                'https://merchant-th.gold.razer.com/index.php?r=export-log/translog-psms-api';
+                            const cashcardEwalletApiLink =
+                                'https://merchant-th.gold.razer.com/index.php?r=export-log/translog-cashcardewallet-api';
+                            const dataJSON = [];
+                            try {
+                                const response = await axios.get(smsApiLink, {
+                                    headers: {
+                                        ...selenium.headers,
+                                        Cookie: cookiesValue,
+                                    },
+                                });
+                                dataJSON.push(...psmsHTMLToJSON(response.data));
+                            } catch (err) {
+                                console.log('get sms partner error: ', err);
+                            }
+                            try {
+                                const response = await axios.get(
+                                    cashcardEwalletApiLink,
+                                    {
+                                        headers: {
+                                            ...selenium.headers,
+                                            Cookie: cookiesValue,
+                                        },
+                                    },
+                                );
+                                dataJSON.push(
+                                    ...eWalletCashcardHTMLToJSON(response.data),
+                                );
+                            } catch (err) {
+                                console.log(
+                                    'get cashcard ewallet partner error: ',
+                                    err,
+                                );
+                            }
+                            // filter || do ewallet chia lam 2 file
+                            console.log(
+                                'dataJSON: ',
+                                dataJSON.filter(
+                                    (file) =>
+                                        file.from === startDate ||
+                                        file.to === endDate,
+                                ),
+                            );
+                            const havePendingFile =
+                                dataJSON.filter(
+                                    (file) =>
+                                        !file.url &&
+                                        (file.from === startDate ||
+                                            file.to === endDate),
+                                ).length > 0;
+                            if (havePendingFile) {
+                                console.log(
+                                    'Have pending file: ',
+                                    JSON.stringify({ pm, startDate, endDate }),
+                                );
+                                continue;
+                            }
+                            const listFileDetail = dataJSON.filter(
+                                (file) =>
+                                    file.from === startDate ||
+                                    file.to === endDate,
+                            );
+                            for (const fileDetail of listFileDetail) {
+                                try {
+                                    // const fileData = await axios.get(fileDetail.url, {
+                                    //     headers: {
+                                    //         ...selenium.headers,
+                                    //         Cookie: cookiesValue,
+                                    //     }
+                                    // });
+                                    // const fileName = fileDetail.fileName;
+                                    // const filePath = `${process.cwd()}/public/export_logs/molthai/${fileName}`;
+                                    // fs.writeFileSync(filePath, fileData.data);
+                                    // driver.navigate().to(fileDetail.url);
+                                    driver.executeScript(
+                                        `window.open('${fileDetail.url}', '_blank');`,
+                                    );
+                                } catch (err) {
+                                    console.log(
+                                        'get file from partner error: ',
+                                        err.message,
+                                    );
+                                }
+                            }
+                        } else {
+                            // ELSE CLICK EXPORT LOG
+                            // export psms
+                            await util.click(driver, reportLink);
+                            await util.click(driver, smsLink);
+                            await util.setText(
+                                driver,
+                                smsStartDateInput,
+                                startDate,
+                            );
+                            await util.setText(
+                                driver,
+                                smsEndDateInput,
+                                endDate,
+                            );
+                            // await util.click(driver, txtExportLogPSMSUsage);
+                            await util.click(driver, btnRunExport);
+                            await driver.sleep(5000);
 
-                        // export cashcard/e-wallet
-                        await util.click(driver, reportLink);
-                        await util.click(driver, cashCardEWalletLink);
-                        await driver.sleep(5000);
-                        await util.setText(
-                            driver,
-                            cashCardEWalletStartDate,
-                            startDate,
-                        );
-                        await util.setText(
-                            driver,
-                            cashCardEWalletEndDate,
-                            endDate,
-                        );
-                        // cash card
-                        await util.click(driver, cashCardEWalletLogType);
-                        await util.setText(
-                            driver,
-                            cashCardEWalletLogTypeInput,
-                            'Cash card',
-                        );
-                        await util.sendKey(
-                            driver,
-                            cashCardEWalletLogTypeInput,
-                            Key.ENTER,
-                        );
-                        await util.click(driver, cashCardEWalletService);
-                        await util.setText(
-                            driver,
-                            cashCardEWalletServiceInput,
-                            '--- All Service ---',
-                        );
-                        await util.sendKey(
-                            driver,
-                            cashCardEWalletServiceInput,
-                            Key.ENTER,
-                        );
-                        await util.click(driver, btnRunExport);
-                        await driver.sleep(7000);
-                        // e-wallet
-                        await util.click(driver, cashCardEWalletLogType);
-                        await util.setText(
-                            driver,
-                            cashCardEWalletLogTypeInput,
-                            'e-Wallet',
-                        );
-                        await util.sendKey(
-                            driver,
-                            cashCardEWalletLogTypeInput,
-                            Key.ENTER,
-                        );
-                        await util.click(driver, btnRunExport);
+                            // export cashcard/e-wallet
+                            await util.click(driver, reportLink);
+                            await util.click(driver, cashCardEWalletLink);
+                            await driver.sleep(5000);
+                            await util.setText(
+                                driver,
+                                cashCardEWalletStartDate,
+                                startDate,
+                            );
+                            await util.setText(
+                                driver,
+                                cashCardEWalletEndDate,
+                                endDate,
+                            );
+                            // cash card
+                            await util.click(driver, cashCardEWalletLogType);
+                            await util.setText(
+                                driver,
+                                cashCardEWalletLogTypeInput,
+                                'Cash card',
+                            );
+                            await util.sendKey(
+                                driver,
+                                cashCardEWalletLogTypeInput,
+                                Key.ENTER,
+                            );
+                            await util.click(driver, cashCardEWalletService);
+                            await util.setText(
+                                driver,
+                                cashCardEWalletServiceInput,
+                                '--- All Service ---',
+                            );
+                            await util.sendKey(
+                                driver,
+                                cashCardEWalletServiceInput,
+                                Key.ENTER,
+                            );
+                            await util.click(driver, btnRunExport);
+                            await driver.sleep(7000);
+                            // e-wallet
+                            await util.click(driver, cashCardEWalletLogType);
+                            await util.setText(
+                                driver,
+                                cashCardEWalletLogTypeInput,
+                                'e-Wallet',
+                            );
+                            await util.sendKey(
+                                driver,
+                                cashCardEWalletLogTypeInput,
+                                Key.ENTER,
+                            );
+                            await util.click(driver, btnRunExport);
+                        }
                         await driver.sleep(5000);
 
                         // quit driver
@@ -218,4 +327,54 @@ module.exports = {
             next(error);
         }
     },
+};
+
+const psmsHTMLToJSON = (html) => {
+    const $ = cheerio.load(html);
+    const data = $('table > tbody > tr')
+        .map(function (index, element) {
+            const $element = $(element).find('td');
+            const from = $($element[1]).text();
+            const to = $($element[2]).text();
+            const type = $($element[3]).text();
+            const status = $($element[4]).text();
+            const url = $($element[5]).find('a').attr('href');
+            const fileName = url ? url.split('/').pop() : '';
+            return {
+                from,
+                to,
+                type,
+                status,
+                url,
+                fileName,
+            };
+        })
+        .get();
+
+    return data;
+};
+
+const eWalletCashcardHTMLToJSON = (html) => {
+    const $ = cheerio.load(html);
+    const data = $('table > tbody > tr')
+        .map(function (index, element) {
+            const $element = $(element).find('td');
+            const from = $($element[1]).text();
+            const to = $($element[2]).text();
+            const type = $($element[3]).text();
+            const status = $($element[5]).text();
+            const url = $($element[6]).find('a').attr('href');
+            const fileName = url ? url.split('/').pop() : '';
+            return {
+                from,
+                to,
+                type,
+                status,
+                url,
+                fileName,
+            };
+        })
+        .get();
+
+    return data;
 };
